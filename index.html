@@ -6,338 +6,222 @@
 <title>FY25 2603月 銷售額統計</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&family=Noto+Sans+JP:wght@300;400;500;700;900&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --bg: #f2f4f7;
-    --surface: #ffffff;
-    --surface2: #f7f8fa;
-    --border: #e4e7ee;
-    --border-strong: #c8cdd9;
-    --blue: #1a56db;
-    --blue-light: #eff4ff;
-    --blue-mid: #3b82f6;
-    --red: #c81e1e;
-    --red-light: #fef2f2;
-    --red-mid: #ef4444;
-    --gray: #374151;
-    --gray-light: #f3f4f6;
-    --text-black: #0f172a;
-    --text-secondary: #64748b;
-    --text-dim: #94a3b8;
-    --shadow-sm: 0 1px 3px rgba(0,0,0,.07), 0 1px 2px rgba(0,0,0,.04);
-    --shadow-md: 0 4px 12px rgba(0,0,0,.08);
-    --font-ui: 'IBM Plex Sans', 'Noto Sans TC', sans-serif;
-  }
-  * { margin:0; padding:0; box-sizing:border-box; }
-  body {
-    background: var(--bg);
-    color: var(--text-black);
-    font-family: 'Noto Sans TC', sans-serif;
-    min-height: 100vh;
-    padding: 32px 40px;
-    font-size: 15px;
-  }
-  body.jp { font-family: 'Noto Sans JP', sans-serif; }
+:root {
+  --bg:#f2f4f7; --surface:#fff; --surface2:#f7f8fa; --border:#e4e7ee; --border-strong:#c8cdd9;
+  --blue:#1a56db; --blue-light:#eff4ff; --blue-mid:#3b82f6;
+  --red:#c81e1e; --red-light:#fef2f2; --red-mid:#ef4444;
+  --gray-light:#f3f4f6; --text-black:#0f172a; --text-secondary:#64748b; --text-dim:#94a3b8;
+  --shadow-sm:0 1px 3px rgba(0,0,0,.07),0 1px 2px rgba(0,0,0,.04);
+  --shadow-md:0 4px 12px rgba(0,0,0,.08);
+  --font-ui:'IBM Plex Sans','Noto Sans TC',sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);color:var(--text-black);font-family:'Noto Sans TC',sans-serif;min-height:100vh;padding:28px 36px;font-size:15px;}
+body.jp{font-family:'Noto Sans JP',sans-serif;}
+.n{font-family:var(--font-ui);font-variant-numeric:tabular-nums;}
+.n-blue{color:var(--blue);} .n-red{color:var(--red);} .n-black{color:var(--text-black);}
 
-  /* ── numbers use IBM Plex Sans ── */
-  .n { font-family: var(--font-ui); font-variant-numeric: tabular-nums; }
-  .n-blue { color: var(--blue); }
-  .n-red  { color: var(--red); }
-  .n-black{ color: var(--text-black); }
+/* ── Lang + Tab Bar ── */
+.top-bar{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;}
+.lang-btn{display:flex;border:1.5px solid var(--border-strong);border-radius:8px;overflow:hidden;}
+.lang-btn button{padding:7px 18px;border:none;cursor:pointer;font-size:13px;font-weight:600;font-family:inherit;transition:background .15s,color .15s;}
+.lang-btn button.active{background:var(--blue);color:#fff;}
+.lang-btn button:not(.active){background:var(--surface);color:var(--text-secondary);}
 
-  /* ── Lang Toggle ── */
-  .lang-bar { display:flex; justify-content:flex-end; margin-bottom:16px; }
-  .lang-btn { display:flex; border:1.5px solid var(--border-strong); border-radius:8px; overflow:hidden; }
-  .lang-btn button {
-    padding:7px 20px; border:none; cursor:pointer;
-    font-size:13px; font-weight:600; font-family:inherit;
-    transition:background .15s, color .15s;
-  }
-  .lang-btn button.active { background: var(--blue); color:#fff; }
-  .lang-btn button:not(.active) { background:var(--surface); color:var(--text-secondary); }
-  .lang-btn button:not(.active):hover { background:var(--surface2); }
+/* ── Header ── */
+.header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:24px;background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:22px 28px;box-shadow:var(--shadow-sm);}
+.header-left h1{font-size:12px;font-weight:500;color:var(--text-dim);letter-spacing:.15em;text-transform:uppercase;margin-bottom:4px;}
+.header-left h2{font-size:30px;font-weight:900;color:var(--text-black);letter-spacing:-.02em;margin-bottom:8px;}
+.header-meta{font-family:var(--font-ui);font-size:12px;color:var(--text-dim);line-height:1.9;}
+.header-right{display:flex;gap:12px;}
+.time-badge{background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:14px 18px;text-align:center;min-width:100px;}
+.time-badge .label{font-size:10px;color:var(--text-dim);letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px;}
+.time-badge .value{font-family:var(--font-ui);font-size:28px;font-weight:700;color:var(--blue);line-height:1;}
+.time-badge .sub{font-size:11px;color:var(--text-secondary);margin-top:4px;}
+.prog-wrap{margin-top:8px;height:4px;background:var(--border);border-radius:2px;overflow:hidden;}
+.prog-fill{height:100%;border-radius:2px;background:var(--blue);}
 
-  /* ── Header ── */
-  .header {
-    display:flex; align-items:flex-start; justify-content:space-between;
-    margin-bottom:28px; background:var(--surface);
-    border:1px solid var(--border); border-radius:14px;
-    padding:24px 30px; box-shadow:var(--shadow-sm);
-  }
-  .header-left h1 { font-size:12px; font-weight:500; color:var(--text-dim); letter-spacing:.15em; text-transform:uppercase; margin-bottom:5px; }
-  .header-left h2 { font-size:32px; font-weight:900; color:var(--text-black); letter-spacing:-.02em; margin-bottom:8px; }
-  .header-meta { font-family: var(--font-ui); font-size:12px; color:var(--text-dim); line-height:1.9; }
-  .header-right { display:flex; gap:12px; }
-  .time-badge {
-    background:var(--surface2); border:1px solid var(--border);
-    border-radius:10px; padding:16px 20px; text-align:center; min-width:108px;
-  }
-  .time-badge .label { font-size:10px; color:var(--text-dim); letter-spacing:.1em; text-transform:uppercase; margin-bottom:6px; }
-  .time-badge .value { font-family:var(--font-ui); font-size:32px; font-weight:700; color:var(--blue); line-height:1; }
-  .time-badge .sub { font-size:11px; color:var(--text-secondary); margin-top:4px; }
-  .progress-bar-wrap { margin-top:8px; height:4px; background:var(--border); border-radius:2px; overflow:hidden; }
-  .progress-bar-fill { height:100%; border-radius:2px; background:var(--blue); }
+/* ── Tab Navigation ── */
+.tabs{display:flex;gap:0;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:5px;margin-bottom:24px;box-shadow:var(--shadow-sm);}
+.tab-btn{flex:1;padding:12px 20px;border:none;border-radius:8px;cursor:pointer;font-size:14px;font-weight:600;font-family:inherit;transition:all .2s;color:var(--text-secondary);background:transparent;}
+.tab-btn.active{background:var(--blue);color:#fff;box-shadow:0 2px 8px rgba(26,86,219,.3);}
+.tab-btn:not(.active):hover{background:var(--surface2);}
 
-  /* ── Section Title ── */
-  .section-title {
-    font-size:11px; font-weight:700; color:var(--text-dim);
-    letter-spacing:.15em; text-transform:uppercase;
-    margin-bottom:14px; display:flex; align-items:center; gap:10px;
-  }
-  .section-title::after { content:''; flex:1; height:1px; background:var(--border); }
+/* ── Tab Panels ── */
+.tab-panel{display:none;}
+.tab-panel.active{display:block;}
 
-  /* ══ KPI TOP 3 ══ */
-  .kpi-top    { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-bottom:14px; }
-  .kpi-bottom { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-bottom:30px; }
-  .kpi-card {
-    background:var(--surface); border:1px solid var(--border);
-    border-radius:12px; padding:22px 24px;
-    box-shadow:var(--shadow-sm); position:relative; overflow:hidden;
-  }
-  .kpi-card::after {
-    content:''; position:absolute; top:0; left:0; right:0;
-    height:3px; border-radius:12px 12px 0 0;
-  }
-  .kpi-card.acc::after  { background: var(--blue); }
-  .kpi-card.tgt::after  { background: var(--border-strong); }
-  .kpi-card.diff::after { background: var(--red); }
-  .kpi-card.yday::after { background: var(--text-black); }
-  .kpi-card.rate::after { background: var(--blue); }
-  .kpi-card.time::after { background: var(--text-secondary); }
-  .kpi-card.pace::after { background: var(--blue-mid); }
+/* ── Section Title ── */
+.section-title{font-size:11px;font-weight:700;color:var(--text-dim);letter-spacing:.15em;text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;gap:10px;}
+.section-title::after{content:'';flex:1;height:1px;background:var(--border);}
 
-  .kpi-label { font-size:12px; font-weight:600; color:var(--text-secondary); margin-bottom:10px; line-height:1.4; }
-  .kpi-value { font-family:var(--font-ui); font-size:42px; font-weight:700; line-height:1; margin-bottom:6px; }
-  .kpi-top .kpi-value { font-size:50px; }
-  .kpi-sub { font-size:12px; color:var(--text-dim); }
+/* ── KPI Cards ── */
+.kpi-top{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:14px;}
+.kpi-bottom{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:28px;}
+.kpi-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px 22px;box-shadow:var(--shadow-sm);position:relative;overflow:hidden;}
+.kpi-card::after{content:'';position:absolute;top:0;left:0;right:0;height:3px;border-radius:12px 12px 0 0;}
+.kpi-card.acc::after{background:var(--blue);}
+.kpi-card.tgt::after{background:var(--border-strong);}
+.kpi-card.diff::after{background:var(--red);}
+.kpi-card.yday::after{background:var(--text-black);}
+.kpi-card.rate::after{background:var(--blue);}
+.kpi-card.time::after{background:var(--text-secondary);}
+.kpi-card.pace::after{background:var(--blue-mid);}
+.kpi-label{font-size:12px;font-weight:600;color:var(--text-secondary);margin-bottom:10px;line-height:1.4;}
+.kpi-value{font-family:var(--font-ui);font-size:40px;font-weight:700;line-height:1;margin-bottom:6px;}
+.kpi-top .kpi-value{font-size:48px;}
+.kpi-sub{font-size:12px;color:var(--text-dim);}
+.kpi-progress{margin-top:12px;}
+.kpi-progress-track{height:10px;background:var(--red-light);border-radius:5px;overflow:hidden;border:1px solid #fecaca;}
+.kpi-progress-fill{height:100%;border-radius:5px;background:var(--blue);}
+.kpi-progress-label{display:flex;justify-content:space-between;font-family:var(--font-ui);font-size:11px;margin-top:4px;}
+.kpi-progress-label .done{color:var(--blue);font-weight:600;}
+.kpi-progress-label .remain{color:var(--red);font-weight:600;}
+.pace-chip{display:inline-flex;align-items:center;padding:4px 12px;border-radius:20px;font-size:12px;font-weight:700;margin-top:8px;}
+.pace-chip.over{background:var(--blue-light);color:var(--blue);}
 
-  /* C: 実績 vs 目標 プログレスバー */
-  .kpi-progress { margin-top:12px; }
-  .kpi-progress-track {
-    height:10px; background:var(--red-light); border-radius:5px;
-    overflow:hidden; border:1px solid #fecaca;
-  }
-  .kpi-progress-fill {
-    height:100%; border-radius:5px;
-    background: var(--blue); transition:width .8s ease;
-  }
-  .kpi-progress-label {
-    display:flex; justify-content:space-between;
-    font-family:var(--font-ui); font-size:11px; margin-top:4px;
-  }
-  .kpi-progress-label .done { color:var(--blue); font-weight:600; }
-  .kpi-progress-label .remain { color:var(--red); font-weight:600; }
+/* ── Donut Category Cards ── */
+.category-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-bottom:28px;}
+.cat-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:18px 16px;box-shadow:var(--shadow-sm);display:flex;flex-direction:column;align-items:center;}
+.cat-name{font-size:13px;font-weight:700;margin-bottom:12px;align-self:flex-start;}
+.donut-wrap{position:relative;width:96px;height:96px;margin-bottom:12px;flex-shrink:0;}
+.donut-wrap svg{transform:rotate(-90deg);}
+.donut-bg{fill:none;stroke:var(--border);stroke-width:10;}
+.donut-fill{fill:none;stroke-width:10;stroke-linecap:round;}
+.donut-fill.over{stroke:var(--blue);}
+.donut-fill.low{stroke:var(--red-mid);}
+.donut-center{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;}
+.donut-pct{font-family:var(--font-ui);font-size:19px;font-weight:700;line-height:1;display:block;}
+.donut-pct.over{color:var(--blue);}
+.donut-pct.low{color:var(--red);}
+.donut-sub-label{font-size:9px;color:var(--text-dim);}
+.cat-stats{width:100%;display:flex;flex-direction:column;gap:6px;}
+.cat-stat-row{display:flex;justify-content:space-between;align-items:baseline;}
+.cat-stat-label{font-size:10px;color:var(--text-dim);font-weight:500;}
+.cat-stat-val{font-family:var(--font-ui);font-size:14px;font-weight:600;color:var(--text-black);}
+.cat-divider{height:1px;background:var(--border);margin:4px 0;}
+.cat-pace-label{font-size:10px;color:var(--text-dim);font-weight:500;margin-bottom:3px;}
+.cat-pace-row{display:flex;align-items:center;gap:8px;}
+.cat-pace-val{font-family:var(--font-ui);font-size:13px;font-weight:700;min-width:52px;color:var(--blue);}
+.cat-pace-track{flex:1;height:5px;background:var(--border);border-radius:3px;overflow:hidden;}
+.cat-pace-fill{height:100%;border-radius:3px;background:var(--blue);}
 
-  /* pace chip */
-  .pace-chip {
-    display:inline-flex; align-items:center;
-    padding:4px 12px; border-radius:20px;
-    font-size:12px; font-weight:700; margin-top:8px;
-  }
-  .pace-chip.over { background:var(--blue-light); color:var(--blue); }
+/* ── Channel Grid ── */
+.ch-grid{background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;box-shadow:var(--shadow-sm);}
+.ch-grid-head{display:grid;grid-template-columns:180px 110px 100px 110px 80px 1fr;background:var(--surface2);border-bottom:1px solid var(--border);}
+.ch-grid-head>div{padding:11px 14px;font-size:11px;font-weight:700;color:var(--text-dim);letter-spacing:.1em;text-transform:uppercase;}
+.ch-grid-head>div.r{text-align:right;}
+.ch-parent{display:grid;grid-template-columns:180px 110px 100px 110px 80px 1fr;border-bottom:1px solid var(--border);cursor:pointer;transition:background .12s;align-items:center;}
+.ch-parent:hover{background:#fafbfd;}
+.ch-parent>div{padding:14px;font-size:14px;}
+.ch-parent>div.r{text-align:right;font-family:var(--font-ui);font-size:14px;color:var(--text-black);}
+.ch-name-cell{display:flex;align-items:center;gap:8px;font-weight:700;}
+.ch-arrow{display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;background:var(--surface2);border:1px solid var(--border);border-radius:5px;font-size:9px;color:var(--text-dim);transition:transform .2s;flex-shrink:0;}
+.ch-arrow.open{transform:rotate(90deg);}
+.ch-sub{display:none;}
+.ch-sub.open{display:block;}
+.ch-sub-row{display:grid;grid-template-columns:180px 110px 100px 110px 80px 1fr;border-bottom:1px solid var(--border);background:#fafbfd;align-items:center;}
+.ch-sub-row>div{padding:9px 14px;font-size:13px;}
+.ch-sub-row>div.r{text-align:right;font-family:var(--font-ui);font-size:13px;color:var(--text-black);}
+.ch-sub-row>div.sub-name{color:var(--text-secondary);padding-left:36px;}
+.ch-total-row{display:grid;grid-template-columns:180px 110px 100px 110px 80px 1fr;background:var(--blue-light);border-top:2px solid #bfdbfe;align-items:center;}
+.ch-total-row>div{padding:14px;font-size:14px;font-weight:700;}
+.ch-total-row>div.r{text-align:right;font-family:var(--font-ui);font-size:14px;}
+.ch-total-row .ch-name-cell{color:var(--blue);}
+.pill{display:inline-block;padding:2px 10px;border-radius:20px;font-family:var(--font-ui);font-size:12px;font-weight:600;}
+.pill.blue{background:var(--blue-light);color:var(--blue);}
+.pill.red{background:var(--red-light);color:var(--red);}
+.pill.zero{background:var(--gray-light);color:var(--text-dim);}
+.pill.near{background:#eff6ff;color:#1e40af;}
+.bar-cell{padding:11px 14px;vertical-align:middle;}
+.bar-cell-inner{display:flex;flex-direction:column;gap:3px;}
+.bar-cell-top{display:flex;justify-content:space-between;align-items:baseline;}
+.bar-cell-pct{font-family:var(--font-ui);font-size:14px;font-weight:700;}
+.bar-cell-pct.blue{color:var(--blue);}
+.bar-cell-pct.red{color:var(--red);}
+.bar-cell-pct.zero{color:var(--text-dim);}
+.bar-cell-eq{font-family:var(--font-ui);font-size:10px;color:var(--text-dim);}
+.bar-track{height:9px;background:var(--border);border-radius:5px;overflow:hidden;position:relative;}
+.bar-track-inner{position:relative;height:100%;}
+.bar-fill{height:100%;border-radius:5px;}
+.bar-fill.blue{background:var(--blue);}
+.bar-fill.red{background:var(--red-mid);}
+.bar-fill.zero{background:var(--border-strong);width:3px!important;}
+.bar-time-marker{position:absolute;top:0;bottom:0;width:2px;background:rgba(0,0,0,.2);}
 
-  /* ══ B: Category Donut Cards ══ */
-  .category-grid { display:grid; grid-template-columns:repeat(5,1fr); gap:14px; margin-bottom:30px; }
-  .cat-card {
-    background:var(--surface); border:1px solid var(--border);
-    border-radius:12px; padding:20px 18px; box-shadow:var(--shadow-sm);
-    display:flex; flex-direction:column; align-items:center; gap:0;
-  }
-  .cat-name { font-size:13px; font-weight:700; margin-bottom:14px; align-self:flex-start; }
+/* ══ TAB 2: SKU Detail ══ */
+.sku-section{margin-bottom:28px;}
+.sku-table-wrap{background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;box-shadow:var(--shadow-sm);}
+.sku-table{width:100%;border-collapse:collapse;}
+.sku-table th{background:var(--surface2);padding:10px 12px;font-size:11px;font-weight:700;color:var(--text-dim);letter-spacing:.08em;text-align:center;border-bottom:1px solid var(--border);white-space:nowrap;}
+.sku-table th.left{text-align:left;}
+.sku-table td{padding:10px 12px;font-size:13px;border-bottom:1px solid var(--border);text-align:center;font-family:var(--font-ui);}
+.sku-table td.left{text-align:left;font-family:'Noto Sans TC',sans-serif;font-weight:600;font-size:12px;}
+.sku-table td.ch-label{text-align:left;font-family:'Noto Sans TC',sans-serif;font-size:12px;color:var(--text-secondary);padding-left:20px;}
+.sku-table tr:last-child td{border-bottom:none;}
+.sku-table tr.total-row td{background:var(--blue-light);font-weight:700;}
+.sku-table tr.section-header td{background:var(--surface2);font-weight:700;font-size:12px;color:var(--text-secondary);}
 
-  /* Donut */
-  .donut-wrap { position:relative; width:100px; height:100px; margin-bottom:12px; flex-shrink:0; }
-  .donut-wrap svg { transform:rotate(-90deg); }
-  .donut-bg   { fill:none; stroke:var(--border); stroke-width:10; }
-  .donut-fill { fill:none; stroke-width:10; stroke-linecap:round; transition:stroke-dashoffset .8s ease; }
-  .donut-fill.over  { stroke: var(--blue); }
-  .donut-fill.near  { stroke: var(--blue-mid); }
-  .donut-fill.low   { stroke: var(--red-mid); }
-  .donut-center {
-    position:absolute; top:50%; left:50%;
-    transform:translate(-50%,-50%);
-    text-align:center;
-  }
-  .donut-pct {
-    font-family:var(--font-ui); font-size:20px; font-weight:700; line-height:1;
-    display:block;
-  }
-  .donut-pct.over { color:var(--blue); }
-  .donut-pct.near { color:var(--blue-mid); }
-  .donut-pct.low  { color:var(--red); }
-  .donut-sub-label { font-size:9px; color:var(--text-dim); }
+/* heatmap cell */
+.hm{border-radius:4px;padding:4px 6px;font-weight:700;font-size:12px;}
+.hm-0{background:#fef2f2;color:var(--red);}
+.hm-1{background:#fff7ed;color:#c2410c;}
+.hm-2{background:#fefce8;color:#a16207;}
+.hm-3{background:#f0fdf4;color:#166534;}
+.hm-4{background:#eff6ff;color:var(--blue);}
+.hm-5{background:#dbeafe;color:#1d4ed8;}
+.hm-dash{color:var(--text-dim);}
 
-  .cat-stats { width:100%; display:flex; flex-direction:column; gap:7px; }
-  .cat-stat-row { display:flex; justify-content:space-between; align-items:baseline; }
-  .cat-stat-label { font-size:10px; color:var(--text-dim); font-weight:500; }
-  .cat-stat-val { font-family:var(--font-ui); font-size:14px; font-weight:600; }
-  .cat-stat-val.black { color:var(--text-black); }
-  .cat-stat-val.blue  { color:var(--blue); }
-  .cat-stat-val.red   { color:var(--red); }
-  .cat-divider { height:1px; background:var(--border); margin:4px 0; }
+/* ══ TAB 3: Mirafeel ══ */
+.mf-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:24px;}
+.mf-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:18px 20px;box-shadow:var(--shadow-sm);position:relative;overflow:hidden;}
+.mf-card::after{content:'';position:absolute;top:0;left:0;right:0;height:3px;border-radius:12px 12px 0 0;}
+.mf-card.sl::after{background:#6366f1;}
+.mf-card.kol::after{background:#f59e0b;}
+.mf-card.cc::after{background:#10b981;}
+.mf-card.total::after{background:var(--blue);}
+.mf-ch-label{font-size:11px;font-weight:600;color:var(--text-secondary);margin-bottom:8px;}
+.mf-val{font-family:var(--font-ui);font-size:32px;font-weight:700;line-height:1;margin-bottom:4px;}
+.mf-sub{font-size:11px;color:var(--text-dim);}
+.mf-rate{font-family:var(--font-ui);font-size:20px;font-weight:700;margin-top:10px;}
+.mf-rate.blue{color:var(--blue);}
+.mf-rate.red{color:var(--red);}
 
-  /* pace mini bar in cat */
-  .cat-pace-label { font-size:10px; color:var(--text-dim); font-weight:500; margin-bottom:3px; }
-  .cat-pace-row { display:flex; align-items:center; gap:8px; }
-  .cat-pace-val { font-family:var(--font-ui); font-size:14px; font-weight:700; min-width:52px; }
-  .cat-pace-val.blue { color:var(--blue); }
-  .cat-pace-val.red  { color:var(--red); }
-  .cat-pace-track { flex:1; height:6px; background:var(--border); border-radius:3px; overflow:hidden; }
-  .cat-pace-fill { height:100%; border-radius:3px; }
-  .cat-pace-fill.blue { background:var(--blue); }
-  .cat-pace-fill.red  { background:var(--red-mid); }
+.mf-detail-table{background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;box-shadow:var(--shadow-sm);margin-bottom:24px;}
+.mf-detail-table table{width:100%;border-collapse:collapse;}
+.mf-detail-table th{background:var(--surface2);padding:10px 16px;font-size:11px;font-weight:700;color:var(--text-dim);letter-spacing:.1em;text-align:left;border-bottom:1px solid var(--border);}
+.mf-detail-table th.r{text-align:right;}
+.mf-detail-table td{padding:12px 16px;font-size:14px;border-bottom:1px solid var(--border);}
+.mf-detail-table td.r{text-align:right;font-family:var(--font-ui);}
+.mf-detail-table tr:last-child td{border-bottom:none;}
+.mf-detail-table tr.total td{background:var(--blue-light);font-weight:700;}
 
-  /* ══ A: Channel Horizontal Bar ══ */
-  .channel-section { margin-bottom:30px; }
-  .channel-table {
-    width:100%; border-collapse:collapse;
-    background:var(--surface); border:1px solid var(--border);
-    border-radius:12px; overflow:hidden; box-shadow:var(--shadow-sm);
-  }
-  .channel-table thead th {
-    background:var(--surface2); padding:12px 16px;
-    font-size:11px; font-weight:700; color:var(--text-dim);
-    letter-spacing:.1em; text-transform:uppercase;
-    text-align:left; border-bottom:1px solid var(--border);
-  }
-  .channel-table thead th.r { text-align:right; }
-  .ch-row { cursor:pointer; transition:background .12s; }
-  .ch-row:hover td { background:#fafbfd; }
-  .ch-row td {
-    padding:16px; border-bottom:1px solid var(--border);
-    font-size:14px; vertical-align:middle;
-  }
-  .ch-row td.r {
-    text-align:right; font-family:var(--font-ui);
-    font-size:15px; color:var(--text-black);
-  }
-  .ch-row td.ch-name {
-    font-weight:700; display:flex; align-items:center; gap:8px;
-  }
-  .ch-arrow {
-    display:inline-flex; align-items:center; justify-content:center;
-    width:20px; height:20px;
-    background:var(--surface2); border:1px solid var(--border);
-    border-radius:5px; font-size:9px; color:var(--text-dim);
-    transition:transform .2s; flex-shrink:0;
-  }
-  .ch-arrow.open { transform:rotate(90deg); }
+/* ── Footer ── */
+.footer{font-size:11px;color:var(--text-dim);line-height:1.9;border-top:1px solid var(--border);padding-top:14px;margin-top:8px;}
 
-  /* A: horizontal bar cell */
-  .bar-cell { min-width:220px; padding:12px 16px; vertical-align:middle; }
-  .bar-cell-inner { display:flex; flex-direction:column; gap:4px; }
-  .bar-cell-top { display:flex; justify-content:space-between; align-items:baseline; }
-  .bar-cell-pct { font-family:var(--font-ui); font-size:15px; font-weight:700; }
-  .bar-cell-pct.blue { color:var(--blue); }
-  .bar-cell-pct.red  { color:var(--red); }
-  .bar-cell-pct.zero { color:var(--text-dim); }
-  .bar-cell-eq { font-family:var(--font-ui); font-size:10px; color:var(--text-dim); }
-  .bar-track {
-    height:10px; background:var(--border); border-radius:5px;
-    overflow:hidden; position:relative;
-  }
-  /* time marker line */
-  .bar-track-inner { position:relative; height:100%; }
-  .bar-fill { height:100%; border-radius:5px; }
-  .bar-fill.blue { background: var(--blue); }
-  .bar-fill.red  { background: var(--red-mid); }
-  .bar-fill.zero { background: var(--border-strong); width:3px !important; }
-  .bar-time-marker {
-    position:absolute; top:0; bottom:0; width:2px;
-    background: rgba(0,0,0,.25); left:50%; /* 100%=200%, 73%→36.5% of bar */
-  }
-  /* pill */
-  .pill { display:inline-block; padding:2px 10px; border-radius:20px; font-family:var(--font-ui); font-size:12px; font-weight:600; }
-  .pill.blue { background:var(--blue-light); color:var(--blue); }
-  .pill.red  { background:var(--red-light);  color:var(--red); }
-  .pill.zero { background:var(--gray-light);  color:var(--text-dim); }
-  .pill.near { background:#eff6ff; color:#1e40af; }
-
-  /* ══ div-grid channel accordion ══ */
-  /* 6 columns: name | actual | target | diff | rate | bar */
-  .ch-grid {
-    background:var(--surface); border:1px solid var(--border);
-    border-radius:12px; overflow:hidden; box-shadow:var(--shadow-sm);
-  }
-  .ch-grid-head {
-    display:grid;
-    grid-template-columns: 180px 120px 100px 110px 90px 1fr;
-    background:var(--surface2); border-bottom:1px solid var(--border);
-    padding:0;
-  }
-  .ch-grid-head > div {
-    padding:12px 14px; font-size:11px; font-weight:700;
-    color:var(--text-dim); letter-spacing:.1em; text-transform:uppercase;
-  }
-  .ch-grid-head > div.r { text-align:right; }
-
-  /* parent row */
-  .ch-parent {
-    display:grid;
-    grid-template-columns: 180px 120px 100px 110px 90px 1fr;
-    border-bottom:1px solid var(--border);
-    cursor:pointer; transition:background .12s;
-    align-items:center;
-  }
-  .ch-parent:hover { background:#fafbfd; }
-  .ch-parent > div { padding:15px 14px; font-size:14px; }
-  .ch-parent > div.r {
-    text-align:right; font-family:var(--font-ui); font-size:15px; color:var(--text-black);
-  }
-  .ch-name-cell { display:flex; align-items:center; gap:8px; font-weight:700; }
-
-  /* sub block */
-  .ch-sub { display:none; }
-  .ch-sub.open { display:block; }
-  .ch-sub-row {
-    display:grid;
-    grid-template-columns: 180px 120px 100px 110px 90px 1fr;
-    border-bottom:1px solid var(--border);
-    background:#fafbfd; align-items:center;
-  }
-  .ch-sub-row > div { padding:10px 14px; font-size:13px; }
-  .ch-sub-row > div.r {
-    text-align:right; font-family:var(--font-ui); font-size:13px; color:var(--text-black);
-  }
-  .ch-sub-row > div.sub-name { color:var(--text-secondary); padding-left:36px; }
-
-  /* total row */
-  .ch-total-row {
-    display:grid;
-    grid-template-columns: 180px 120px 100px 110px 90px 1fr;
-    background:var(--blue-light); border-top:2px solid #bfdbfe;
-    align-items:center;
-  }
-  .ch-total-row > div { padding:15px 14px; font-size:14px; font-weight:700; }
-  .ch-total-row > div.r {
-    text-align:right; font-family:var(--font-ui); font-size:15px;
-  }
-  .ch-total-row .ch-name-cell { color:var(--blue); }
-
-  /* ── Footer ── */
-  .footer { font-size:11px; color:var(--text-dim); line-height:1.9; border-top:1px solid var(--border); padding-top:14px; }
-
-  /* ── Animations ── */
-  @keyframes fadeUp { from{opacity:0;transform:translateY(8px);} to{opacity:1;transform:translateY(0);} }
-  .kpi-card  { animation:fadeUp .4s ease both; }
-  .cat-card  { animation:fadeUp .4s ease both; }
-  .kpi-top .kpi-card:nth-child(1){animation-delay:.03s}
-  .kpi-top .kpi-card:nth-child(2){animation-delay:.06s}
-  .kpi-top .kpi-card:nth-child(3){animation-delay:.09s}
-  .kpi-bottom .kpi-card:nth-child(1){animation-delay:.12s}
-  .kpi-bottom .kpi-card:nth-child(2){animation-delay:.15s}
-  .kpi-bottom .kpi-card:nth-child(3){animation-delay:.18s}
-  .kpi-bottom .kpi-card:nth-child(4){animation-delay:.21s}
-  .cat-card:nth-child(1){animation-delay:.10s}
-  .cat-card:nth-child(2){animation-delay:.14s}
-  .cat-card:nth-child(3){animation-delay:.18s}
-  .cat-card:nth-child(4){animation-delay:.22s}
-  .cat-card:nth-child(5){animation-delay:.26s}
+/* ── Animations ── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+.kpi-card{animation:fadeUp .4s ease both;}
+.cat-card{animation:fadeUp .4s ease both;}
+.kpi-top .kpi-card:nth-child(1){animation-delay:.03s}
+.kpi-top .kpi-card:nth-child(2){animation-delay:.06s}
+.kpi-top .kpi-card:nth-child(3){animation-delay:.09s}
+.kpi-bottom .kpi-card:nth-child(1){animation-delay:.12s}
+.kpi-bottom .kpi-card:nth-child(2){animation-delay:.15s}
+.kpi-bottom .kpi-card:nth-child(3){animation-delay:.18s}
+.kpi-bottom .kpi-card:nth-child(4){animation-delay:.21s}
+.cat-card:nth-child(1){animation-delay:.10s}
+.cat-card:nth-child(2){animation-delay:.14s}
+.cat-card:nth-child(3){animation-delay:.18s}
+.cat-card:nth-child(4){animation-delay:.22s}
+.cat-card:nth-child(5){animation-delay:.26s}
 </style>
 </head>
 <body>
 
-<!-- LANG -->
-<div class="lang-bar">
+<!-- TOP BAR -->
+<div class="top-bar">
+  <div><!-- spacer --></div>
   <div class="lang-btn">
     <button id="btn-zh" class="active" onclick="setLang('zh')">繁體中文</button>
     <button id="btn-jp" onclick="setLang('jp')">日本語</button>
@@ -351,17 +235,15 @@
     <h2>2026<span data-zh="年" data-jp="年">年</span> <span style="color:var(--blue)">03<span data-zh="月" data-jp="月">月</span></span></h2>
     <div class="header-meta">
       <span data-zh="起始日：2026/3/1　結算日：2026/3/31　集計日：2026/3/23　（未稅銷售額，萬元）"
-            data-jp="開始日：2026/3/1　締日：2026/3/31　集計日：2026/3/23　（税抜売上，万元）">
-        起始日：2026/3/1　結算日：2026/3/31　集計日：2026/3/23　（未稅銷售額，萬元）
-      </span>
+            data-jp="開始日：2026/3/1　締日：2026/3/31　集計日：2026/3/23　（税抜売上，万元）">起始日：2026/3/1　結算日：2026/3/31　集計日：2026/3/23　（未稅銷售額，萬元）</span>
     </div>
   </div>
   <div class="header-right">
     <div class="time-badge">
       <div class="label" data-zh="時間進度" data-jp="時間進捗">時間進度</div>
       <div class="value">73%</div>
-      <div class="sub">16 / 22 <span data-zh="工作天" data-jp="営業日">工作天</span></div>
-      <div class="progress-bar-wrap"><div class="progress-bar-fill" style="width:73%"></div></div>
+      <div class="sub">16/22 <span data-zh="工作天" data-jp="営業日">工作天</span></div>
+      <div class="prog-wrap"><div class="prog-fill" style="width:73%"></div></div>
     </div>
     <div class="time-badge">
       <div class="label" data-zh="剩餘工作天" data-jp="残営業日">剩餘工作天</div>
@@ -371,243 +253,150 @@
   </div>
 </div>
 
-<!-- KPI TOP -->
-<div class="section-title" data-zh="整體績效 KPI" data-jp="全体績効 KPI">整體績效 KPI</div>
-<div class="kpi-top">
-
-  <!-- 累計売上 + progress bar C -->
-  <div class="kpi-card acc">
-    <div class="kpi-label" data-zh="累計至前日銷售額" data-jp="前日までの累計売上">累計至前日銷售額</div>
-    <div class="kpi-value n n-blue">1,011.9</div>
-    <div class="kpi-sub" data-zh="萬元" data-jp="万元">萬元</div>
-    <div class="kpi-progress">
-      <div class="kpi-progress-track">
-        <div class="kpi-progress-fill" style="width:91.2%"></div>
-      </div>
-      <div class="kpi-progress-label">
-        <span class="done">1,011.9 <span data-zh="（已達91%）" data-jp="（達成91%）">（已達91%）</span></span>
-        <span class="remain">▲98.0 <span data-zh="未達" data-jp="未達">未達</span></span>
-      </div>
-    </div>
-  </div>
-
-  <!-- 目標 -->
-  <div class="kpi-card tgt">
-    <div class="kpi-label" data-zh="目標" data-jp="目標">目標</div>
-    <div class="kpi-value n n-black">1,110.0</div>
-    <div class="kpi-sub" data-zh="萬元（2025/9/16 期中目標）" data-jp="万元（2025/9/16 期中目標）">萬元（2025/9/16 期中目標）</div>
-  </div>
-
-  <!-- 差異 -->
-  <div class="kpi-card diff">
-    <div class="kpi-label" data-zh="累計目標差異" data-jp="累計目標差異">累計目標差異</div>
-    <div class="kpi-value n n-red">▲98.0</div>
-    <div class="kpi-sub n-red" style="font-weight:600" data-zh="不足 98.0 萬元" data-jp="98.0万元 未達">不足 98.0 萬元</div>
-  </div>
+<!-- TABS -->
+<div class="tabs">
+  <button class="tab-btn active" onclick="switchTab('summary')" data-zh="① 整體摘要" data-jp="① サマリー">① 整體摘要</button>
+  <button class="tab-btn" onclick="switchTab('sku')" data-zh="② SKU 詳細" data-jp="② SKU 詳細">② SKU 詳細</button>
+  <button class="tab-btn" onclick="switchTab('mirafeel')" data-zh="③ Mirafeel" data-jp="③ Mirafeel">③ Mirafeel</button>
 </div>
 
-<!-- KPI BOTTOM -->
-<div class="kpi-bottom">
-  <div class="kpi-card yday">
-    <div class="kpi-label" data-zh="前日銷售額" data-jp="前日売上">前日銷售額</div>
-    <div class="kpi-value n n-black">56.0</div>
-    <div class="kpi-sub" data-zh="萬元　目標均值 50.5 萬" data-jp="万元　目標平均値 50.5 万">萬元　目標均值 50.5 萬</div>
-  </div>
-  <div class="kpi-card rate">
-    <div class="kpi-label" data-zh="累計實績對目標達成率" data-jp="累計実績対目標達成率">累計實績對目標達成率</div>
-    <div class="kpi-value n n-blue">91%</div>
-    <div class="kpi-sub" data-zh="實績 1,011.9 ÷ 目標 1,110.0" data-jp="実績 1,011.9 ÷ 目標 1,110.0">實績 1,011.9 ÷ 目標 1,110.0</div>
-  </div>
-  <div class="kpi-card time">
-    <div class="kpi-label" data-zh="時間進度" data-jp="時間進捗">時間進度</div>
-    <div class="kpi-value n n-black">73%</div>
-    <div class="kpi-sub" data-zh="16 ÷ 22 工作天" data-jp="16 ÷ 22 営業日">16 ÷ 22 工作天</div>
-  </div>
-  <div class="kpi-card pace">
-    <div class="kpi-label" data-zh="時間進度達成率" data-jp="時間進度達成率">時間進度達成率</div>
-    <div class="kpi-value n n-blue">124.7%</div>
-    <div class="kpi-sub" data-zh="達成率 91% ÷ 時間進度 73%" data-jp="達成率 91% ÷ 時間進度 73%">達成率 91% ÷ 時間進度 73%</div>
-    <div class="pace-chip over" data-zh="▲ 超前進行中" data-jp="▲ ペース超過中">▲ 超前進行中</div>
-  </div>
-</div>
+<!-- ════════════════════════════════════
+     TAB 1: SUMMARY
+════════════════════════════════════ -->
+<div id="panel-summary" class="tab-panel active">
 
-<!-- CATEGORY DONUT CARDS B -->
-<div class="section-title" data-zh="商品類別別進捗" data-jp="商品カテゴリ別進捗">商品類別別進捗</div>
-<div class="category-grid">
-
-  <!-- helper: donut circumference for r=40 → 2π×40≈251.3. pct of 251.3 -->
-  <!-- 91% → offset = 251.3*(1-0.91)=22.6 | 86%→35.2 | 104%→0(cap) | 76%→60.3 | 119%→0 -->
-
-  <!-- 學習商品 91% -->
-  <div class="cat-card">
-    <div class="cat-name" data-zh="📚 學習商品" data-jp="📚 学習商品">📚 學習商品</div>
-    <div class="donut-wrap">
-      <svg width="100" height="100" viewBox="0 0 100 100">
-        <circle class="donut-bg" cx="50" cy="50" r="40"/>
-        <circle class="donut-fill near" cx="50" cy="50" r="40"
-          stroke-dasharray="251.3" stroke-dashoffset="22.6"/>
-      </svg>
-      <div class="donut-center">
-        <span class="donut-pct near">91%</span>
-        <span class="donut-sub-label" data-zh="達成率" data-jp="達成率">達成率</span>
+  <div class="section-title" data-zh="整體績效 KPI" data-jp="全体績効 KPI">整體績效 KPI</div>
+  <div class="kpi-top">
+    <div class="kpi-card acc">
+      <div class="kpi-label" data-zh="累計至前日銷售額" data-jp="前日までの累計売上">累計至前日銷售額</div>
+      <div class="kpi-value n n-blue">1,015.3</div>
+      <div class="kpi-sub" data-zh="萬元" data-jp="万元">萬元</div>
+      <div class="kpi-progress">
+        <div class="kpi-progress-track"><div class="kpi-progress-fill" style="width:91.5%"></div></div>
+        <div class="kpi-progress-label">
+          <span class="done">1,015.3 <span data-zh="（已達91%）" data-jp="（達成91%）">（已達91%）</span></span>
+          <span class="remain">▲94.7 <span data-zh="未達" data-jp="未達">未達</span></span>
+        </div>
       </div>
     </div>
-    <div class="cat-stats">
-      <div class="cat-stat-row">
-        <span class="cat-stat-label" data-zh="累計實績" data-jp="累計実績">累計實績</span>
-        <span class="cat-stat-val black">943.1 <span style="font-size:10px;color:var(--text-dim)" data-zh="萬" data-jp="万">萬</span></span>
-      </div>
-      <div class="cat-stat-row">
-        <span class="cat-stat-label" data-zh="目標" data-jp="目標">目標</span>
-        <span class="cat-stat-val black">1,037.1 <span style="font-size:10px;color:var(--text-dim)" data-zh="萬" data-jp="万">萬</span></span>
-      </div>
-      <div class="cat-divider"></div>
-      <div class="cat-pace-label" data-zh="時間進度達成率" data-jp="時間進度達成率">時間進度達成率</div>
-      <div class="cat-pace-row">
-        <span class="cat-pace-val blue">124.7%</span>
-        <div class="cat-pace-track"><div class="cat-pace-fill blue" style="width:62.4%"></div></div>
-      </div>
+    <div class="kpi-card tgt">
+      <div class="kpi-label" data-zh="目標" data-jp="目標">目標</div>
+      <div class="kpi-value n n-black">1,110.0</div>
+      <div class="kpi-sub" data-zh="萬元（2025/9/16 期中目標）" data-jp="万元（2025/9/16 期中目標）">萬元（2025/9/16 期中目標）</div>
+    </div>
+    <div class="kpi-card diff">
+      <div class="kpi-label" data-zh="累計目標差異" data-jp="累計目標差異">累計目標差異</div>
+      <div class="kpi-value n n-red">▲94.7</div>
+      <div class="kpi-sub n-red" style="font-weight:600" data-zh="不足 94.7 萬元" data-jp="94.7万元 未達">不足 94.7 萬元</div>
+    </div>
+  </div>
+  <div class="kpi-bottom">
+    <div class="kpi-card yday">
+      <div class="kpi-label" data-zh="前日銷售額" data-jp="前日売上">前日銷售額</div>
+      <div class="kpi-value n n-black">56.8</div>
+      <div class="kpi-sub" data-zh="萬元　目標均值 50.5 萬" data-jp="万元　目標平均値 50.5 万">萬元　目標均值 50.5 萬</div>
+    </div>
+    <div class="kpi-card rate">
+      <div class="kpi-label" data-zh="累計實績對目標達成率" data-jp="累計実績対目標達成率">累計實績對目標達成率</div>
+      <div class="kpi-value n n-blue">91%</div>
+      <div class="kpi-sub" data-zh="實績 1,015.3 ÷ 目標 1,110.0" data-jp="実績 1,015.3 ÷ 目標 1,110.0">實績 1,015.3 ÷ 目標 1,110.0</div>
+    </div>
+    <div class="kpi-card time">
+      <div class="kpi-label" data-zh="時間進度" data-jp="時間進捗">時間進度</div>
+      <div class="kpi-value n n-black">73%</div>
+      <div class="kpi-sub" data-zh="16 ÷ 22 工作天" data-jp="16 ÷ 22 営業日">16 ÷ 22 工作天</div>
+    </div>
+    <div class="kpi-card pace">
+      <div class="kpi-label" data-zh="時間進度達成率" data-jp="時間進度達成率">時間進度達成率</div>
+      <div class="kpi-value n n-blue">124.7%</div>
+      <div class="kpi-sub" data-zh="達成率 91% ÷ 時間進度 73%" data-jp="達成率 91% ÷ 時間進度 73%">達成率 91% ÷ 時間進度 73%</div>
+      <div class="pace-chip over" data-zh="▲ 超前進行中" data-jp="▲ ペース超過中">▲ 超前進行中</div>
     </div>
   </div>
 
-  <!-- 周邊商品 86% → offset 251.3*0.14=35.2 -->
-  <div class="cat-card">
-    <div class="cat-name" data-zh="🛍 周邊商品" data-jp="🛍 周辺商品">🛍 周邊商品</div>
-    <div class="donut-wrap">
-      <svg width="100" height="100" viewBox="0 0 100 100">
-        <circle class="donut-bg" cx="50" cy="50" r="40"/>
-        <circle class="donut-fill low" cx="50" cy="50" r="40"
-          stroke-dasharray="251.3" stroke-dashoffset="35.2"/>
-      </svg>
-      <div class="donut-center">
-        <span class="donut-pct low">86%</span>
-        <span class="donut-sub-label" data-zh="達成率" data-jp="達成率">達成率</span>
+  <!-- Category Donuts -->
+  <div class="section-title" data-zh="商品類別別進捗" data-jp="商品カテゴリ別進捗">商品類別別進捗</div>
+  <div class="category-grid">
+    <!-- 學習商品 91% pace 124.7% -->
+    <div class="cat-card">
+      <div class="cat-name" data-zh="📚 學習商品" data-jp="📚 学習商品">📚 學習商品</div>
+      <div class="donut-wrap">
+        <svg width="96" height="96" viewBox="0 0 96 96"><circle class="donut-bg" cx="48" cy="48" r="38"/><circle class="donut-fill over" cx="48" cy="48" r="38" stroke-dasharray="238.8" stroke-dashoffset="21.5"/></svg>
+        <div class="donut-center"><span class="donut-pct over">91%</span><span class="donut-sub-label" data-zh="達成率" data-jp="達成率">達成率</span></div>
+      </div>
+      <div class="cat-stats">
+        <div class="cat-stat-row"><span class="cat-stat-label" data-zh="累計實績" data-jp="累計実績">累計實績</span><span class="cat-stat-val">945.2 <span style="font-size:10px;color:var(--text-dim)" data-zh="萬" data-jp="万">萬</span></span></div>
+        <div class="cat-stat-row"><span class="cat-stat-label" data-zh="目標" data-jp="目標">目標</span><span class="cat-stat-val">1,037.1 <span style="font-size:10px;color:var(--text-dim)" data-zh="萬" data-jp="万">萬</span></span></div>
+        <div class="cat-divider"></div>
+        <div class="cat-pace-label" data-zh="時間進度達成率" data-jp="時間進度達成率">時間進度達成率</div>
+        <div class="cat-pace-row"><span class="cat-pace-val">124.7%</span><div class="cat-pace-track"><div class="cat-pace-fill" style="width:62.4%"></div></div></div>
       </div>
     </div>
-    <div class="cat-stats">
-      <div class="cat-stat-row">
-        <span class="cat-stat-label" data-zh="累計實績" data-jp="累計実績">累計實績</span>
-        <span class="cat-stat-val black">47.6 <span style="font-size:10px;color:var(--text-dim)" data-zh="萬" data-jp="万">萬</span></span>
+    <!-- 周邊商品 88% pace 120.5% -->
+    <div class="cat-card">
+      <div class="cat-name" data-zh="🛍 周邊商品" data-jp="🛍 周辺商品">🛍 周邊商品</div>
+      <div class="donut-wrap">
+        <svg width="96" height="96" viewBox="0 0 96 96"><circle class="donut-bg" cx="48" cy="48" r="38"/><circle class="donut-fill over" cx="48" cy="48" r="38" stroke-dasharray="238.8" stroke-dashoffset="28.7"/></svg>
+        <div class="donut-center"><span class="donut-pct over">88%</span><span class="donut-sub-label" data-zh="達成率" data-jp="達成率">達成率</span></div>
       </div>
-      <div class="cat-stat-row">
-        <span class="cat-stat-label" data-zh="目標" data-jp="目標">目標</span>
-        <span class="cat-stat-val black">55.1 <span style="font-size:10px;color:var(--text-dim)" data-zh="萬" data-jp="万">萬</span></span>
-      </div>
-      <div class="cat-divider"></div>
-      <div class="cat-pace-label" data-zh="時間進度達成率" data-jp="時間進度達成率">時間進度達成率</div>
-      <div class="cat-pace-row">
-        <span class="cat-pace-val blue">117.8%</span>
-        <div class="cat-pace-track"><div class="cat-pace-fill blue" style="width:58.9%"></div></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- 學習周邊 104% → over 100, offset=0 (full) -->
-  <div class="cat-card">
-    <div class="cat-name" data-zh="📖 學習周邊" data-jp="📖 学習周辺">📖 學習周邊</div>
-    <div class="donut-wrap">
-      <svg width="100" height="100" viewBox="0 0 100 100">
-        <circle class="donut-bg" cx="50" cy="50" r="40"/>
-        <circle class="donut-fill over" cx="50" cy="50" r="40"
-          stroke-dasharray="251.3" stroke-dashoffset="0"/>
-      </svg>
-      <div class="donut-center">
-        <span class="donut-pct over">104%</span>
-        <span class="donut-sub-label" data-zh="達成率" data-jp="達成率">達成率</span>
+      <div class="cat-stats">
+        <div class="cat-stat-row"><span class="cat-stat-label" data-zh="累計實績" data-jp="累計実績">累計實績</span><span class="cat-stat-val">48.5 <span style="font-size:10px;color:var(--text-dim)" data-zh="萬" data-jp="万">萬</span></span></div>
+        <div class="cat-stat-row"><span class="cat-stat-label" data-zh="目標" data-jp="目標">目標</span><span class="cat-stat-val">55.1 <span style="font-size:10px;color:var(--text-dim)" data-zh="萬" data-jp="万">萬</span></span></div>
+        <div class="cat-divider"></div>
+        <div class="cat-pace-label" data-zh="時間進度達成率" data-jp="時間進度達成率">時間進度達成率</div>
+        <div class="cat-pace-row"><span class="cat-pace-val">120.5%</span><div class="cat-pace-track"><div class="cat-pace-fill" style="width:60.3%"></div></div></div>
       </div>
     </div>
-    <div class="cat-stats">
-      <div class="cat-stat-row">
-        <span class="cat-stat-label" data-zh="累計實績" data-jp="累計実績">累計實績</span>
-        <span class="cat-stat-val black">21.0 <span style="font-size:10px;color:var(--text-dim)" data-zh="萬" data-jp="万">萬</span></span>
+    <!-- 學習周邊 105% pace 143.8% -->
+    <div class="cat-card">
+      <div class="cat-name" data-zh="📖 學習周邊" data-jp="📖 学習周辺">📖 學習周邊</div>
+      <div class="donut-wrap">
+        <svg width="96" height="96" viewBox="0 0 96 96"><circle class="donut-bg" cx="48" cy="48" r="38"/><circle class="donut-fill over" cx="48" cy="48" r="38" stroke-dasharray="238.8" stroke-dashoffset="0"/></svg>
+        <div class="donut-center"><span class="donut-pct over">105%</span><span class="donut-sub-label" data-zh="達成率" data-jp="達成率">達成率</span></div>
       </div>
-      <div class="cat-stat-row">
-        <span class="cat-stat-label" data-zh="目標" data-jp="目標">目標</span>
-        <span class="cat-stat-val black">20.2 <span style="font-size:10px;color:var(--text-dim)" data-zh="萬" data-jp="万">萬</span></span>
-      </div>
-      <div class="cat-divider"></div>
-      <div class="cat-pace-label" data-zh="時間進度達成率" data-jp="時間進度達成率">時間進度達成率</div>
-      <div class="cat-pace-row">
-        <span class="cat-pace-val blue">142.5%</span>
-        <div class="cat-pace-track"><div class="cat-pace-fill blue" style="width:71.2%"></div></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- 生活周邊 76% → offset=251.3*0.24=60.3 -->
-  <div class="cat-card">
-    <div class="cat-name" data-zh="🏠 生活周邊" data-jp="🏠 生活周辺">🏠 生活周邊</div>
-    <div class="donut-wrap">
-      <svg width="100" height="100" viewBox="0 0 100 100">
-        <circle class="donut-bg" cx="50" cy="50" r="40"/>
-        <circle class="donut-fill low" cx="50" cy="50" r="40"
-          stroke-dasharray="251.3" stroke-dashoffset="60.3"/>
-      </svg>
-      <div class="donut-center">
-        <span class="donut-pct low">76%</span>
-        <span class="donut-sub-label" data-zh="達成率" data-jp="達成率">達成率</span>
+      <div class="cat-stats">
+        <div class="cat-stat-row"><span class="cat-stat-label" data-zh="累計實績" data-jp="累計実績">累計實績</span><span class="cat-stat-val">21.3 <span style="font-size:10px;color:var(--text-dim)" data-zh="萬" data-jp="万">萬</span></span></div>
+        <div class="cat-stat-row"><span class="cat-stat-label" data-zh="目標" data-jp="目標">目標</span><span class="cat-stat-val">20.2 <span style="font-size:10px;color:var(--text-dim)" data-zh="萬" data-jp="万">萬</span></span></div>
+        <div class="cat-divider"></div>
+        <div class="cat-pace-label" data-zh="時間進度達成率" data-jp="時間進度達成率">時間進度達成率</div>
+        <div class="cat-pace-row"><span class="cat-pace-val">143.8%</span><div class="cat-pace-track"><div class="cat-pace-fill" style="width:71.9%"></div></div></div>
       </div>
     </div>
-    <div class="cat-stats">
-      <div class="cat-stat-row">
-        <span class="cat-stat-label" data-zh="累計實績" data-jp="累計実績">累計實績</span>
-        <span class="cat-stat-val black">26.6 <span style="font-size:10px;color:var(--text-dim)" data-zh="萬" data-jp="万">萬</span></span>
+    <!-- 生活周邊 78% pace 106.8% -->
+    <div class="cat-card">
+      <div class="cat-name" data-zh="🏠 生活周邊" data-jp="🏠 生活周辺">🏠 生活周邊</div>
+      <div class="donut-wrap">
+        <svg width="96" height="96" viewBox="0 0 96 96"><circle class="donut-bg" cx="48" cy="48" r="38"/><circle class="donut-fill low" cx="48" cy="48" r="38" stroke-dasharray="238.8" stroke-dashoffset="52.5"/></svg>
+        <div class="donut-center"><span class="donut-pct low">78%</span><span class="donut-sub-label" data-zh="達成率" data-jp="達成率">達成率</span></div>
       </div>
-      <div class="cat-stat-row">
-        <span class="cat-stat-label" data-zh="目標" data-jp="目標">目標</span>
-        <span class="cat-stat-val black">34.9 <span style="font-size:10px;color:var(--text-dim)" data-zh="萬" data-jp="万">萬</span></span>
+      <div class="cat-stats">
+        <div class="cat-stat-row"><span class="cat-stat-label" data-zh="累計實績" data-jp="累計実績">累計實績</span><span class="cat-stat-val">27.2 <span style="font-size:10px;color:var(--text-dim)" data-zh="萬" data-jp="万">萬</span></span></div>
+        <div class="cat-stat-row"><span class="cat-stat-label" data-zh="目標" data-jp="目標">目標</span><span class="cat-stat-val">34.9 <span style="font-size:10px;color:var(--text-dim)" data-zh="萬" data-jp="万">萬</span></span></div>
+        <div class="cat-divider"></div>
+        <div class="cat-pace-label" data-zh="時間進度達成率" data-jp="時間進度達成率">時間進度達成率</div>
+        <div class="cat-pace-row"><span class="cat-pace-val" style="color:var(--red)">106.8%</span><div class="cat-pace-track"><div class="cat-pace-fill" style="width:53.4%;background:var(--red-mid)"></div></div></div>
       </div>
-      <div class="cat-divider"></div>
-      <div class="cat-pace-label" data-zh="時間進度達成率" data-jp="時間進度達成率">時間進度達成率</div>
-      <div class="cat-pace-row">
-        <span class="cat-pace-val blue">104.1%</span>
-        <div class="cat-pace-track"><div class="cat-pace-fill blue" style="width:52.1%"></div></div>
+    </div>
+    <!-- Mirafeel 121% pace 165.8% -->
+    <div class="cat-card">
+      <div class="cat-name">✨ Mirafeel</div>
+      <div class="donut-wrap">
+        <svg width="96" height="96" viewBox="0 0 96 96"><circle class="donut-bg" cx="48" cy="48" r="38"/><circle class="donut-fill over" cx="48" cy="48" r="38" stroke-dasharray="238.8" stroke-dashoffset="0"/></svg>
+        <div class="donut-center"><span class="donut-pct over">121%</span><span class="donut-sub-label" data-zh="達成率" data-jp="達成率">達成率</span></div>
+      </div>
+      <div class="cat-stats">
+        <div class="cat-stat-row"><span class="cat-stat-label" data-zh="累計實績" data-jp="累計実績">累計實績</span><span class="cat-stat-val">21.6 <span style="font-size:10px;color:var(--text-dim)" data-zh="萬" data-jp="万">萬</span></span></div>
+        <div class="cat-stat-row"><span class="cat-stat-label" data-zh="目標" data-jp="目標">目標</span><span class="cat-stat-val">17.8 <span style="font-size:10px;color:var(--text-dim)" data-zh="萬" data-jp="万">萬</span></span></div>
+        <div class="cat-divider"></div>
+        <div class="cat-pace-label" data-zh="時間進度達成率" data-jp="時間進度達成率">時間進度達成率</div>
+        <div class="cat-pace-row"><span class="cat-pace-val">165.8%</span><div class="cat-pace-track"><div class="cat-pace-fill" style="width:82.9%"></div></div></div>
       </div>
     </div>
   </div>
 
-  <!-- Mirafeel 119% → over 100 → offset=0 -->
-  <div class="cat-card">
-    <div class="cat-name">✨ Mirafeel</div>
-    <div class="donut-wrap">
-      <svg width="100" height="100" viewBox="0 0 100 100">
-        <circle class="donut-bg" cx="50" cy="50" r="40"/>
-        <circle class="donut-fill over" cx="50" cy="50" r="40"
-          stroke-dasharray="251.3" stroke-dashoffset="0"/>
-      </svg>
-      <div class="donut-center">
-        <span class="donut-pct over">119%</span>
-        <span class="donut-sub-label" data-zh="達成率" data-jp="達成率">達成率</span>
-      </div>
-    </div>
-    <div class="cat-stats">
-      <div class="cat-stat-row">
-        <span class="cat-stat-label" data-zh="累計實績" data-jp="累計実績">累計實績</span>
-        <span class="cat-stat-val black">21.2 <span style="font-size:10px;color:var(--text-dim)" data-zh="萬" data-jp="万">萬</span></span>
-      </div>
-      <div class="cat-stat-row">
-        <span class="cat-stat-label" data-zh="目標" data-jp="目標">目標</span>
-        <span class="cat-stat-val black">17.8 <span style="font-size:10px;color:var(--text-dim)" data-zh="萬" data-jp="万">萬</span></span>
-      </div>
-      <div class="cat-divider"></div>
-      <div class="cat-pace-label" data-zh="時間進度達成率" data-jp="時間進度達成率">時間進度達成率</div>
-      <div class="cat-pace-row">
-        <span class="cat-pace-val blue">163.0%</span>
-        <div class="cat-pace-track"><div class="cat-pace-fill blue" style="width:81.5%"></div></div>
-      </div>
-    </div>
-  </div>
-
-</div>
-
-
-
-<!-- CHANNEL SECTION A: div-grid accordion -->
-<div class="channel-section">
-  <div class="section-title" data-zh="通路別達成率（點擊通路可展開商品明細）" data-jp="チャネル別達成率（クリックで商品別明細を展開）">通路別達成率（點擊通路可展開商品明細）</div>
+  <!-- Channel Grid -->
+  <div class="section-title" data-zh="通路別達成率（點擊展開商品明細）" data-jp="チャネル別達成率（クリックで商品別明細）">通路別達成率（點擊展開商品明細）</div>
   <div class="ch-grid">
-
-    <!-- header -->
     <div class="ch-grid-head">
       <div data-zh="通路" data-jp="チャネル">通路</div>
       <div class="r" data-zh="累計實績（萬）" data-jp="累計実績（万）">累計實績（萬）</div>
@@ -616,121 +405,312 @@
       <div class="r" data-zh="達成率" data-jp="達成率">達成率</div>
       <div data-zh="時間進度達成率（▏=73%）" data-jp="時間進度達成率（▏=73%）">時間進度達成率（▏=73%）</div>
     </div>
-
-    <!-- ══ Shopline 83% → pace 113.7% ══ -->
-    <div class="ch-parent" onclick="toggle('sl')">
-      <div class="ch-name-cell"><span class="ch-arrow" id="arr-sl">▶</span>🛒 Shopline</div>
-      <div class="r">283.3</div><div class="r">340.4</div>
-      <div class="r n-red">▲57.1</div>
-      <div class="r"><span class="pill near">83%</span></div>
-      <div class="bar-cell"><div class="bar-cell-inner"><div class="bar-cell-top"><span class="bar-cell-pct blue">113.7%</span><span class="bar-cell-eq">(83%÷73%)</span></div><div class="bar-track"><div class="bar-track-inner"><div class="bar-fill blue" style="width:56.9%"></div><div class="bar-time-marker" style="left:36.5%"></div></div></div></div></div>
-    </div>
+    <!-- Shopline 84% → 115.1% -->
+    <div class="ch-parent" onclick="toggle('sl')"><div class="ch-name-cell"><span class="ch-arrow" id="arr-sl">▶</span>🛒 Shopline</div><div class="r">286.6</div><div class="r">340.4</div><div class="r n-red">▲53.8</div><div class="r"><span class="pill near">84%</span></div><div class="bar-cell"><div class="bar-cell-inner"><div class="bar-cell-top"><span class="bar-cell-pct blue">115.1%</span><span class="bar-cell-eq">(84%÷73%)</span></div><div class="bar-track"><div class="bar-track-inner"><div class="bar-fill blue" style="width:57.6%"></div><div class="bar-time-marker" style="left:36.5%"></div></div></div></div></div></div>
     <div class="ch-sub" id="sub-sl">
-      <div class="ch-sub-row"><div class="sub-name" data-zh="　📚 學習商品" data-jp="　📚 学習商品">　📚 學習商品</div><div class="r">243.3</div><div class="r">292.0</div><div class="r n-red">▲48.6</div><div class="r"><span class="pill near">83%</span></div><div class="bar-cell"><div class="bar-cell-inner"><div class="bar-cell-top"><span class="bar-cell-pct blue">113.7%</span></div><div class="bar-track"><div class="bar-track-inner"><div class="bar-fill blue" style="width:56.9%"></div><div class="bar-time-marker" style="left:36.5%"></div></div></div></div></div></div>
-      <div class="ch-sub-row"><div class="sub-name" data-zh="　📖 學習周邊" data-jp="　📖 学習周辺">　📖 學習周邊</div><div class="r">7.4</div><div class="r">6.9</div><div class="r n-blue">＋0.4</div><div class="r"><span class="pill blue">106%</span></div><div class="bar-cell"><div class="bar-cell-inner"><div class="bar-cell-top"><span class="bar-cell-pct blue">145.2%</span></div><div class="bar-track"><div class="bar-track-inner"><div class="bar-fill blue" style="width:72.6%"></div><div class="bar-time-marker" style="left:36.5%"></div></div></div></div></div></div>
-      <div class="ch-sub-row"><div class="sub-name" data-zh="　🏠 生活周邊" data-jp="　🏠 生活周辺">　🏠 生活周邊</div><div class="r">22.6</div><div class="r">33.5</div><div class="r n-red">▲10.9</div><div class="r"><span class="pill red">68%</span></div><div class="bar-cell"><div class="bar-cell-inner"><div class="bar-cell-top"><span class="bar-cell-pct red">93.2%</span></div><div class="bar-track"><div class="bar-track-inner"><div class="bar-fill red" style="width:46.6%"></div><div class="bar-time-marker" style="left:36.5%"></div></div></div></div></div></div>
-      <div class="ch-sub-row"><div class="sub-name">　✨ Mirafeel</div><div class="r">9.9</div><div class="r">8.0</div><div class="r n-blue">＋1.9</div><div class="r"><span class="pill blue">124%</span></div><div class="bar-cell"><div class="bar-cell-inner"><div class="bar-cell-top"><span class="bar-cell-pct blue">169.9%</span></div><div class="bar-track"><div class="bar-track-inner"><div class="bar-fill blue" style="width:85%"></div><div class="bar-time-marker" style="left:36.5%"></div></div></div></div></div></div>
+      <div class="ch-sub-row"><div class="sub-name" data-zh="　📚 學習商品" data-jp="　📚 学習商品">　📚 學習商品</div><div class="r">245.5</div><div class="r">292.0</div><div class="r n-red">▲46.5</div><div class="r"><span class="pill near">84%</span></div><div class="bar-cell"><div class="bar-cell-inner"><div class="bar-cell-top"><span class="bar-cell-pct blue">115.1%</span></div><div class="bar-track"><div class="bar-track-inner"><div class="bar-fill blue" style="width:57.6%"></div><div class="bar-time-marker" style="left:36.5%"></div></div></div></div></div></div>
+      <div class="ch-sub-row"><div class="sub-name" data-zh="　📖 學習周邊" data-jp="　📖 学習周辺">　📖 學習周邊</div><div class="r">7.6</div><div class="r">6.9</div><div class="r n-blue">＋0.7</div><div class="r"><span class="pill blue">110%</span></div><div class="bar-cell"><div class="bar-cell-inner"><div class="bar-cell-top"><span class="bar-cell-pct blue">150.7%</span></div><div class="bar-track"><div class="bar-track-inner"><div class="bar-fill blue" style="width:75.3%"></div><div class="bar-time-marker" style="left:36.5%"></div></div></div></div></div></div>
+      <div class="ch-sub-row"><div class="sub-name" data-zh="　🏠 生活周邊" data-jp="　🏠 生活周辺">　🏠 生活周邊</div><div class="r">23.2</div><div class="r">33.5</div><div class="r n-red">▲10.2</div><div class="r"><span class="pill red">69%</span></div><div class="bar-cell"><div class="bar-cell-inner"><div class="bar-cell-top"><span class="bar-cell-pct red">94.5%</span></div><div class="bar-track"><div class="bar-track-inner"><div class="bar-fill red" style="width:47.3%"></div><div class="bar-time-marker" style="left:36.5%"></div></div></div></div></div></div>
+      <div class="ch-sub-row"><div class="sub-name">　✨ Mirafeel</div><div class="r">10.3</div><div class="r">8.0</div><div class="r n-blue">＋2.3</div><div class="r"><span class="pill blue">128%</span></div><div class="bar-cell"><div class="bar-cell-inner"><div class="bar-cell-top"><span class="bar-cell-pct blue">175.3%</span></div><div class="bar-track"><div class="bar-track-inner"><div class="bar-fill blue" style="width:87.6%"></div><div class="bar-time-marker" style="left:36.5%"></div></div></div></div></div></div>
     </div>
-
-    <!-- ══ KOL 98% → pace 134.2% ══ -->
-    <div class="ch-parent" onclick="toggle('kol')">
-      <div class="ch-name-cell"><span class="ch-arrow" id="arr-kol">▶</span>📣 KOL</div>
-      <div class="r">429.7</div><div class="r">438.8</div>
-      <div class="r n-red">▲9.1</div>
-      <div class="r"><span class="pill near">98%</span></div>
-      <div class="bar-cell"><div class="bar-cell-inner"><div class="bar-cell-top"><span class="bar-cell-pct blue">134.2%</span><span class="bar-cell-eq">(98%÷73%)</span></div><div class="bar-track"><div class="bar-track-inner"><div class="bar-fill blue" style="width:67.1%"></div><div class="bar-time-marker" style="left:36.5%"></div></div></div></div></div>
-    </div>
+    <!-- KOL 98% → 134.2% -->
+    <div class="ch-parent" onclick="toggle('kol')"><div class="ch-name-cell"><span class="ch-arrow" id="arr-kol">▶</span>📣 KOL</div><div class="r">429.7</div><div class="r">438.8</div><div class="r n-red">▲9.1</div><div class="r"><span class="pill near">98%</span></div><div class="bar-cell"><div class="bar-cell-inner"><div class="bar-cell-top"><span class="bar-cell-pct blue">134.2%</span><span class="bar-cell-eq">(98%÷73%)</span></div><div class="bar-track"><div class="bar-track-inner"><div class="bar-fill blue" style="width:67.1%"></div><div class="bar-time-marker" style="left:36.5%"></div></div></div></div></div></div>
     <div class="ch-sub" id="sub-kol">
       <div class="ch-sub-row"><div class="sub-name" data-zh="　📚 學習商品" data-jp="　📚 学習商品">　📚 學習商品</div><div class="r">417.5</div><div class="r">435.8</div><div class="r n-red">▲18.4</div><div class="r"><span class="pill near">96%</span></div><div class="bar-cell"><div class="bar-cell-inner"><div class="bar-cell-top"><span class="bar-cell-pct blue">131.5%</span></div><div class="bar-track"><div class="bar-track-inner"><div class="bar-fill blue" style="width:65.8%"></div><div class="bar-time-marker" style="left:36.5%"></div></div></div></div></div></div>
       <div class="ch-sub-row"><div class="sub-name" data-zh="　📖 學習周邊" data-jp="　📖 学習周辺">　📖 學習周邊</div><div class="r">3.3</div><div class="r">1.5</div><div class="r n-blue">＋1.8</div><div class="r"><span class="pill blue">218%</span></div><div class="bar-cell"><div class="bar-cell-inner"><div class="bar-cell-top"><span class="bar-cell-pct blue">298.6%</span></div><div class="bar-track"><div class="bar-track-inner"><div class="bar-fill blue" style="width:100%"></div><div class="bar-time-marker" style="left:36.5%"></div></div></div></div></div></div>
-      <div class="ch-sub-row"><div class="sub-name" data-zh="　🏠 生活周邊" data-jp="　🏠 生活周辺">　🏠 生活周邊</div><div class="r">1.2</div><div class="r">—</div><div class="r">—</div><div class="r"><span class="pill zero">—</span></div><div class="bar-cell"><div class="bar-cell-inner"><div class="bar-cell-top"><span class="bar-cell-pct zero">—</span></div><div class="bar-track"><div class="bar-fill zero"></div></div></div></div></div>
+      <div class="ch-sub-row"><div class="sub-name" data-zh="　🏠 生活周邊" data-jp="　🏠 生活周辺">　🏠 生活周邊</div><div class="r">—</div><div class="r">—</div><div class="r">—</div><div class="r"><span class="pill zero">—</span></div><div class="bar-cell"><div class="bar-cell-inner"><div class="bar-cell-top"><span class="bar-cell-pct zero">—</span></div><div class="bar-track"><div class="bar-fill zero"></div></div></div></div></div>
       <div class="ch-sub-row"><div class="sub-name">　✨ Mirafeel</div><div class="r">8.9</div><div class="r">1.5</div><div class="r n-blue">＋7.5</div><div class="r"><span class="pill blue">610%</span></div><div class="bar-cell"><div class="bar-cell-inner"><div class="bar-cell-top"><span class="bar-cell-pct blue">835.6%</span></div><div class="bar-track"><div class="bar-track-inner"><div class="bar-fill blue" style="width:100%"></div><div class="bar-time-marker" style="left:36.5%"></div></div></div></div></div></div>
     </div>
-
-    <!-- ══ 蝦皮 61% → pace 83.6% ══ -->
-    <div class="ch-parent" onclick="toggle('sp')">
-      <div class="ch-name-cell"><span class="ch-arrow" id="arr-sp">▶</span>🦐 <span data-zh="蝦皮" data-jp="蝦皮（Shopee）">蝦皮</span></div>
-      <div class="r">67.6</div><div class="r">110.4</div>
-      <div class="r n-red">▲42.8</div>
-      <div class="r"><span class="pill red">61%</span></div>
-      <div class="bar-cell"><div class="bar-cell-inner"><div class="bar-cell-top"><span class="bar-cell-pct red">83.6%</span><span class="bar-cell-eq">(61%÷73%)</span></div><div class="bar-track"><div class="bar-track-inner"><div class="bar-fill red" style="width:41.8%"></div><div class="bar-time-marker" style="left:36.5%"></div></div></div></div></div>
-    </div>
+    <!-- 蝦皮 61% → 83.6% -->
+    <div class="ch-parent" onclick="toggle('sp')"><div class="ch-name-cell"><span class="ch-arrow" id="arr-sp">▶</span>🦐 <span data-zh="蝦皮" data-jp="蝦皮（Shopee）">蝦皮</span></div><div class="r">67.6</div><div class="r">110.4</div><div class="r n-red">▲42.8</div><div class="r"><span class="pill red">61%</span></div><div class="bar-cell"><div class="bar-cell-inner"><div class="bar-cell-top"><span class="bar-cell-pct red">83.6%</span><span class="bar-cell-eq">(61%÷73%)</span></div><div class="bar-track"><div class="bar-track-inner"><div class="bar-fill red" style="width:41.8%"></div><div class="bar-time-marker" style="left:36.5%"></div></div></div></div></div></div>
     <div class="ch-sub" id="sub-sp">
       <div class="ch-sub-row"><div class="sub-name" data-zh="　📚 學習商品" data-jp="　📚 学習商品">　📚 學習商品</div><div class="r">58.5</div><div class="r">100.2</div><div class="r n-red">▲41.7</div><div class="r"><span class="pill red">58%</span></div><div class="bar-cell"><div class="bar-cell-inner"><div class="bar-cell-top"><span class="bar-cell-pct red">79.5%</span></div><div class="bar-track"><div class="bar-track-inner"><div class="bar-fill red" style="width:39.8%"></div><div class="bar-time-marker" style="left:36.5%"></div></div></div></div></div></div>
       <div class="ch-sub-row"><div class="sub-name" data-zh="　📖 學習周邊" data-jp="　📖 学習周辺">　📖 學習周邊</div><div class="r">8.0</div><div class="r">8.8</div><div class="r n-red">▲0.9</div><div class="r"><span class="pill near">90%</span></div><div class="bar-cell"><div class="bar-cell-inner"><div class="bar-cell-top"><span class="bar-cell-pct blue">123.3%</span></div><div class="bar-track"><div class="bar-track-inner"><div class="bar-fill blue" style="width:61.6%"></div><div class="bar-time-marker" style="left:36.5%"></div></div></div></div></div></div>
-      <div class="ch-sub-row"><div class="sub-name" data-zh="　🏠 生活周邊" data-jp="　🏠 生活周辺">　🏠 生活周邊</div><div class="r">—</div><div class="r">1.4</div><div class="r n-red">▲0.2</div><div class="r"><span class="pill near">83%</span></div><div class="bar-cell"><div class="bar-cell-inner"><div class="bar-cell-top"><span class="bar-cell-pct blue">113.7%</span></div><div class="bar-track"><div class="bar-track-inner"><div class="bar-fill blue" style="width:56.9%"></div><div class="bar-time-marker" style="left:36.5%"></div></div></div></div></div></div>
+      <div class="ch-sub-row"><div class="sub-name" data-zh="　🏠 生活周邊" data-jp="　🏠 生活周辺">　🏠 生活周邊</div><div class="r">1.2</div><div class="r">1.4</div><div class="r n-red">▲0.2</div><div class="r"><span class="pill near">83%</span></div><div class="bar-cell"><div class="bar-cell-inner"><div class="bar-cell-top"><span class="bar-cell-pct blue">113.7%</span></div><div class="bar-track"><div class="bar-track-inner"><div class="bar-fill blue" style="width:56.9%"></div><div class="bar-time-marker" style="left:36.5%"></div></div></div></div></div></div>
       <div class="ch-sub-row"><div class="sub-name">　✨ Mirafeel</div><div class="r">—</div><div class="r">—</div><div class="r">—</div><div class="r"><span class="pill zero">—</span></div><div class="bar-cell"><div class="bar-cell-inner"><div class="bar-cell-top"><span class="bar-cell-pct zero">—</span></div><div class="bar-track"><div class="bar-fill zero"></div></div></div></div></div>
     </div>
-
-    <!-- ══ 經代銷 0% ══ -->
-    <div class="ch-parent" onclick="toggle('ag')">
-      <div class="ch-name-cell"><span class="ch-arrow" id="arr-ag">▶</span>🤝 <span data-zh="經代銷" data-jp="代理販売">經代銷</span></div>
-      <div class="r">—</div><div class="r">13.0</div>
-      <div class="r n-red">▲13.0</div>
-      <div class="r"><span class="pill zero">0%</span></div>
-      <div class="bar-cell"><div class="bar-cell-inner"><div class="bar-cell-top"><span class="bar-cell-pct zero">0%</span><span class="bar-cell-eq">(0%÷73%)</span></div><div class="bar-track"><div class="bar-track-inner"><div class="bar-fill zero"></div><div class="bar-time-marker" style="left:36.5%"></div></div></div></div></div>
-    </div>
+    <!-- 經代銷 0% -->
+    <div class="ch-parent" onclick="toggle('ag')"><div class="ch-name-cell"><span class="ch-arrow" id="arr-ag">▶</span>🤝 <span data-zh="經代銷" data-jp="代理販売">經代銷</span></div><div class="r">—</div><div class="r">13.0</div><div class="r n-red">▲13.0</div><div class="r"><span class="pill zero">0%</span></div><div class="bar-cell"><div class="bar-cell-inner"><div class="bar-cell-top"><span class="bar-cell-pct zero">0%</span><span class="bar-cell-eq">(0%÷73%)</span></div><div class="bar-track"><div class="bar-track-inner"><div class="bar-fill zero"></div><div class="bar-time-marker" style="left:36.5%"></div></div></div></div></div></div>
     <div class="ch-sub" id="sub-ag">
       <div class="ch-sub-row"><div class="sub-name" data-zh="　📚 學習商品" data-jp="　📚 学習商品">　📚 學習商品</div><div class="r">—</div><div class="r">13.0</div><div class="r n-red">▲13.0</div><div class="r"><span class="pill zero">0%</span></div><div class="bar-cell"><div class="bar-cell-inner"><div class="bar-cell-top"><span class="bar-cell-pct zero">0%</span></div><div class="bar-track"><div class="bar-fill zero"></div></div></div></div></div>
-      <div class="ch-sub-row"><div class="sub-name" data-zh="　📖 學習周邊" data-jp="　📖 学習周辺">　📖 學習周邊</div><div class="r">—</div><div class="r">—</div><div class="r">—</div><div class="r"><span class="pill zero">—</span></div><div class="bar-cell"><div class="bar-cell-inner"><div class="bar-cell-top"><span class="bar-cell-pct zero">—</span></div><div class="bar-track"><div class="bar-fill zero"></div></div></div></div></div>
-      <div class="ch-sub-row"><div class="sub-name" data-zh="　🏠 生活周邊" data-jp="　🏠 生活周辺">　🏠 生活周邊</div><div class="r">—</div><div class="r">—</div><div class="r">—</div><div class="r"><span class="pill zero">—</span></div><div class="bar-cell"><div class="bar-cell-inner"><div class="bar-cell-top"><span class="bar-cell-pct zero">—</span></div><div class="bar-track"><div class="bar-fill zero"></div></div></div></div></div>
-      <div class="ch-sub-row"><div class="sub-name">　✨ Mirafeel</div><div class="r">—</div><div class="r">—</div><div class="r">—</div><div class="r"><span class="pill zero">—</span></div><div class="bar-cell"><div class="bar-cell-inner"><div class="bar-cell-top"><span class="bar-cell-pct zero">—</span></div><div class="bar-track"><div class="bar-fill zero"></div></div></div></div></div>
+      <div class="ch-sub-row"><div class="sub-name" data-zh="　他" data-jp="　他">　他</div><div class="r">—</div><div class="r">—</div><div class="r">—</div><div class="r"><span class="pill zero">—</span></div><div class="bar-cell"><div class="bar-cell-inner"><div class="bar-cell-top"><span class="bar-cell-pct zero">—</span></div><div class="bar-track"><div class="bar-fill zero"></div></div></div></div></div>
     </div>
-
-    <!-- ══ CC 112% → pace 153.4% ══ -->
-    <div class="ch-parent" onclick="toggle('cc')">
-      <div class="ch-name-cell"><span class="ch-arrow" id="arr-cc">▶</span>📦 CC（<span data-zh="直販" data-jp="直販">直販</span>）</div>
-      <div class="r">231.3</div><div class="r">207.3</div>
-      <div class="r n-blue">＋24.0</div>
-      <div class="r"><span class="pill blue">112%</span></div>
-      <div class="bar-cell"><div class="bar-cell-inner"><div class="bar-cell-top"><span class="bar-cell-pct blue">153.4%</span><span class="bar-cell-eq">(112%÷73%)</span></div><div class="bar-track"><div class="bar-track-inner"><div class="bar-fill blue" style="width:76.7%"></div><div class="bar-time-marker" style="left:36.5%"></div></div></div></div></div>
-    </div>
+    <!-- CC 112% → 153.4% -->
+    <div class="ch-parent" onclick="toggle('cc')"><div class="ch-name-cell"><span class="ch-arrow" id="arr-cc">▶</span>📦 CC（<span data-zh="直販" data-jp="直販">直販</span>）</div><div class="r">231.3</div><div class="r">207.3</div><div class="r n-blue">＋24.0</div><div class="r"><span class="pill blue">112%</span></div><div class="bar-cell"><div class="bar-cell-inner"><div class="bar-cell-top"><span class="bar-cell-pct blue">153.4%</span><span class="bar-cell-eq">(112%÷73%)</span></div><div class="bar-track"><div class="bar-track-inner"><div class="bar-fill blue" style="width:76.7%"></div><div class="bar-time-marker" style="left:36.5%"></div></div></div></div></div></div>
     <div class="ch-sub" id="sub-cc">
       <div class="ch-sub-row"><div class="sub-name" data-zh="　📚 學習商品" data-jp="　📚 学習商品">　📚 學習商品</div><div class="r">223.7</div><div class="r">196.0</div><div class="r n-blue">＋27.7</div><div class="r"><span class="pill blue">114%</span></div><div class="bar-cell"><div class="bar-cell-inner"><div class="bar-cell-top"><span class="bar-cell-pct blue">156.2%</span></div><div class="bar-track"><div class="bar-track-inner"><div class="bar-fill blue" style="width:78.1%"></div><div class="bar-time-marker" style="left:36.5%"></div></div></div></div></div></div>
       <div class="ch-sub-row"><div class="sub-name" data-zh="　📖 學習周邊" data-jp="　📖 学習周辺">　📖 學習周邊</div><div class="r">2.4</div><div class="r">2.9</div><div class="r n-red">▲0.5</div><div class="r"><span class="pill near">82%</span></div><div class="bar-cell"><div class="bar-cell-inner"><div class="bar-cell-top"><span class="bar-cell-pct blue">112.3%</span></div><div class="bar-track"><div class="bar-track-inner"><div class="bar-fill blue" style="width:56.2%"></div><div class="bar-time-marker" style="left:36.5%"></div></div></div></div></div></div>
       <div class="ch-sub-row"><div class="sub-name" data-zh="　🏠 生活周邊" data-jp="　🏠 生活周辺">　🏠 生活周邊</div><div class="r">2.8</div><div class="r">—</div><div class="r n-blue">＋2.8</div><div class="r"><span class="pill zero">—</span></div><div class="bar-cell"><div class="bar-cell-inner"><div class="bar-cell-top"><span class="bar-cell-pct zero">—</span></div><div class="bar-track"><div class="bar-fill zero"></div></div></div></div></div>
       <div class="ch-sub-row"><div class="sub-name">　✨ Mirafeel</div><div class="r">2.4</div><div class="r">8.4</div><div class="r n-red">▲6.0</div><div class="r"><span class="pill red">28%</span></div><div class="bar-cell"><div class="bar-cell-inner"><div class="bar-cell-top"><span class="bar-cell-pct red">38.4%</span></div><div class="bar-track"><div class="bar-track-inner"><div class="bar-fill red" style="width:19.2%"></div><div class="bar-time-marker" style="left:36.5%"></div></div></div></div></div></div>
     </div>
-
-    <!-- ══ 合計 ══ -->
+    <!-- 合計 -->
     <div class="ch-total-row">
       <div class="ch-name-cell" data-zh="📊 合計" data-jp="📊 合計">📊 合計</div>
-      <div class="r" style="color:var(--blue)">1,011.9</div>
-      <div class="r">1,110.0</div>
-      <div class="r n-red">▲98.0</div>
+      <div class="r" style="color:var(--blue)">1,015.3</div><div class="r">1,110.0</div>
+      <div class="r n-red">▲94.7</div>
       <div class="r"><span class="pill near">91%</span></div>
       <div class="bar-cell" style="background:var(--blue-light)"><div class="bar-cell-inner"><div class="bar-cell-top"><span class="bar-cell-pct blue">124.7%</span><span class="bar-cell-eq">(91%÷73%)</span></div><div class="bar-track"><div class="bar-track-inner"><div class="bar-fill blue" style="width:62.4%"></div><div class="bar-time-marker" style="left:36.5%"></div></div></div></div></div>
     </div>
+  </div>
+</div><!-- /panel-summary -->
 
-  </div><!-- /ch-grid -->
-</div>
+<!-- ════════════════════════════════════
+     TAB 2: SKU DETAIL
+════════════════════════════════════ -->
+<div id="panel-sku" class="tab-panel">
+
+  <!-- SKU 達成率 ヒートマップ -->
+  <div class="section-title" data-zh="學習商品 SKU×通路 套數達成率（月累計）" data-jp="学習商品 SKU×チャネル 套数達成率（月累計）">學習商品 SKU×通路 套數達成率（月累計）</div>
+  <div class="sku-table-wrap" style="margin-bottom:24px;">
+    <table class="sku-table">
+      <thead>
+        <tr>
+          <th class="left" data-zh="通路" data-jp="チャネル">通路</th>
+          <th data-zh="初階" data-jp="初階">初階</th>
+          <th data-zh="進階" data-jp="進階">進階</th>
+          <th data-zh="注音" data-jp="注音">注音</th>
+          <th data-zh="EQ" data-jp="EQ">EQ</th>
+          <th data-zh="寶生活" data-jp="寶生活">寶生活</th>
+          <th data-zh="閱讀套組" data-jp="閱讀套組">閱讀套組</th>
+          <th data-zh="寶貸智育" data-jp="寶貸智育">寶貸智育</th>
+          <th data-zh="點讀圖鑑" data-jp="點讀圖鑑">點讀圖鑑</th>
+          <th data-zh="聰明左右腦" data-jp="聰明左右腦">聰明左右腦</th>
+          <th data-zh="數學套組" data-jp="數學套組">數學套組</th>
+          <th data-zh="合計" data-jp="合計">合計</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="left">Shopline-WEB</td>
+          <td><span class="hm hm-2">35%</span></td><td><span class="hm hm-2">35%</span></td><td><span class="hm hm-3">56%</span></td><td><span class="hm hm-2">44%</span></td><td><span class="hm hm-2">33%</span></td><td><span class="hm hm-1">9%</span></td><td><span class="hm hm-3">70%</span></td><td><span class="hm hm-5">620%</span></td><td><span class="hm hm-4">102%</span></td><td><span class="hm hm-4">101%</span></td><td><span class="hm hm-3">87%</span></td>
+        </tr>
+        <tr>
+          <td class="left" data-zh="蝦皮商城" data-jp="蝦皮商城">蝦皮商城</td>
+          <td><span class="hm hm-2">33%</span></td><td><span class="hm hm-3">67%</span></td><td><span class="hm hm-3">64%</span></td><td><span class="hm hm-2">31%</span></td><td><span class="hm hm-1">20%</span></td><td><span class="hm hm-1">20%</span></td><td><span class="hm hm-5">880%</span></td><td><span class="hm hm-2">39%</span></td><td><span class="hm hm-2">49%</span></td><td><span class="hm hm-dash">—</span></td><td><span class="hm hm-2">63%</span></td>
+        </tr>
+        <tr>
+          <td class="left">KOL</td>
+          <td><span class="hm hm-5">108%</span></td><td><span class="hm hm-3">77%</span></td><td><span class="hm hm-4">96%</span></td><td><span class="hm hm-3">84%</span></td><td><span class="hm hm-3">77%</span></td><td><span class="hm hm-3">60%</span></td><td><span class="hm hm-3">74%</span></td><td><span class="hm hm-5">251%</span></td><td><span class="hm hm-3">62%</span></td><td><span class="hm hm-5">123%</span></td><td><span class="hm hm-4">98%</span></td>
+        </tr>
+        <tr>
+          <td class="left" data-zh="經代銷" data-jp="代理販売">經代銷</td>
+          <td><span class="hm hm-dash">—</span></td><td><span class="hm hm-dash">—</span></td><td><span class="hm hm-dash">—</span></td><td><span class="hm hm-dash">—</span></td><td><span class="hm hm-dash">—</span></td><td><span class="hm hm-dash">—</span></td><td><span class="hm hm-dash">—</span></td><td><span class="hm hm-dash">—</span></td><td><span class="hm hm-dash">—</span></td><td><span class="hm hm-dash">—</span></td><td><span class="hm hm-0">0%</span></td>
+        </tr>
+        <tr>
+          <td class="left">CC</td>
+          <td><span class="hm hm-2">47%</span></td><td><span class="hm hm-3">67%</span></td><td><span class="hm hm-5">125%</span></td><td><span class="hm hm-1">22%</span></td><td><span class="hm hm-3">83%</span></td><td><span class="hm hm-3">56%</span></td><td><span class="hm hm-3">68%</span></td><td><span class="hm hm-5">116%</span></td><td><span class="hm hm-5">195%</span></td><td><span class="hm hm-5">500%</span></td><td><span class="hm hm-5">112%</span></td>
+        </tr>
+        <tr class="total-row">
+          <td class="left" data-zh="合計" data-jp="合計">合計</td>
+          <td><span class="hm hm-3">61%</span></td><td><span class="hm hm-3">63%</span></td><td><span class="hm hm-3">86%</span></td><td><span class="hm hm-2">43%</span></td><td><span class="hm hm-3">56%</span></td><td><span class="hm hm-1">25%</span></td><td><span class="hm hm-3">67%</span></td><td><span class="hm hm-5">277%</span></td><td><span class="hm hm-3">87%</span></td><td><span class="hm hm-5">128%</span></td><td><span class="hm hm-4">93%</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- SKU 前日套數 ヒートマップ -->
+  <div class="section-title" data-zh="學習商品 SKU×通路 前日套數實績" data-jp="学習商品 SKU×チャネル 前日套数実績">學習商品 SKU×通路 前日套數實績</div>
+  <div class="sku-table-wrap" style="margin-bottom:24px;">
+    <table class="sku-table">
+      <thead>
+        <tr>
+          <th class="left" data-zh="通路" data-jp="チャネル">通路</th>
+          <th data-zh="初階" data-jp="初階">初階</th><th data-zh="進階" data-jp="進階">進階</th><th data-zh="注音" data-jp="注音">注音</th><th data-zh="EQ" data-jp="EQ">EQ</th><th data-zh="寶生活" data-jp="寶生活">寶生活</th><th data-zh="閱讀套組" data-jp="閱讀套組">閱讀套組</th><th data-zh="寶貸智育" data-jp="寶貸智育">寶貸智育</th><th data-zh="點讀圖鑑" data-jp="點讀圖鑑">點讀圖鑑</th><th data-zh="聰明左右腦" data-jp="聰明左右腦">聰明左右腦</th><th data-zh="數學套組" data-jp="數學套組">數學套組</th><th data-zh="合計" data-jp="合計">合計</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="left">Shopline-WEB</td><td>3</td><td>—</td><td>1</td><td>2</td><td>3</td><td>—</td><td>—</td><td>1</td><td>6</td><td>4</td><td><b>10</b></td></tr>
+        <tr><td class="left" data-zh="蝦皮商城" data-jp="蝦皮商城">蝦皮商城</td><td>—</td><td>—</td><td>2</td><td>1</td><td>—</td><td>—</td><td>—</td><td>—</td><td>3</td><td>2</td><td><b>9</b></td></tr>
+        <tr><td class="left">KOL</td><td>8</td><td>8</td><td>8</td><td>4</td><td>2</td><td>1</td><td>3</td><td>—</td><td>8</td><td>18</td><td><b>26</b></td></tr>
+        <tr><td class="left" data-zh="經代銷" data-jp="代理販売">經代銷</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td><b>—</b></td></tr>
+        <tr><td class="left">CC</td><td>1</td><td>1</td><td>1</td><td>2</td><td>3</td><td>—</td><td>1</td><td>—</td><td>3</td><td>13</td><td><b>17</b></td></tr>
+        <tr class="total-row"><td class="left" data-zh="合計" data-jp="合計">合計</td><td>13</td><td>9</td><td>12</td><td>9</td><td>8</td><td>1</td><td>5</td><td>20</td><td>37</td><td>53</td><td><b>167</b></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 月累計套数 -->
+  <div class="section-title" data-zh="學習商品 SKU×通路 月累計套數實績" data-jp="学習商品 SKU×チャネル 月累計套数実績">學習商品 SKU×通路 月累計套數實績</div>
+  <div class="sku-table-wrap" style="margin-bottom:24px;">
+    <table class="sku-table">
+      <thead>
+        <tr>
+          <th class="left" data-zh="通路" data-jp="チャネル">通路</th>
+          <th data-zh="初階" data-jp="初階">初階</th><th data-zh="進階" data-jp="進階">進階</th><th data-zh="注音" data-jp="注音">注音</th><th data-zh="EQ" data-jp="EQ">EQ</th><th data-zh="寶生活" data-jp="寶生活">寶生活</th><th data-zh="閱讀套組" data-jp="閱讀套組">閱讀套組</th><th data-zh="寶貸智育" data-jp="寶貸智育">寶貸智育</th><th data-zh="點讀圖鑑" data-jp="點讀圖鑑">點讀圖鑑</th><th data-zh="聰明左右腦" data-jp="聰明左右腦">聰明左右腦</th><th data-zh="數學套組" data-jp="數學套組">數學套組</th><th data-zh="合計" data-jp="合計">合計</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="left">Shopline-WEB</td><td>21</td><td>7</td><td>28</td><td>53</td><td>20</td><td>4</td><td>35</td><td>124</td><td>254</td><td>283</td><td><b>829</b></td></tr>
+        <tr><td class="left" data-zh="蝦皮商城" data-jp="蝦皮商城">蝦皮商城</td><td>6</td><td>4</td><td>16</td><td>20</td><td>4</td><td>—</td><td>3</td><td>88</td><td>31</td><td>39</td><td><b>211</b></td></tr>
+        <tr><td class="left">KOL</td><td>67</td><td>23</td><td>50</td><td>101</td><td>49</td><td>6</td><td>111</td><td>201</td><td>246</td><td>493</td><td><b>1,348</b></td></tr>
+        <tr><td class="left" data-zh="經代銷" data-jp="代理販売">經代銷</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td><b>—</b></td></tr>
+        <tr><td class="left">CC</td><td>28</td><td>20</td><td>50</td><td>44</td><td>25</td><td>14</td><td>41</td><td>58</td><td>195</td><td>250</td><td><b>725</b></td></tr>
+        <tr class="total-row"><td class="left" data-zh="合計" data-jp="合計">合計</td><td>122</td><td>54</td><td>145</td><td>218</td><td>98</td><td>24</td><td>190</td><td>471</td><td>726</td><td>1,065</td><td><b>3,113</b></td></tr>
+        <tr style="background:#f8faff;"><td class="left" style="color:var(--text-dim);font-size:11px" data-zh="月目標" data-jp="月目標">月目標</td><td style="color:var(--text-dim);font-size:12px">200</td><td style="color:var(--text-dim);font-size:12px">86</td><td style="color:var(--text-dim);font-size:12px">168</td><td style="color:var(--text-dim);font-size:12px">505</td><td style="color:var(--text-dim);font-size:12px">174</td><td style="color:var(--text-dim);font-size:12px">97</td><td style="color:var(--text-dim);font-size:12px">285</td><td style="color:var(--text-dim);font-size:12px">170</td><td style="color:var(--text-dim);font-size:12px">830</td><td style="color:var(--text-dim);font-size:12px">830</td><td style="color:var(--text-dim);font-size:12px"><b>3,345</b></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 金額詳細 -->
+  <div class="section-title" data-zh="學習商品 稅前銷售額詳細（萬元）" data-jp="学習商品 税前売上詳細（万元）">學習商品 稅前銷售額詳細（萬元）</div>
+  <div class="sku-table-wrap">
+    <table class="sku-table">
+      <thead>
+        <tr>
+          <th class="left" data-zh="項目" data-jp="項目">項目</th>
+          <th data-zh="Shopline" data-jp="Shopline">Shopline</th><th data-zh="KOL" data-jp="KOL">KOL</th><th data-zh="蝦皮" data-jp="蝦皮">蝦皮</th><th data-zh="經代銷" data-jp="代理販売">經代銷</th><th data-zh="整合行銷" data-jp="整合行銷">整合行銷</th><th data-zh="CC" data-jp="CC">CC</th><th data-zh="合計" data-jp="合計">合計</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="left" data-zh="前日銷售額" data-jp="前日売上">前日銷售額</td><td>9.4</td><td>27.6</td><td>2.5</td><td>—</td><td>39.5</td><td>12.9</td><td><b>52.3</b></td></tr>
+        <tr><td class="left" data-zh="月累計實績" data-jp="月累計実績">月累計實績</td><td style="color:var(--blue);font-weight:600">245.5</td><td style="color:var(--blue);font-weight:600">417.5</td><td style="color:var(--blue);font-weight:600">58.5</td><td>—</td><td style="color:var(--blue);font-weight:600">721.5</td><td style="color:var(--blue);font-weight:600">223.7</td><td style="color:var(--blue);font-weight:700"><b>945.2</b></td></tr>
+        <tr><td class="left" data-zh="月目標" data-jp="月目標">月目標</td><td>292.0</td><td>435.8</td><td>100.2</td><td>13.0</td><td>841.0</td><td>196.0</td><td><b>1,037.1</b></td></tr>
+        <tr><td class="left" data-zh="差異" data-jp="差異">差異</td><td style="color:var(--red)">▲46.5</td><td style="color:var(--red)">▲18.4</td><td style="color:var(--red)">▲41.7</td><td style="color:var(--red)">▲13.0</td><td style="color:var(--red)">▲119.5</td><td style="color:var(--blue)">＋27.7</td><td style="color:var(--red);font-weight:700"><b>▲91.8</b></td></tr>
+        <tr class="total-row"><td class="left" data-zh="達成率" data-jp="達成率">達成率</td><td>84%</td><td>96%</td><td>58%</td><td>0%</td><td>86%</td><td>114%</td><td style="color:var(--blue)"><b>91%</b></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div><!-- /panel-sku -->
+
+<!-- ════════════════════════════════════
+     TAB 3: MIRAFEEL
+════════════════════════════════════ -->
+<div id="panel-mirafeel" class="tab-panel">
+
+  <div class="section-title" data-zh="Mirafeel 巧貼褲 通路別績效" data-jp="Mirafeel 巧貼褲 チャネル別実績">Mirafeel 巧貼褲 通路別績效</div>
+
+  <!-- 4 channel cards -->
+  <div class="mf-grid">
+    <div class="mf-card sl">
+      <div class="mf-ch-label">🛒 Shopline</div>
+      <div class="mf-val n" style="color:#6366f1">10.3</div>
+      <div class="mf-sub" data-zh="萬元（月累計）" data-jp="万元（月累計）">萬元（月累計）</div>
+      <div class="mf-rate blue">128%</div>
+      <div class="mf-sub" data-zh="目標 8.0 萬" data-jp="目標 8.0 万">目標 8.0 萬</div>
+    </div>
+    <div class="mf-card kol">
+      <div class="mf-ch-label">📣 KOL</div>
+      <div class="mf-val n" style="color:#f59e0b">8.9</div>
+      <div class="mf-sub" data-zh="萬元（月累計）" data-jp="万元（月累計）">萬元（月累計）</div>
+      <div class="mf-rate blue">610%</div>
+      <div class="mf-sub" data-zh="目標 1.5 萬" data-jp="目標 1.5 万">目標 1.5 萬</div>
+    </div>
+    <div class="mf-card cc">
+      <div class="mf-ch-label">📦 CC（<span data-zh="直販" data-jp="直販">直販</span>）</div>
+      <div class="mf-val n" style="color:#10b981">2.4</div>
+      <div class="mf-sub" data-zh="萬元（月累計）" data-jp="万元（月累計）">萬元（月累計）</div>
+      <div class="mf-rate red">28%</div>
+      <div class="mf-sub" data-zh="目標 8.4 萬" data-jp="目標 8.4 万">目標 8.4 萬</div>
+    </div>
+    <div class="mf-card total">
+      <div class="mf-ch-label" data-zh="📊 合計" data-jp="📊 合計">📊 合計</div>
+      <div class="mf-val n" style="color:var(--blue)">21.6</div>
+      <div class="mf-sub" data-zh="萬元（月累計）" data-jp="万元（月累計）">萬元（月累計）</div>
+      <div class="mf-rate blue">121%</div>
+      <div class="mf-sub" data-zh="目標 17.8 萬" data-jp="目標 17.8 万">目標 17.8 萬</div>
+    </div>
+  </div>
+
+  <!-- 詳細テーブル -->
+  <div class="section-title" data-zh="Mirafeel 詳細數據" data-jp="Mirafeel 詳細データ">Mirafeel 詳細數據</div>
+  <div class="mf-detail-table">
+    <table>
+      <thead>
+        <tr>
+          <th data-zh="通路" data-jp="チャネル">通路</th>
+          <th class="r" data-zh="前日銷售額（萬）" data-jp="前日売上（万）">前日銷售額（萬）</th>
+          <th class="r" data-zh="月累計實績（萬）" data-jp="月累計実績（万）">月累計實績（萬）</th>
+          <th class="r" data-zh="月目標（萬）" data-jp="月目標（万）">月目標（萬）</th>
+          <th class="r" data-zh="差異（萬）" data-jp="差異（万）">差異（萬）</th>
+          <th class="r" data-zh="達成率" data-jp="達成率">達成率</th>
+          <th class="r" data-zh="時間進度達成率" data-jp="時間進度達成率">時間進度達成率</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>🛒 Shopline</td>
+          <td class="r">1.2</td>
+          <td class="r" style="color:var(--blue);font-weight:600">10.3</td>
+          <td class="r">8.0</td>
+          <td class="r" style="color:var(--blue)">＋2.3</td>
+          <td class="r"><span class="pill blue">128%</span></td>
+          <td class="r" style="color:var(--blue);font-family:var(--font-ui);font-weight:600">175.3%</td>
+        </tr>
+        <tr>
+          <td>📣 KOL</td>
+          <td class="r">—</td>
+          <td class="r" style="color:var(--blue);font-weight:600">8.9</td>
+          <td class="r">1.5</td>
+          <td class="r" style="color:var(--blue)">＋7.5</td>
+          <td class="r"><span class="pill blue">610%</span></td>
+          <td class="r" style="color:var(--blue);font-family:var(--font-ui);font-weight:600">835.6%</td>
+        </tr>
+        <tr>
+          <td>📦 CC（<span data-zh="直販" data-jp="直販">直販</span>）</td>
+          <td class="r">—</td>
+          <td class="r" style="color:var(--red);font-weight:600">2.4</td>
+          <td class="r">8.4</td>
+          <td class="r" style="color:var(--red)">▲6.0</td>
+          <td class="r"><span class="pill red">28%</span></td>
+          <td class="r" style="color:var(--red);font-family:var(--font-ui);font-weight:600">38.4%</td>
+        </tr>
+        <tr class="total">
+          <td>📊 <span data-zh="合計" data-jp="合計">合計</span></td>
+          <td class="r">1.2</td>
+          <td class="r" style="color:var(--blue)">21.6</td>
+          <td class="r">17.8</td>
+          <td class="r" style="color:var(--blue)">＋3.8</td>
+          <td class="r"><span class="pill blue">121%</span></td>
+          <td class="r" style="color:var(--blue);font-family:var(--font-ui);font-weight:600">165.8%</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- CCの注意アラート -->
+  <div style="background:var(--red-light);border:1px solid #fca5a5;border-radius:12px;padding:16px 20px;display:flex;gap:12px;align-items:flex-start;">
+    <span style="font-size:20px;flex-shrink:0">⚠️</span>
+    <div>
+      <div style="font-size:14px;font-weight:700;color:var(--red);margin-bottom:4px" data-zh="CC Mirafeel 嚴重落後（28%）" data-jp="CC Mirafeel 大幅未達（28%）">CC Mirafeel 嚴重落後（28%）</div>
+      <div style="font-size:13px;color:var(--text-secondary);line-height:1.7" data-zh="CC通路Mirafeel累計2.4萬，目標8.4萬，差異▲6.0萬。時間進度達成率僅38.4%，為所有通路×商品組合中最低。需立即確認原因。" data-jp="CCチャネルのMirafeel累計2.4万、目標8.4万、差異▲6.0万。時間進度達成率はわずか38.4%で全通路×商品の最低値。早急な原因確認が必要。">CC通路Mirafeel累計2.4萬，目標8.4萬，差異▲6.0萬。時間進度達成率僅38.4%，為所有通路×商品組合中最低。需立即確認原因。</div>
+    </div>
+  </div>
+
+</div><!-- /panel-mirafeel -->
 
 <!-- FOOTER -->
-<div class="footer">
-  <span data-zh="說明：① 周邊商品＝生活周邊＋學習周邊　② 目標：2025/9/16期中目標　③ 各平台銷收來源為原始報表・cube，最終月結以ERP銷收為主　④ 時間進度達成率＝累計達成率÷時間進度（73%）　⑤ 橫棒▏基準線代表時間進度73%　｜　數據截至 2026/3/23"
-        data-jp="備考：① 周辺商品＝生活周辺＋学習周辺　② 目標：2025/9/16期中目標　③ 各プラットフォーム売上は原始報表・cubeより取得、月締はERP売上を正とする　④ 時間進度達成率＝累計達成率÷時間進度（73%）　⑤ 棒グラフ▏基準線は時間進度73%　｜　データ集計日：2026/3/23">
-    說明：① 周邊商品＝生活周邊＋學習周邊　② 目標：2025/9/16期中目標　③ 各平台銷收來源為原始報表・cube，最終月結以ERP銷收為主　④ 時間進度達成率＝累計達成率÷時間進度（73%）　⑤ 橫棒▏基準線代表時間進度73%　｜　數據截至 2026/3/23
+<div class="footer" style="margin-top:24px;">
+  <span data-zh="說明：① 周邊商品＝生活周邊＋學習周邊　② 目標：2025/9/16期中目標　③ 各平台銷收來源為原始報表・cube，最終月結以ERP銷收為主　④ 時間進度達成率＝累計達成率÷時間進度（73%）　⑤ SKU達成率為套數基準（非金額）　｜　數據截至 2026/3/23"
+        data-jp="備考：① 周辺商品＝生活周辺＋学習周辺　② 目標：2025/9/16期中目標　③ 各プラットフォーム売上は原始報表・cubeより取得、月締はERP売上を正とする　④ 時間進度達成率＝累計達成率÷時間進度（73%）　⑤ SKU達成率は套数基準（金額ではない）　｜　データ集計日：2026/3/23">
+    說明：① 周邊商品＝生活周邊＋學習周邊　② 目標：2025/9/16期中目標　③ 各平台銷收來源為原始報表・cube，最終月結以ERP銷收為主　④ 時間進度達成率＝累計達成率÷時間進度（73%）　⑤ SKU達成率為套數基準（非金額）　｜　數據截至 2026/3/23
   </span>
 </div>
 
 <script>
-  function toggle(id) {
-    const sub = document.getElementById('sub-' + id);
-    const arr = document.getElementById('arr-' + id);
-    const isOpen = sub.classList.contains('open');
-    sub.classList.toggle('open', !isOpen);
-    arr.classList.toggle('open', !isOpen);
-    arr.textContent = isOpen ? '▶' : '▼';
-  }
-  // also remove unused channel-table CSS class references gracefully
-  function setLang(lang) {
-    document.getElementById('btn-zh').classList.toggle('active', lang === 'zh');
-    document.getElementById('btn-jp').classList.toggle('active', lang === 'jp');
-    document.body.classList.toggle('jp', lang === 'jp');
-    document.querySelectorAll('[data-zh][data-jp]').forEach(el => {
-      el.textContent = el.getAttribute('data-' + lang);
-    });
-  }
+function toggle(id) {
+  const sub = document.getElementById('sub-' + id);
+  const arr = document.getElementById('arr-' + id);
+  const isOpen = sub.classList.contains('open');
+  sub.classList.toggle('open', !isOpen);
+  arr.classList.toggle('open', !isOpen);
+  arr.textContent = isOpen ? '▶' : '▼';
+}
+
+function switchTab(name) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('panel-' + name).classList.add('active');
+  event.target.classList.add('active');
+}
+
+function setLang(lang) {
+  document.getElementById('btn-zh').classList.toggle('active', lang === 'zh');
+  document.getElementById('btn-jp').classList.toggle('active', lang === 'jp');
+  document.body.classList.toggle('jp', lang === 'jp');
+  document.querySelectorAll('[data-zh][data-jp]').forEach(el => {
+    el.textContent = el.getAttribute('data-' + lang);
+  });
+}
 </script>
 </body>
 </html>
