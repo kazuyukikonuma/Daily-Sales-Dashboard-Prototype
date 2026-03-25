@@ -369,10 +369,12 @@ body.jp{font-family:'Noto Sans JP',sans-serif;}
 /* ══ Analysis Panel ══ */
 .analysis-grid {
   display:grid;
-  grid-template-columns:1fr 1fr;
+  grid-template-columns:repeat(2, minmax(0, 560px));
   gap:16px;
+  justify-content:start;
 }
 .an-full { grid-column:1/-1; }
+.an-full .an-body > p { max-width:none; }
 .an-card {
   background:var(--surface); border:1px solid var(--border);
   border-radius:12px; padding:20px 22px;
@@ -394,7 +396,7 @@ body.jp{font-family:'Noto Sans JP',sans-serif;}
 .an-badge.bad  { background:var(--red-light); color:var(--red); }
 .an-body { display:flex; flex-direction:column; gap:10px; }
 .an-body > p {
-  font-size:13px; color:var(--text-secondary); line-height:1.75;
+  font-size:13px; color:var(--text-secondary); line-height:1.75; max-width:680px;
 }
 .an-item {
   border-left:3px solid var(--border);
@@ -413,6 +415,11 @@ body.jp{font-family:'Noto Sans JP',sans-serif;}
 .an-item.bad  .an-item-label { color:var(--red); }
 .an-item-text {
   font-size:12px; color:var(--text-secondary); line-height:1.65;
+}
+/* an-full は全幅 */
+.an-full {
+  grid-column: 1 / -1;
+  max-width: none;
 }
 
 /* ════════════════════════════════════
@@ -438,8 +445,8 @@ body.jp{font-family:'Noto Sans JP',sans-serif;}
 
   .daily-row { grid-template-columns:180px 1fr; }
 
-  .analysis-grid { grid-template-columns:1fr; }
-  .an-full { grid-column:1; }
+  .analysis-grid { grid-template-columns:1fr; justify-content:stretch; }
+  .an-full { grid-column:1; max-width:none; }
 
   .unified-kpi-card { flex-direction:column; gap:16px; }
   .ukpi-left { border-right:none; border-bottom:1px solid var(--border); padding-right:0; padding-bottom:16px; flex-direction:row; align-items:center; gap:20px; min-width:auto; }
