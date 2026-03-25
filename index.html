@@ -16,7 +16,8 @@
   --font-ui:'IBM Plex Sans','Noto Sans TC',sans-serif;
 }
 *{margin:0;padding:0;box-sizing:border-box;}
-body{background:var(--bg);color:var(--text-black);font-family:'Noto Sans TC',sans-serif;min-height:100vh;padding:28px 36px;font-size:15px;}
+body{background:var(--bg);color:var(--text-black);font-family:'Noto Sans TC',sans-serif;min-height:100vh;padding:20px 16px;font-size:15px;}
+.page-wrap{max-width:1200px;margin:0 auto;}
 body.jp{font-family:'Noto Sans JP',sans-serif;}
 .n{font-family:var(--font-ui);font-variant-numeric:tabular-nums;}
 .n-blue{color:var(--blue);} .n-red{color:var(--red);} .n-black{color:var(--text-black);}
@@ -413,10 +414,154 @@ body.jp{font-family:'Noto Sans JP',sans-serif;}
 .an-item-text {
   font-size:12px; color:var(--text-secondary); line-height:1.65;
 }
+
+/* ════════════════════════════════════
+   RESPONSIVE BREAKPOINTS
+════════════════════════════════════ */
+
+/* ── Tablet: 768〜1024px ── */
+@media (max-width:1024px) {
+  .header { flex-direction:column; gap:16px; }
+  .header-right { align-self:stretch; justify-content:flex-start; }
+
+  .kpi-top    { grid-template-columns:repeat(3,1fr); }
+  .kpi-bottom { grid-template-columns:repeat(2,1fr); }
+
+  .category-grid { grid-template-columns:repeat(3,1fr); }
+
+  .ch-grid-head,
+  .ch-parent,
+  .ch-sub-row,
+  .ch-total-row {
+    grid-template-columns: 140px 90px 90px 90px 70px 1fr;
+  }
+
+  .daily-row { grid-template-columns:180px 1fr; }
+
+  .analysis-grid { grid-template-columns:1fr; }
+  .an-full { grid-column:1; }
+
+  .unified-kpi-card { flex-direction:column; gap:16px; }
+  .ukpi-left { border-right:none; border-bottom:1px solid var(--border); padding-right:0; padding-bottom:16px; flex-direction:row; align-items:center; gap:20px; min-width:auto; }
+  .ukpi-rate { font-size:48px; }
+
+  .dtopic-row { grid-template-columns:110px 100px 1fr 40px; }
+}
+
+/* ── Smartphone: 〜767px ── */
+@media (max-width:767px) {
+  body { padding:12px; font-size:14px; }
+
+  /* Header */
+  .header { flex-direction:column; gap:12px; padding:16px; }
+  .header-left h2 { font-size:24px; }
+  .header-right { flex-direction:row; gap:8px; }
+  .time-badge { min-width:0; flex:1; padding:10px 12px; }
+  .time-badge .value { font-size:22px; }
+
+  /* Top bar */
+  .top-bar { margin-bottom:12px; }
+  .lang-btn button { padding:6px 12px; font-size:12px; }
+
+  /* Tabs: scroll horizontally */
+  .tabs {
+    padding:4px; gap:2px; overflow-x:auto;
+    flex-wrap:nowrap; -webkit-overflow-scrolling:touch;
+    scrollbar-width:none;
+  }
+  .tabs::-webkit-scrollbar { display:none; }
+  .tab-btn { padding:8px 12px; font-size:12px; white-space:nowrap; flex:0 0 auto; }
+
+  /* Section title */
+  .section-title { font-size:10px; margin-bottom:10px; }
+
+  /* Unified KPI card */
+  .unified-kpi-card { flex-direction:column; gap:12px; padding:16px; }
+  .ukpi-left {
+    border-right:none; border-bottom:1px solid var(--border);
+    padding-right:0; padding-bottom:12px;
+    flex-direction:row; align-items:center; gap:16px; min-width:auto;
+  }
+  .ukpi-rate { font-size:44px; }
+  .ukpi-rate-label { font-size:10px; }
+  .ukpi-num-val { font-size:20px; }
+  .ukpi-num-val.red { font-size:18px; }
+  .ukpi-rem-text { display:none; }
+
+  /* KPI cards */
+  .kpi-top    { grid-template-columns:1fr 1fr; }
+  .kpi-bottom { grid-template-columns:1fr 1fr; }
+  .kpi-value  { font-size:28px; }
+  .kpi-top .kpi-value { font-size:32px; }
+  .kpi-card   { padding:14px 16px; }
+
+  /* Daily row */
+  .daily-row { grid-template-columns:1fr; }
+  .daily-left { flex-direction:row; flex-wrap:wrap; gap:0; }
+  .daily-left-top { flex:1; }
+  .daily-divider { display:none; }
+  .daily-pace-block { flex:0 0 auto; min-width:140px; padding-left:16px; border-left:1px solid var(--border); }
+  .daily-main-val { font-size:28px; }
+  .daily-pace-val { font-size:22px; }
+  .dtopic-row { grid-template-columns:100px 90px 1fr 38px; gap:6px; }
+  .dtopic-name { font-size:11px; }
+  .dtopic-actual { font-size:13px; }
+
+  /* Category donuts: 2 columns */
+  .category-grid { grid-template-columns:repeat(2,1fr); gap:10px; }
+  .cat-card { padding:14px 12px; }
+  .donut-wrap { width:80px; height:80px; }
+  .donut-wrap svg { width:80px; height:80px; }
+  .donut-pct { font-size:16px; }
+
+  /* Channel grid: horizontal scroll */
+  .ch-grid { overflow-x:auto; -webkit-overflow-scrolling:touch; }
+  .ch-grid-head,
+  .ch-parent,
+  .ch-sub-row,
+  .ch-total-row {
+    grid-template-columns: 120px 80px 80px 80px 60px minmax(160px,1fr);
+    min-width:600px;
+  }
+  .ch-parent>div,
+  .ch-sub-row>div,
+  .ch-total-row>div { padding:10px 8px; font-size:12px; }
+  .ch-grid-head>div { padding:8px; font-size:10px; }
+
+  /* SKU tables: horizontal scroll */
+  .sku-table-wrap { overflow-x:auto; -webkit-overflow-scrolling:touch; }
+  .sku-table { min-width:640px; }
+  .sku-table th,
+  .sku-table td { padding:7px 8px; font-size:11px; }
+
+  /* Mirafeel cards */
+  .mf-grid { grid-template-columns:repeat(2,1fr); gap:10px; }
+  .mf-val { font-size:24px; }
+  .mf-rate { font-size:16px; }
+
+  /* Analysis */
+  .analysis-grid { grid-template-columns:1fr; gap:12px; }
+  .an-full { grid-column:1; }
+  .an-card { padding:14px 16px; }
+  .an-title { font-size:13px; }
+
+  /* Footer */
+  .footer { font-size:10px; }
+}
+
+/* ── Small phone: 〜374px ── */
+@media (max-width:374px) {
+  .kpi-top    { grid-template-columns:1fr; }
+  .category-grid { grid-template-columns:1fr 1fr; }
+  .mf-grid    { grid-template-columns:1fr 1fr; }
+  .daily-pace-block { display:none; }
+}
 </style>
 </head>
 <body>
 
+<!-- PAGE WRAP START -->
+<div class="page-wrap">
 <!-- TOP BAR -->
 <div class="top-bar">
   <div><!-- spacer --></div>
@@ -1253,5 +1398,6 @@ function setLang(lang) {
   });
 }
 </script>
+</div><!-- /page-wrap -->
 </body>
 </html>
