@@ -215,6 +215,204 @@ body.jp{font-family:'Noto Sans JP',sans-serif;}
 .cat-card:nth-child(3){animation-delay:.18s}
 .cat-card:nth-child(4){animation-delay:.22s}
 .cat-card:nth-child(5){animation-delay:.26s}
+/* ══ Unified KPI Card ══ */
+.unified-kpi-card {
+  background:var(--surface); border:1px solid var(--border);
+  border-radius:14px; padding:24px 28px;
+  box-shadow:var(--shadow-sm);
+  display:flex; gap:32px; align-items:stretch;
+  position:relative; overflow:hidden;
+}
+.unified-kpi-card::before {
+  content:''; position:absolute; top:0; left:0; bottom:0; width:4px;
+  background:var(--blue); border-radius:14px 0 0 14px;
+}
+.ukpi-left {
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  min-width:140px; padding-right:28px;
+  border-right:1px solid var(--border);
+}
+.ukpi-rate-label {
+  font-size:11px; font-weight:600; color:var(--text-dim);
+  letter-spacing:.08em; text-align:center; margin-bottom:8px; line-height:1.4;
+}
+.ukpi-rate {
+  font-family:var(--font-ui); font-size:64px; font-weight:700;
+  color:var(--blue); line-height:1; margin-bottom:6px;
+}
+.ukpi-date { font-size:11px; color:var(--text-dim); font-family:var(--font-ui); }
+.ukpi-right { flex:1; display:flex; flex-direction:column; gap:16px; justify-content:center; }
+.ukpi-nums { display:flex; align-items:baseline; gap:16px; }
+.ukpi-num-block { display:flex; flex-direction:column; gap:3px; }
+.ukpi-diff-block { display:flex; flex-direction:column; gap:3px; margin-left:auto; }
+.ukpi-num-label { font-size:10px; font-weight:600; color:var(--text-dim); letter-spacing:.08em; text-transform:uppercase; }
+.ukpi-num-val { font-family:var(--font-ui); font-size:28px; font-weight:700; line-height:1; }
+.ukpi-num-val.blue { color:var(--blue); }
+.ukpi-num-val.black { color:var(--text-black); }
+.ukpi-num-val.red { color:var(--red); }
+.ukpi-unit { font-size:13px; font-weight:400; color:var(--text-dim); margin-left:3px; }
+.ukpi-num-divider { font-size:28px; color:var(--border-strong); font-weight:300; align-self:center; margin-top:14px; }
+.ukpi-bar-area { display:flex; flex-direction:column; gap:5px; }
+.ukpi-bar-track {
+  height:22px; background:var(--red-light);
+  border:1px solid #fecaca; border-radius:6px;
+  overflow:visible; position:relative;
+}
+.ukpi-bar-actual {
+  height:100%; background:var(--blue); border-radius:5px;
+  position:relative; transition:width .8s ease;
+}
+.ukpi-time-marker {
+  position:absolute; top:-6px; bottom:0;
+  display:flex; flex-direction:column; align-items:center;
+  pointer-events:none;
+}
+.ukpi-time-marker-line {
+  width:2px; height:34px; background:var(--text-black); border-radius:1px; opacity:.45;
+}
+.ukpi-time-marker-label {
+  font-size:9px; font-weight:700; color:var(--text-secondary);
+  white-space:nowrap; margin-top:3px;
+  background:var(--surface); padding:2px 5px;
+  border-radius:3px; border:1px solid var(--border);
+}
+.ukpi-bar-labels { display:flex; justify-content:space-between; align-items:center; }
+.ukpi-bar-label-left { font-family:var(--font-ui); font-size:12px; font-weight:600; }
+.ukpi-bar-label-left.blue { color:var(--blue); }
+.ukpi-bar-label-right { font-family:var(--font-ui); font-size:12px; font-weight:600; }
+.ukpi-bar-label-right.red { color:var(--red); }
+.ukpi-remaining { display:flex; align-items:center; gap:10px; }
+.ukpi-rem-badge {
+  background:var(--surface2); border:1px solid var(--border);
+  border-radius:20px; padding:4px 12px;
+  font-family:var(--font-ui); font-size:12px; font-weight:700;
+  color:var(--text-secondary); white-space:nowrap;
+}
+.ukpi-rem-text { font-size:12px; color:var(--text-secondary); }
+/* ══ Daily Performance Row ══ */
+.daily-row {
+  display:grid; grid-template-columns:200px 1fr;
+  gap:14px; margin-bottom:28px;
+}
+/* 左列 */
+.daily-left {
+  background:var(--surface); border:1px solid var(--border);
+  border-radius:12px; padding:20px 18px;
+  box-shadow:var(--shadow-sm);
+  display:flex; flex-direction:column; gap:0;
+}
+.daily-left-top { display:flex; flex-direction:column; gap:4px; }
+.daily-main-label { font-size:11px; font-weight:600; color:var(--text-dim); letter-spacing:.08em; text-transform:uppercase; margin-bottom:4px; }
+.daily-main-val { font-family:var(--font-ui); font-size:40px; font-weight:700; color:var(--text-black); line-height:1; }
+.daily-main-unit { font-size:14px; font-weight:400; color:var(--text-dim); margin-left:4px; }
+.daily-main-sub { font-size:11px; color:var(--text-dim); margin-top:4px; }
+.daily-divider { height:1px; background:var(--border); margin:14px 0; }
+.daily-pace-block { display:flex; flex-direction:column; gap:3px; }
+.daily-pace-label { font-size:11px; font-weight:600; color:var(--text-dim); letter-spacing:.08em; text-transform:uppercase; }
+.daily-pace-val { font-family:var(--font-ui); font-size:28px; font-weight:700; color:var(--blue); line-height:1.1; }
+.daily-pace-sub { font-size:11px; color:var(--text-dim); }
+/* 右列 */
+.daily-right {
+  background:var(--surface); border:1px solid var(--border);
+  border-radius:12px; padding:18px 20px;
+  box-shadow:var(--shadow-sm);
+}
+.daily-topics-title { font-size:12px; font-weight:700; color:var(--text-secondary); margin-bottom:12px; }
+.daily-group-label {
+  font-size:10px; font-weight:700; color:var(--text-dim);
+  letter-spacing:.12em; text-transform:uppercase;
+  margin-bottom:6px; padding-bottom:4px;
+  border-bottom:1px solid var(--border);
+}
+.daily-topics-grid { display:flex; flex-direction:column; gap:5px; }
+/* トピック行 */
+.dtopic-row {
+  display:grid;
+  grid-template-columns:130px 110px 1fr 44px;
+  align-items:center; gap:8px;
+  padding:5px 6px; border-radius:6px;
+  transition:background .12s;
+}
+.dtopic-row:hover { background:var(--surface2); }
+.dtopic-name { font-size:12px; font-weight:600; color:var(--text-primary); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.dtopic-nums { display:flex; align-items:baseline; gap:3px; }
+.dtopic-actual { font-family:var(--font-ui); font-size:14px; font-weight:700; }
+.dtopic-actual.blue { color:var(--blue); }
+.dtopic-sep { font-size:12px; color:var(--text-dim); }
+.dtopic-target { font-family:var(--font-ui); font-size:13px; color:var(--text-secondary); }
+.dtopic-unit { font-size:10px; color:var(--text-dim); margin-left:1px; }
+.dtopic-bar-wrap { }
+.dtopic-bar-track { height:6px; background:var(--border); border-radius:3px; overflow:hidden; }
+.dtopic-bar-fill { height:100%; border-radius:3px; }
+.dtopic-rate { font-family:var(--font-ui); font-size:12px; font-weight:700; text-align:right; }
+.dtopic-rate.over { color:var(--blue); }
+.dtopic-rate.near { color:var(--warn,#b45309); }
+.dtopic-rate.low  { color:var(--red); }
+/* ══ SKU v2: SKU縦 × チャネル横 ══ */
+.sku-v2 .sku-col-sku { min-width:100px; }
+.sku-v2 .sku-name {
+  font-size:13px; font-weight:700; color:var(--text-black);
+  border-right:2px solid var(--border);
+  vertical-align:middle !important;
+}
+.sku-act-row td { background:var(--surface); border-bottom:none !important; padding:8px 10px; }
+.sku-tgt-row td { background:var(--surface2); border-bottom:1px solid var(--border) !important; padding:5px 10px; font-size:11px; }
+.blue-val { font-family:var(--font-ui); font-size:13px; font-weight:600; color:var(--blue); text-align:center; }
+.dim-val  { font-family:var(--font-ui); font-size:11px; color:var(--text-dim); text-align:center; }
+.total-val { font-weight:700 !important; }
+.total-act-row td { background:var(--blue-light) !important; }
+.total-tgt-row td { background:#dbeafe !important; }
+.fw { font-weight:700; }
+.sku-v2 td { vertical-align:middle; }
+.sku-v2 thead th { font-size:11px; }
+/* ══ Analysis Panel ══ */
+.analysis-grid {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:16px;
+}
+.an-full { grid-column:1/-1; }
+.an-card {
+  background:var(--surface); border:1px solid var(--border);
+  border-radius:12px; padding:20px 22px;
+  box-shadow:var(--shadow-sm);
+}
+.an-card-header {
+  display:flex; align-items:center; gap:10px;
+  margin-bottom:14px; padding-bottom:10px;
+  border-bottom:1px solid var(--border);
+}
+.an-icon { font-size:18px; flex-shrink:0; }
+.an-title { font-size:14px; font-weight:700; color:var(--text-black); flex:1; }
+.an-badge {
+  font-family:var(--font-ui); font-size:11px; font-weight:700;
+  padding:3px 10px; border-radius:20px;
+}
+.an-badge.good { background:var(--blue-light); color:var(--blue); }
+.an-badge.warn { background:var(--accent-yellow-light,#fffbeb); color:#b45309; }
+.an-badge.bad  { background:var(--red-light); color:var(--red); }
+.an-body { display:flex; flex-direction:column; gap:10px; }
+.an-body > p {
+  font-size:13px; color:var(--text-secondary); line-height:1.75;
+}
+.an-item {
+  border-left:3px solid var(--border);
+  padding:8px 12px; border-radius:0 6px 6px 0;
+  background:var(--surface2);
+}
+.an-item.good { border-left-color:var(--blue); background:var(--blue-light); }
+.an-item.warn { border-left-color:#d97706; background:#fffbeb; }
+.an-item.bad  { border-left-color:var(--red); background:var(--red-light); }
+.an-item-label {
+  font-size:12px; font-weight:700; margin-bottom:4px;
+  color:var(--text-black);
+}
+.an-item.good .an-item-label { color:var(--blue); }
+.an-item.warn .an-item-label { color:#b45309; }
+.an-item.bad  .an-item-label { color:var(--red); }
+.an-item-text {
+  font-size:12px; color:var(--text-secondary); line-height:1.65;
+}
 </style>
 </head>
 <body>
@@ -256,8 +454,9 @@ body.jp{font-family:'Noto Sans JP',sans-serif;}
 <!-- TABS -->
 <div class="tabs">
   <button class="tab-btn active" onclick="switchTab('summary')" data-zh="① 整體摘要" data-jp="① サマリー">① 整體摘要</button>
-  <button class="tab-btn" onclick="switchTab('sku')" data-zh="② SKU 詳細" data-jp="② SKU 詳細">② SKU 詳細</button>
+  <button class="tab-btn" onclick="switchTab('sku')" data-zh="② 學習商品（SKU×通路）" data-jp="② 学習商品（SKU×チャネル）">② 學習商品（SKU×通路）</button>
   <button class="tab-btn" onclick="switchTab('mirafeel')" data-zh="③ Mirafeel" data-jp="③ Mirafeel">③ Mirafeel</button>
+  <button class="tab-btn" onclick="switchTab('analysis')" data-zh="④ 分析" data-jp="④ 分析">④ 分析</button>
 </div>
 
 <!-- ════════════════════════════════════
@@ -266,51 +465,186 @@ body.jp{font-family:'Noto Sans JP',sans-serif;}
 <div id="panel-summary" class="tab-panel active">
 
   <div class="section-title" data-zh="整體績效 KPI" data-jp="全体績効 KPI">整體績效 KPI</div>
-  <div class="kpi-top">
-    <div class="kpi-card acc">
-      <div class="kpi-label" data-zh="累計至前日銷售額" data-jp="前日までの累計売上">累計至前日銷售額</div>
-      <div class="kpi-value n n-blue">1,056.9</div>
-      <div class="kpi-sub" data-zh="萬元" data-jp="万元">萬元</div>
-      <div class="kpi-progress">
-        <div class="kpi-progress-track"><div class="kpi-progress-fill" style="width:95.2%"></div></div>
-        <div class="kpi-progress-label">
-          <span class="done">1,015.3 <span data-zh="（已達95%）" data-jp="（達成95%）">（已達95%）</span></span>
-          <span class="remain">▲53.1 <span data-zh="未達" data-jp="未達">未達</span></span>
+
+  <!-- ── 統合達成カード ── -->
+  <div class="unified-kpi-card" style="margin-bottom:14px;">
+    <!-- 左: 達成率大表示 -->
+    <div class="ukpi-left">
+      <div class="ukpi-rate-label" data-zh="累計實績對目標達成率" data-jp="累計実績対目標達成率">累計實績對目標達成率</div>
+      <div class="ukpi-rate">95%</div>
+      <div class="ukpi-date" data-zh="截至 2026/3/24" data-jp="2026/3/24 時点">截至 2026/3/24</div>
+    </div>
+    <!-- 右: グラフ+数字 -->
+    <div class="ukpi-right">
+      <!-- 数値行 -->
+      <div class="ukpi-nums">
+        <div class="ukpi-num-block">
+          <div class="ukpi-num-label" data-zh="累計實績" data-jp="累計実績">累計實績</div>
+          <div class="ukpi-num-val blue">1,056.9<span class="ukpi-unit" data-zh="萬元" data-jp="万元">萬元</span></div>
+        </div>
+        <div class="ukpi-num-divider">/</div>
+        <div class="ukpi-num-block">
+          <div class="ukpi-num-label" data-zh="月目標" data-jp="月目標">月目標</div>
+          <div class="ukpi-num-val black">1,110.0<span class="ukpi-unit" data-zh="萬元" data-jp="万元">萬元</span></div>
+        </div>
+        <div class="ukpi-diff-block">
+          <div class="ukpi-num-label" data-zh="差異" data-jp="差異">差異</div>
+          <div class="ukpi-num-val red">▲53.1<span class="ukpi-unit" data-zh="萬元" data-jp="万元">萬元</span></div>
         </div>
       </div>
-    </div>
-    <div class="kpi-card tgt">
-      <div class="kpi-label" data-zh="目標" data-jp="目標">目標</div>
-      <div class="kpi-value n n-black">1,110.0</div>
-      <div class="kpi-sub" data-zh="萬元（2025/9/16 期中目標）" data-jp="万元（2025/9/16 期中目標）">萬元（2025/9/16 期中目標）</div>
-    </div>
-    <div class="kpi-card diff">
-      <div class="kpi-label" data-zh="累計目標差異" data-jp="累計目標差異">累計目標差異</div>
-      <div class="kpi-value n n-red">▲53.1</div>
-      <div class="kpi-sub n-red" style="font-weight:600" data-zh="不足 53.1 萬元" data-jp="53.1万元 未達">不足 53.1 萬元</div>
+      <!-- メインバー -->
+      <div class="ukpi-bar-area">
+        <div class="ukpi-bar-track">
+          <!-- 実績バー（青） -->
+          <div class="ukpi-bar-actual" style="width:95.2%"></div>
+          <!-- 時間進度マーカー（77%） -->
+          <div class="ukpi-time-marker" style="left:77%">
+            <div class="ukpi-time-marker-line"></div>
+            <div class="ukpi-time-marker-label" data-zh="時間進度77%" data-jp="時間進度77%">時間進度77%</div>
+          </div>
+        </div>
+        <div class="ukpi-bar-labels">
+          <span class="ukpi-bar-label-left blue" data-zh="實績 95.2%" data-jp="実績 95.2%">實績 95.2%</span>
+          <span class="ukpi-bar-label-right red" data-zh="▲4.8% 未達" data-jp="▲4.8% 未達">▲4.8% 未達</span>
+        </div>
+      </div>
+      <!-- 残り日数インジケーター -->
+      <div class="ukpi-remaining">
+        <span class="ukpi-rem-badge" data-zh="剩餘 5 工作天" data-jp="残 5 営業日">剩餘 5 工作天</span>
+        <span class="ukpi-rem-text" data-zh="每日需達 10.6 萬元 可完成目標" data-jp="1日あたり10.6万元で目標達成">每日需達 10.6 萬元 可完成目標</span>
+      </div>
     </div>
   </div>
-  <div class="kpi-bottom">
-    <div class="kpi-card yday">
-      <div class="kpi-label" data-zh="前日銷售額" data-jp="前日売上">前日銷售額</div>
-      <div class="kpi-value n n-black">44.4</div>
-      <div class="kpi-sub" data-zh="萬元　目標均值 50.5 萬" data-jp="万元　目標平均値 50.5 万">萬元　目標均值 50.5 萬</div>
+  <!-- ② 前日トピックス 2列レイアウト -->
+  <div class="daily-row">
+
+    <!-- 左列: 前日合計 + 時間進度達成率 -->
+    <div class="daily-left">
+      <div class="daily-left-top">
+        <div class="daily-main-label" data-zh="前日銷售額" data-jp="前日売上">前日銷售額</div>
+        <div class="daily-main-val">44.4<span class="daily-main-unit" data-zh="萬元" data-jp="万元">萬元</span></div>
+        <div class="daily-main-sub" data-zh="目標均值 50.5 萬元 / 日" data-jp="目標日均 50.5 万元">目標均值 50.5 萬元 / 日</div>
+      </div>
+      <div class="daily-divider"></div>
+      <div class="daily-pace-block">
+        <div class="daily-pace-label" data-zh="時間進度達成率" data-jp="時間進度達成率">時間進度達成率</div>
+        <div class="daily-pace-val">123.4%</div>
+        <div class="daily-pace-sub" data-zh="達成率 95% ÷ 時間進度 77%" data-jp="95% ÷ 77%">達成率 95% ÷ 時間進度 77%</div>
+        <div class="pace-chip over" style="margin-top:8px" data-zh="▲ 超前進行中" data-jp="▲ ペース超過中">▲ 超前進行中</div>
+      </div>
     </div>
-    <div class="kpi-card rate">
-      <div class="kpi-label" data-zh="累計實績對目標達成率" data-jp="累計実績対目標達成率">累計實績對目標達成率</div>
-      <div class="kpi-value n n-blue">95%</div>
-      <div class="kpi-sub" data-zh="實績 1,056.9 ÷ 目標 1,110.0" data-jp="実績 1,056.9 ÷ 目標 1,110.0">實績 1,056.9 ÷ 目標 1,110.0</div>
-    </div>
-    <div class="kpi-card time">
-      <div class="kpi-label" data-zh="時間進度" data-jp="時間進捗">時間進度</div>
-      <div class="kpi-value n n-black">77%</div>
-      <div class="kpi-sub" data-zh="17 ÷ 22 工作天" data-jp="17 ÷ 22 営業日">17 ÷ 22 工作天</div>
-    </div>
-    <div class="kpi-card pace">
-      <div class="kpi-label" data-zh="時間進度達成率" data-jp="時間進度達成率">時間進度達成率</div>
-      <div class="kpi-value n n-blue">123.4%</div>
-      <div class="kpi-sub" data-zh="達成率 95% ÷ 時間進度 77%" data-jp="達成率 95% ÷ 時間進度 77%">達成率 95% ÷ 時間進度 77%</div>
-      <div class="pace-chip over" data-zh="▲ 超前進行中" data-jp="▲ ペース超過中">▲ 超前進行中</div>
+
+    <!-- 右列: 前日実績トピックス -->
+    <div class="daily-right">
+      <div class="daily-topics-title" data-zh="前日業績明細（2026/3/24）" data-jp="前日実績明細（2026/3/24）">前日業績明細（2026/3/24）</div>
+
+      <!-- 商品別 -->
+      <div class="daily-group-label" data-zh="商品類別" data-jp="商品カテゴリ">商品類別</div>
+      <div class="daily-topics-grid">
+        <!-- 學習商品 -->
+        <div class="dtopic-row">
+          <div class="dtopic-name" data-zh="📚 學習商品" data-jp="📚 学習商品">📚 學習商品</div>
+          <div class="dtopic-nums">
+            <span class="dtopic-actual blue">40.3</span>
+            <span class="dtopic-sep">/</span>
+            <span class="dtopic-target">47.1</span>
+            <span class="dtopic-unit" data-zh="萬" data-jp="万">萬</span>
+          </div>
+          <div class="dtopic-bar-wrap">
+            <div class="dtopic-bar-track"><div class="dtopic-bar-fill" style="width:85.6%;background:var(--blue-mid)"></div></div>
+          </div>
+          <div class="dtopic-rate near">86%</div>
+        </div>
+        <!-- 周邊商品 -->
+        <div class="dtopic-row">
+          <div class="dtopic-name" data-zh="🛍 周邊商品" data-jp="🛍 周辺商品">🛍 周邊商品</div>
+          <div class="dtopic-nums">
+            <span class="dtopic-actual blue">3.0</span>
+            <span class="dtopic-sep">/</span>
+            <span class="dtopic-target">2.5</span>
+            <span class="dtopic-unit" data-zh="萬" data-jp="万">萬</span>
+          </div>
+          <div class="dtopic-bar-wrap">
+            <div class="dtopic-bar-track"><div class="dtopic-bar-fill" style="width:100%;background:var(--blue)"></div></div>
+          </div>
+          <div class="dtopic-rate over">120%</div>
+        </div>
+        <!-- Mirafeel -->
+        <div class="dtopic-row">
+          <div class="dtopic-name">✨ Mirafeel</div>
+          <div class="dtopic-nums">
+            <span class="dtopic-actual blue">1.1</span>
+            <span class="dtopic-sep">/</span>
+            <span class="dtopic-target">0.8</span>
+            <span class="dtopic-unit" data-zh="萬" data-jp="万">萬</span>
+          </div>
+          <div class="dtopic-bar-wrap">
+            <div class="dtopic-bar-track"><div class="dtopic-bar-fill" style="width:100%;background:var(--blue)"></div></div>
+          </div>
+          <div class="dtopic-rate over">138%</div>
+        </div>
+      </div>
+
+      <!-- 通路別 -->
+      <div class="daily-group-label" style="margin-top:10px" data-zh="通路別" data-jp="チャネル別">通路別</div>
+      <div class="daily-topics-grid">
+        <!-- Shopline -->
+        <div class="dtopic-row">
+          <div class="dtopic-name">🛒 Shopline</div>
+          <div class="dtopic-nums">
+            <span class="dtopic-actual blue">20.3</span>
+            <span class="dtopic-sep">/</span>
+            <span class="dtopic-target">15.5</span>
+            <span class="dtopic-unit" data-zh="萬" data-jp="万">萬</span>
+          </div>
+          <div class="dtopic-bar-wrap">
+            <div class="dtopic-bar-track"><div class="dtopic-bar-fill" style="width:100%;background:var(--blue)"></div></div>
+          </div>
+          <div class="dtopic-rate over">131%</div>
+        </div>
+        <!-- KOL -->
+        <div class="dtopic-row">
+          <div class="dtopic-name">📣 KOL</div>
+          <div class="dtopic-nums">
+            <span class="dtopic-actual blue">4.7</span>
+            <span class="dtopic-sep">/</span>
+            <span class="dtopic-target">19.9</span>
+            <span class="dtopic-unit" data-zh="萬" data-jp="万">萬</span>
+          </div>
+          <div class="dtopic-bar-wrap">
+            <div class="dtopic-bar-track"><div class="dtopic-bar-fill" style="width:23.6%;background:var(--red-mid)"></div></div>
+          </div>
+          <div class="dtopic-rate low">24%</div>
+        </div>
+        <!-- 蝦皮 -->
+        <div class="dtopic-row">
+          <div class="dtopic-name" data-zh="🦐 蝦皮" data-jp="🦐 蝦皮">🦐 蝦皮</div>
+          <div class="dtopic-nums">
+            <span class="dtopic-actual blue">2.9</span>
+            <span class="dtopic-sep">/</span>
+            <span class="dtopic-target">5.0</span>
+            <span class="dtopic-unit" data-zh="萬" data-jp="万">萬</span>
+          </div>
+          <div class="dtopic-bar-wrap">
+            <div class="dtopic-bar-track"><div class="dtopic-bar-fill" style="width:58%;background:var(--red-mid)"></div></div>
+          </div>
+          <div class="dtopic-rate low">58%</div>
+        </div>
+        <!-- CC -->
+        <div class="dtopic-row">
+          <div class="dtopic-name" data-zh="📦 CC（直販）" data-jp="📦 CC（直販）">📦 CC（直販）</div>
+          <div class="dtopic-nums">
+            <span class="dtopic-actual blue">16.6</span>
+            <span class="dtopic-sep">/</span>
+            <span class="dtopic-target">9.4</span>
+            <span class="dtopic-unit" data-zh="萬" data-jp="万">萬</span>
+          </div>
+          <div class="dtopic-bar-wrap">
+            <div class="dtopic-bar-track"><div class="dtopic-bar-fill" style="width:100%;background:var(--blue)"></div></div>
+          </div>
+          <div class="dtopic-rate over">177%</div>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -459,117 +793,181 @@ body.jp{font-family:'Noto Sans JP',sans-serif;}
 ════════════════════════════════════ -->
 <div id="panel-sku" class="tab-panel">
 
-  <!-- SKU 達成率 ヒートマップ -->
-  <div class="section-title" data-zh="學習商品 SKU×通路 套數達成率（月累計）" data-jp="学習商品 SKU×チャネル 套数達成率（月累計）">學習商品 SKU×通路 套數達成率（月累計）</div>
-  <div class="sku-table-wrap" style="margin-bottom:24px;">
-    <table class="sku-table">
-      <thead>
-        <tr>
-          <th class="left" data-zh="通路" data-jp="チャネル">通路</th>
-          <th data-zh="初階" data-jp="初階">初階</th>
-          <th data-zh="進階" data-jp="進階">進階</th>
-          <th data-zh="注音" data-jp="注音">注音</th>
-          <th data-zh="EQ" data-jp="EQ">EQ</th>
-          <th data-zh="寶生活" data-jp="寶生活">寶生活</th>
-          <th data-zh="閱讀套組" data-jp="閱讀套組">閱讀套組</th>
-          <th data-zh="寶貸智育" data-jp="寶貸智育">寶貸智育</th>
-          <th data-zh="點讀圖鑑" data-jp="點讀圖鑑">點讀圖鑑</th>
-          <th data-zh="聰明左右腦" data-jp="聰明左右腦">聰明左右腦</th>
-          <th data-zh="數學套組" data-jp="數學套組">數學套組</th>
-          <th data-zh="合計" data-jp="合計">合計</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td class="left">Shopline-WEB</td>
-          <td><span class="hm hm-2">43%</span></td><td><span class="hm hm-3">55%</span></td><td><span class="hm hm-3">62%</span></td><td><span class="hm hm-2">48%</span></td><td><span class="hm hm-2">35%</span></td><td><span class="hm hm-1">9%</span></td><td><span class="hm hm-3">74%</span></td><td><span class="hm hm-5">655%</span></td><td><span class="hm hm-4">106%</span></td><td><span class="hm hm-4">107%</span></td><td><span class="hm hm-3">93%</span></td>
-        </tr>
-        <tr>
-          <td class="left" data-zh="蝦皮商城" data-jp="蝦皮商城">蝦皮商城</td>
-          <td><span class="hm hm-2">39%</span></td><td><span class="hm hm-3">67%</span></td><td><span class="hm hm-3">64%</span></td><td><span class="hm hm-2">32%</span></td><td><span class="hm hm-2">30%</span></td><td><span class="hm hm-1">20%</span></td><td><span class="hm hm-5">950%</span></td><td><span class="hm hm-2">41%</span></td><td><span class="hm hm-2">53%</span></td><td><span class="hm hm-dash">—</span></td><td><span class="hm hm-2">68%</span></td>
-        </tr>
-        <tr>
-          <td class="left">KOL</td>
-          <td><span class="hm hm-5">108%</span></td><td><span class="hm hm-3">80%</span></td><td><span class="hm hm-4">102%</span></td><td><span class="hm hm-3">86%</span></td><td><span class="hm hm-3">80%</span></td><td><span class="hm hm-3">60%</span></td><td><span class="hm hm-3">77%</span></td><td><span class="hm hm-5">264%</span></td><td><span class="hm hm-3">68%</span></td><td><span class="hm hm-5">135%</span></td><td><span class="hm hm-4">105%</span></td>
-        </tr>
-        <tr>
-          <td class="left" data-zh="經代銷" data-jp="代理販売">經代銷</td>
-          <td><span class="hm hm-dash">—</span></td><td><span class="hm hm-dash">—</span></td><td><span class="hm hm-dash">—</span></td><td><span class="hm hm-dash">—</span></td><td><span class="hm hm-dash">—</span></td><td><span class="hm hm-dash">—</span></td><td><span class="hm hm-dash">—</span></td><td><span class="hm hm-dash">—</span></td><td><span class="hm hm-dash">—</span></td><td><span class="hm hm-dash">—</span></td><td><span class="hm hm-0">0%</span></td>
-        </tr>
-        <tr>
-          <td class="left">CC</td>
-          <td><span class="hm hm-3">57%</span></td><td><span class="hm hm-3">77%</span></td><td><span class="hm hm-5">133%</span></td><td><span class="hm hm-1">25%</span></td><td><span class="hm hm-3">93%</span></td><td><span class="hm hm-3">56%</span></td><td><span class="hm hm-3">72%</span></td><td><span class="hm hm-5">122%</span></td><td><span class="hm hm-5">206%</span></td><td><span class="hm hm-5">524%</span></td><td><span class="hm hm-5">120%</span></td>
-        </tr>
-        <tr class="total-row">
-          <td class="left" data-zh="合計" data-jp="合計">合計</td>
-          <td><span class="hm hm-3">67%</span></td><td><span class="hm hm-3">72%</span></td><td><span class="hm hm-3">92%</span></td><td><span class="hm hm-2">46%</span></td><td><span class="hm hm-3">61%</span></td><td><span class="hm hm-1">25%</span></td><td><span class="hm hm-3">70%</span></td><td><span class="hm hm-5">293%</span></td><td><span class="hm hm-3">93%</span></td><td><span class="hm hm-5">138%</span></td><td><span class="hm hm-4">99%</span></td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+<!-- 共通ヘッダ凡例 -->
+<div style="display:flex;align-items:center;gap:16px;margin-bottom:16px;font-size:11px;color:var(--text-dim);">
+  <span>縱軸：SKU　横軸：通路</span>
+  <span style="display:flex;align-items:center;gap:4px;"><span style="width:10px;height:10px;background:var(--blue);border-radius:2px;display:inline-block"></span><span data-zh="實績" data-jp="実績">實績</span></span>
+  <span style="display:flex;align-items:center;gap:4px;"><span style="width:10px;height:10px;background:var(--border-strong);border-radius:2px;display:inline-block"></span><span data-zh="目標" data-jp="目標">目標</span></span>
+</div>
 
-  <!-- SKU 前日套數 ヒートマップ -->
-  <div class="section-title" data-zh="學習商品 SKU×通路 前日套數實績" data-jp="学習商品 SKU×チャネル 前日套数実績">學習商品 SKU×通路 前日套數實績</div>
-  <div class="sku-table-wrap" style="margin-bottom:24px;">
-    <table class="sku-table">
-      <thead>
-        <tr>
-          <th class="left" data-zh="通路" data-jp="チャネル">通路</th>
-          <th data-zh="初階" data-jp="初階">初階</th><th data-zh="進階" data-jp="進階">進階</th><th data-zh="注音" data-jp="注音">注音</th><th data-zh="EQ" data-jp="EQ">EQ</th><th data-zh="寶生活" data-jp="寶生活">寶生活</th><th data-zh="閱讀套組" data-jp="閱讀套組">閱讀套組</th><th data-zh="寶貸智育" data-jp="寶貸智育">寶貸智育</th><th data-zh="點讀圖鑑" data-jp="點讀圖鑑">點讀圖鑑</th><th data-zh="聰明左右腦" data-jp="聰明左右腦">聰明左右腦</th><th data-zh="數學套組" data-jp="數學套組">數學套組</th><th data-zh="合計" data-jp="合計">合計</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr><td class="left">Shopline-WEB</td><td>5</td><td>4</td><td>3</td><td>4</td><td>1</td><td>—</td><td>2</td><td>—</td><td>7</td><td>12</td><td><b>17</b></td></tr>
-        <tr><td class="left" data-zh="蝦皮商城" data-jp="蝦皮商城">蝦皮商城</td><td>1</td><td>—</td><td>—</td><td>1</td><td>2</td><td>—</td><td>—</td><td>7</td><td>2</td><td>3</td><td><b>16</b></td></tr>
-        <tr><td class="left">KOL</td><td>—</td><td>1</td><td>1</td><td>—</td><td>—</td><td>—</td><td>1</td><td>2</td><td>6</td><td>4</td><td><b>15</b></td></tr>
-        <tr><td class="left" data-zh="經代銷" data-jp="代理販売">經代銷</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td><b>—</b></td></tr>
-        <tr><td class="left">CC</td><td>6</td><td>3</td><td>3</td><td>6</td><td>3</td><td>—</td><td>2</td><td>3</td><td>11</td><td>12</td><td><b>49</b></td></tr>
-        <tr class="total-row"><td class="left" data-zh="合計" data-jp="合計">合計</td><td>12</td><td>8</td><td>7</td><td>11</td><td>6</td><td>—</td><td>5</td><td>19</td><td>31</td><td>36</td><td><b>135</b></td></tr>
-      </tbody>
-    </table>
-  </div>
+<!-- ① 月次累計金額 実績/目標（万元） -->
+<div class="section-title" data-zh="① 月次累計金額（萬元）　實績 / 目標" data-jp="① 月次累計金額（万元）　実績 / 目標">① 月次累計金額（萬元）　實績 / 目標</div>
+<div class="sku-table-wrap" style="margin-bottom:20px;">
+  <table class="sku-table sku-v2">
+    <thead><tr>
+      <th class="left sku-col-sku" data-zh="SKU" data-jp="SKU">SKU</th>
+      <th data-zh="Shopline" data-jp="Shopline">Shopline</th>
+      <th data-zh="KOL" data-jp="KOL">KOL</th>
+      <th data-zh="蝦皮" data-jp="蝦皮">蝦皮</th>
+      <th data-zh="經代銷" data-jp="代理販売">經代銷</th>
+      <th data-zh="CC" data-jp="CC">CC</th>
+      <th data-zh="合計" data-jp="合計">合計</th>
+    </tr></thead>
+    <tbody>
+      <!-- 実績行・目標行をSKUごとに交互 -->
+      <tr class="sku-act-row"><td class="left sku-name" rowspan="2">初階</td><td class="blue-val">21.0</td><td class="blue-val">93.8</td><td class="blue-val">3.3</td><td class="dim-val">—</td><td class="blue-val">13.3</td><td class="blue-val total-val">131.4</td></tr>
+      <tr class="sku-tgt-row"><td class="dim-val">31.3</td><td class="dim-val">31.0</td><td class="dim-val">8.5</td><td class="dim-val">—</td><td class="dim-val">20.0</td><td class="dim-val total-val">91.4</td></tr>
 
-  <!-- 月累計套数 -->
-  <div class="section-title" data-zh="學習商品 SKU×通路 月累計套數實績" data-jp="学習商品 SKU×チャネル 月累計套数実績">學習商品 SKU×通路 月累計套數實績</div>
-  <div class="sku-table-wrap" style="margin-bottom:24px;">
-    <table class="sku-table">
-      <thead>
-        <tr>
-          <th class="left" data-zh="通路" data-jp="チャネル">通路</th>
-          <th data-zh="初階" data-jp="初階">初階</th><th data-zh="進階" data-jp="進階">進階</th><th data-zh="注音" data-jp="注音">注音</th><th data-zh="EQ" data-jp="EQ">EQ</th><th data-zh="寶生活" data-jp="寶生活">寶生活</th><th data-zh="閱讀套組" data-jp="閱讀套組">閱讀套組</th><th data-zh="寶貸智育" data-jp="寶貸智育">寶貸智育</th><th data-zh="點讀圖鑑" data-jp="點讀圖鑑">點讀圖鑑</th><th data-zh="聰明左右腦" data-jp="聰明左右腦">聰明左右腦</th><th data-zh="數學套組" data-jp="數學套組">數學套組</th><th data-zh="合計" data-jp="合計">合計</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr><td class="left">Shopline-WEB</td><td>26</td><td>11</td><td>31</td><td>57</td><td>21</td><td>4</td><td>37</td><td>131</td><td>266</td><td>300</td><td><b>884</b></td></tr>
-        <tr><td class="left" data-zh="蝦皮商城" data-jp="蝦皮商城">蝦皮商城</td><td>7</td><td>4</td><td>16</td><td>21</td><td>6</td><td>—</td><td>3</td><td>95</td><td>33</td><td>42</td><td><b>227</b></td></tr>
-        <tr><td class="left">KOL</td><td>67</td><td>24</td><td>51</td><td>103</td><td>51</td><td>6</td><td>116</td><td>211</td><td>271</td><td>539</td><td><b>1,442</b></td></tr>
-        <tr><td class="left" data-zh="經代銷" data-jp="代理販売">經代銷</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td><b>—</b></td></tr>
-        <tr><td class="left">CC</td><td>34</td><td>23</td><td>53</td><td>50</td><td>28</td><td>14</td><td>43</td><td>61</td><td>206</td><td>262</td><td><b>774</b></td></tr>
-        <tr class="total-row"><td class="left" data-zh="合計" data-jp="合計">合計</td><td>134</td><td>62</td><td>154</td><td>231</td><td>106</td><td>24</td><td>199</td><td>498</td><td>776</td><td>1,143</td><td><b>3,327</b></td></tr>
-        <tr style="background:#f8faff;"><td class="left" style="color:var(--text-dim);font-size:11px" data-zh="月目標" data-jp="月目標">月目標</td><td style="color:var(--text-dim);font-size:12px">200</td><td style="color:var(--text-dim);font-size:12px">86</td><td style="color:var(--text-dim);font-size:12px">168</td><td style="color:var(--text-dim);font-size:12px">505</td><td style="color:var(--text-dim);font-size:12px">174</td><td style="color:var(--text-dim);font-size:12px">97</td><td style="color:var(--text-dim);font-size:12px">285</td><td style="color:var(--text-dim);font-size:12px">170</td><td style="color:var(--text-dim);font-size:12px">830</td><td style="color:var(--text-dim);font-size:12px">830</td><td style="color:var(--text-dim);font-size:12px"><b>3,345</b></td></tr>
-      </tbody>
-    </table>
-  </div>
+      <tr class="sku-act-row"><td class="left sku-name" rowspan="2">進階</td><td class="blue-val">8.9</td><td class="blue-val">41.4</td><td class="blue-val">1.6</td><td class="dim-val">—</td><td class="blue-val">9.4</td><td class="blue-val total-val">61.3</td></tr>
+      <tr class="sku-tgt-row"><td class="dim-val">8.9</td><td class="dim-val">14.7</td><td class="dim-val">2.4</td><td class="dim-val">—</td><td class="dim-val">10.0</td><td class="dim-val total-val">36.0</td></tr>
 
-  <!-- 金額詳細 -->
-  <div class="section-title" data-zh="學習商品 稅前銷售額詳細（萬元）" data-jp="学習商品 税前売上詳細（万元）">學習商品 稅前銷售額詳細（萬元）</div>
-  <div class="sku-table-wrap">
-    <table class="sku-table">
-      <thead>
-        <tr>
-          <th class="left" data-zh="項目" data-jp="項目">項目</th>
-          <th data-zh="Shopline" data-jp="Shopline">Shopline</th><th data-zh="KOL" data-jp="KOL">KOL</th><th data-zh="蝦皮" data-jp="蝦皮">蝦皮</th><th data-zh="經代銷" data-jp="代理販売">經代銷</th><th data-zh="整合行銷" data-jp="整合行銷">整合行銷</th><th data-zh="CC" data-jp="CC">CC</th><th data-zh="合計" data-jp="合計">合計</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr><td class="left" data-zh="前日銷售額" data-jp="前日売上">前日銷售額</td><td>17.3</td><td>4.6</td><td>2.5</td><td>—</td><td>24.4</td><td>15.8</td><td><b>40.3</b></td></tr>
-        <tr><td class="left" data-zh="月累計實績" data-jp="月累計実績">月累計實績</td><td style="color:var(--blue);font-weight:600">262.8</td><td style="color:var(--blue);font-weight:600">422.1</td><td style="color:var(--blue);font-weight:600">58.5</td><td>—</td><td style="color:var(--blue);font-weight:600">743.4</td><td style="color:var(--blue);font-weight:600">239.5</td><td style="color:var(--blue);font-weight:700"><b>983.0</b></td></tr>
-        <tr><td class="left" data-zh="月目標" data-jp="月目標">月目標</td><td>292.0</td><td>435.8</td><td>100.2</td><td>13.0</td><td>841.0</td><td>196.0</td><td><b>1,037.1</b></td></tr>
-        <tr><td class="left" data-zh="差異" data-jp="差異">差異</td><td style="color:var(--red)">▲29.2</td><td style="color:var(--red)">▲13.8</td><td style="color:var(--red)">▲41.7</td><td style="color:var(--red)">▲13.0</td><td style="color:var(--red)">▲97.6</td><td style="color:var(--blue)">＋43.5</td><td style="color:var(--red);font-weight:700"><b>▲54.1</b></td></tr>
-        <tr class="total-row"><td class="left" data-zh="達成率" data-jp="達成率">達成率</td><td>90%</td><td>97%</td><td>58%</td><td>0%</td><td>88%</td><td>122%</td><td style="color:var(--blue)"><b>95%</b></td></tr>
-      </tbody>
-    </table>
-  </div>
+      <tr class="sku-act-row"><td class="left sku-name" rowspan="2">注音</td><td class="blue-val">26.5</td><td class="blue-val">58.9</td><td class="blue-val">9.4</td><td class="dim-val">—</td><td class="blue-val">26.0</td><td class="blue-val total-val">120.8</td></tr>
+      <tr class="sku-tgt-row"><td class="dim-val">29.2</td><td class="dim-val">56.9</td><td class="dim-val">12.0</td><td class="dim-val">4.0</td><td class="dim-val">25.0</td><td class="dim-val total-val">127.1</td></tr>
+
+      <tr class="sku-act-row"><td class="left sku-name" rowspan="2">EQ</td><td class="blue-val">32.5</td><td class="blue-val">84.6</td><td class="blue-val">3.9</td><td class="dim-val">—</td><td class="blue-val">11.0</td><td class="blue-val total-val">132.0</td></tr>
+      <tr class="sku-tgt-row"><td class="dim-val">32.5</td><td class="dim-val">57.2</td><td class="dim-val">5.3</td><td class="dim-val">4.0</td><td class="dim-val">16.0</td><td class="dim-val total-val">115.0</td></tr>
+
+      <tr class="sku-act-row"><td class="left sku-name" rowspan="2">寶生活</td><td class="blue-val">15.2</td><td class="blue-val">38.7</td><td class="blue-val">1.7</td><td class="dim-val">—</td><td class="blue-val">14.0</td><td class="blue-val total-val">69.6</td></tr>
+      <tr class="sku-tgt-row"><td class="dim-val">16.0</td><td class="dim-val">32.0</td><td class="dim-val">3.0</td><td class="dim-val">2.0</td><td class="dim-val">14.0</td><td class="dim-val total-val">67.0</td></tr>
+
+      <tr class="sku-act-row"><td class="left sku-name" rowspan="2">閱讀套組</td><td class="blue-val">2.2</td><td class="blue-val">3.2</td><td class="dim-val">—</td><td class="dim-val">—</td><td class="blue-val">5.7</td><td class="blue-val total-val">11.1</td></tr>
+      <tr class="sku-tgt-row"><td class="dim-val">3.5</td><td class="dim-val">4.0</td><td class="dim-val">—</td><td class="dim-val">—</td><td class="dim-val">7.0</td><td class="dim-val total-val">14.5</td></tr>
+
+      <tr class="sku-act-row"><td class="left sku-name" rowspan="2">寶貸智育</td><td class="blue-val">23.5</td><td class="blue-val">97.4</td><td class="blue-val">2.8</td><td class="dim-val">—</td><td class="blue-val">24.0</td><td class="blue-val total-val">147.7</td></tr>
+      <tr class="sku-tgt-row"><td class="dim-val">24.0</td><td class="dim-val">86.5</td><td class="dim-val">3.0</td><td class="dim-val">3.0</td><td class="dim-val">24.0</td><td class="dim-val total-val">140.5</td></tr>
+
+      <tr class="sku-act-row"><td class="left sku-name" rowspan="2">點讀圖鑑</td><td class="blue-val">48.3</td><td class="blue-val">0.7</td><td class="blue-val">13.9</td><td class="dim-val">—</td><td class="blue-val">6.5</td><td class="blue-val total-val">69.4</td></tr>
+      <tr class="sku-tgt-row"><td class="dim-val">4.8</td><td class="dim-val">0.5</td><td class="dim-val">2.4</td><td class="dim-val">—</td><td class="dim-val">3.5</td><td class="dim-val total-val">11.2</td></tr>
+
+      <tr class="sku-act-row"><td class="left sku-name" rowspan="2">聰明左右腦</td><td class="blue-val">56.1</td><td class="blue-val">0.0</td><td class="blue-val">6.1</td><td class="dim-val">—</td><td class="blue-val">83.4</td><td class="blue-val total-val">145.6</td></tr>
+      <tr class="sku-tgt-row"><td class="dim-val">60.4</td><td class="dim-val">0.0</td><td class="dim-val">7.0</td><td class="dim-val">—</td><td class="dim-val">58.0</td><td class="dim-val total-val">125.4</td></tr>
+
+      <tr class="sku-act-row"><td class="left sku-name" rowspan="2">數學套組</td><td class="blue-val">28.6</td><td class="blue-val">4.0</td><td class="blue-val">15.9</td><td class="dim-val">—</td><td class="blue-val">46.2</td><td class="blue-val total-val">94.7</td></tr>
+      <tr class="sku-tgt-row"><td class="dim-val">81.4</td><td class="dim-val">153.0</td><td class="dim-val">57.6</td><td class="dim-val">—</td><td class="dim-val">18.5</td><td class="dim-val total-val">310.5</td></tr>
+
+      <tr class="sku-act-row total-act-row"><td class="left sku-name" rowspan="2" data-zh="合計" data-jp="合計">合計</td><td class="blue-val fw">262.8</td><td class="blue-val fw">422.1</td><td class="blue-val fw">58.5</td><td class="dim-val">—</td><td class="blue-val fw">239.5</td><td class="blue-val fw" style="color:var(--blue)">983.0</td></tr>
+      <tr class="sku-tgt-row total-tgt-row"><td class="dim-val fw">292.0</td><td class="dim-val fw">435.8</td><td class="dim-val fw">100.2</td><td class="dim-val fw">13.0</td><td class="dim-val fw">196.0</td><td class="dim-val fw">1,037.1</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ② 月次累計販売数 実績/目標 -->
+<div class="section-title" data-zh="② 月次累計販售套數　實績 / 目標" data-jp="② 月次累計販売套数　実績 / 目標">② 月次累計販售套數　實績 / 目標</div>
+<div class="sku-table-wrap" style="margin-bottom:20px;">
+  <table class="sku-table sku-v2">
+    <thead><tr>
+      <th class="left sku-col-sku">SKU</th>
+      <th>Shopline</th><th>KOL</th><th data-zh="蝦皮" data-jp="蝦皮">蝦皮</th><th data-zh="經代銷" data-jp="代理販売">經代銷</th><th>CC</th><th data-zh="合計" data-jp="合計">合計</th>
+    </tr></thead>
+    <tbody>
+      <tr class="sku-act-row"><td class="left sku-name" rowspan="2">初階</td><td class="blue-val">26</td><td class="blue-val">67</td><td class="blue-val">7</td><td class="dim-val">—</td><td class="blue-val">34</td><td class="blue-val total-val">134</td></tr>
+      <tr class="sku-tgt-row"><td class="dim-val">60</td><td class="dim-val">62</td><td class="dim-val">18</td><td class="dim-val">—</td><td class="dim-val">60</td><td class="dim-val total-val">200</td></tr>
+
+      <tr class="sku-act-row"><td class="left sku-name" rowspan="2">進階</td><td class="blue-val">11</td><td class="blue-val">24</td><td class="blue-val">4</td><td class="dim-val">—</td><td class="blue-val">23</td><td class="blue-val total-val">62</td></tr>
+      <tr class="sku-tgt-row"><td class="dim-val">20</td><td class="dim-val">30</td><td class="dim-val">4</td><td class="dim-val">—</td><td class="dim-val">30</td><td class="dim-val total-val">86</td></tr>
+
+      <tr class="sku-act-row"><td class="left sku-name" rowspan="2">注音</td><td class="blue-val">31</td><td class="blue-val">51</td><td class="blue-val">16</td><td class="dim-val">—</td><td class="blue-val">53</td><td class="blue-val total-val">154</td></tr>
+      <tr class="sku-tgt-row"><td class="dim-val">50</td><td class="dim-val">53</td><td class="dim-val">25</td><td class="dim-val">—</td><td class="dim-val">40</td><td class="dim-val total-val">168</td></tr>
+
+      <tr class="sku-act-row"><td class="left sku-name" rowspan="2">EQ</td><td class="blue-val">57</td><td class="blue-val">103</td><td class="blue-val">21</td><td class="dim-val">—</td><td class="blue-val">50</td><td class="blue-val total-val">231</td></tr>
+      <tr class="sku-tgt-row"><td class="dim-val">120</td><td class="dim-val">120</td><td class="dim-val">20</td><td class="dim-val">—</td><td class="dim-val">200</td><td class="dim-val total-val">505</td></tr>
+
+      <tr class="sku-act-row"><td class="left sku-name" rowspan="2">寶生活</td><td class="blue-val">21</td><td class="blue-val">51</td><td class="blue-val">6</td><td class="dim-val">—</td><td class="blue-val">28</td><td class="blue-val total-val">106</td></tr>
+      <tr class="sku-tgt-row"><td class="dim-val">60</td><td class="dim-val">64</td><td class="dim-val">20</td><td class="dim-val">—</td><td class="dim-val">30</td><td class="dim-val total-val">174</td></tr>
+
+      <tr class="sku-act-row"><td class="left sku-name" rowspan="2">閱讀套組</td><td class="blue-val">4</td><td class="blue-val">6</td><td class="dim-val">—</td><td class="dim-val">—</td><td class="blue-val">14</td><td class="blue-val total-val">24</td></tr>
+      <tr class="sku-tgt-row"><td class="dim-val">45</td><td class="dim-val">10</td><td class="dim-val">—</td><td class="dim-val">—</td><td class="dim-val">25</td><td class="dim-val total-val">97</td></tr>
+
+      <tr class="sku-act-row"><td class="left sku-name" rowspan="2">寶貸智育</td><td class="blue-val">37</td><td class="blue-val">116</td><td class="blue-val">3</td><td class="dim-val">—</td><td class="blue-val">43</td><td class="blue-val total-val">199</td></tr>
+      <tr class="sku-tgt-row"><td class="dim-val">50</td><td class="dim-val">150</td><td class="dim-val">15</td><td class="dim-val">10</td><td class="dim-val">60</td><td class="dim-val total-val">285</td></tr>
+
+      <tr class="sku-act-row"><td class="left sku-name" rowspan="2">點讀圖鑑</td><td class="blue-val">131</td><td class="blue-val">211</td><td class="blue-val">95</td><td class="dim-val">—</td><td class="blue-val">61</td><td class="blue-val total-val">498</td></tr>
+      <tr class="sku-tgt-row"><td class="dim-val">20</td><td class="dim-val">80</td><td class="dim-val">15</td><td class="dim-val">—</td><td class="dim-val">50</td><td class="dim-val total-val">170</td></tr>
+
+      <tr class="sku-act-row"><td class="left sku-name" rowspan="2">聰明左右腦</td><td class="blue-val">266</td><td class="blue-val">271</td><td class="blue-val">33</td><td class="dim-val">—</td><td class="blue-val">206</td><td class="blue-val total-val">776</td></tr>
+      <tr class="sku-tgt-row"><td class="dim-val">250</td><td class="dim-val">400</td><td class="dim-val">80</td><td class="dim-val">—</td><td class="dim-val">100</td><td class="dim-val total-val">830</td></tr>
+
+      <tr class="sku-act-row"><td class="left sku-name" rowspan="2">數學套組</td><td class="blue-val">300</td><td class="blue-val">539</td><td class="blue-val">42</td><td class="dim-val">—</td><td class="blue-val">262</td><td class="blue-val total-val">1,143</td></tr>
+      <tr class="sku-tgt-row"><td class="dim-val">280</td><td class="dim-val">400</td><td class="dim-val">80</td><td class="dim-val">—</td><td class="dim-val">50</td><td class="dim-val total-val">830</td></tr>
+
+      <tr class="sku-act-row total-act-row"><td class="left sku-name" rowspan="2" data-zh="合計" data-jp="合計">合計</td><td class="blue-val fw">884</td><td class="blue-val fw">1,442</td><td class="blue-val fw">227</td><td class="dim-val">—</td><td class="blue-val fw">774</td><td class="blue-val fw">3,327</td></tr>
+      <tr class="sku-tgt-row total-tgt-row"><td class="dim-val fw">955</td><td class="dim-val fw">1,369</td><td class="dim-val fw">336</td><td class="dim-val fw">40</td><td class="dim-val fw">645</td><td class="dim-val fw">3,345</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ③ 月次累計金額達成率 -->
+<div class="section-title" data-zh="③ 月次累計金額達成率" data-jp="③ 月次累計金額達成率">③ 月次累計金額達成率</div>
+<div class="sku-table-wrap" style="margin-bottom:20px;">
+  <table class="sku-table sku-v2">
+    <thead><tr>
+      <th class="left sku-col-sku">SKU</th>
+      <th>Shopline</th><th>KOL</th><th data-zh="蝦皮" data-jp="蝦皮">蝦皮</th><th data-zh="經代銷" data-jp="代理販売">經代銷</th><th>CC</th><th data-zh="合計" data-jp="合計">合計</th>
+    </tr></thead>
+    <tbody>
+      <tr><td class="left sku-name">初階</td><td><span class="hm hm-3">67%</span></td><td><span class="hm hm-5">302%</span></td><td><span class="hm hm-3">59%</span></td><td><span class="hm hm-dash">—</span></td><td><span class="hm hm-3">67%</span></td><td><span class="hm hm-5">144%</span></td></tr>
+      <tr><td class="left sku-name">進階</td><td><span class="hm hm-4">100%</span></td><td><span class="hm hm-5">282%</span></td><td><span class="hm hm-3">65%</span></td><td><span class="hm hm-dash">—</span></td><td><span class="hm hm-3">94%</span></td><td><span class="hm hm-5">170%</span></td></tr>
+      <tr><td class="left sku-name">注音</td><td><span class="hm hm-3">91%</span></td><td><span class="hm hm-4">104%</span></td><td><span class="hm hm-3">78%</span></td><td><span class="hm hm-dash">—</span></td><td><span class="hm hm-4">104%</span></td><td><span class="hm hm-3">95%</span></td></tr>
+      <tr><td class="left sku-name">EQ</td><td><span class="hm hm-4">100%</span></td><td><span class="hm hm-5">148%</span></td><td><span class="hm hm-3">73%</span></td><td><span class="hm hm-dash">—</span></td><td><span class="hm hm-3">69%</span></td><td><span class="hm hm-5">115%</span></td></tr>
+      <tr><td class="left sku-name">寶生活</td><td><span class="hm hm-3">95%</span></td><td><span class="hm hm-5">121%</span></td><td><span class="hm hm-3">55%</span></td><td><span class="hm hm-dash">—</span></td><td><span class="hm hm-4">100%</span></td><td><span class="hm hm-4">104%</span></td></tr>
+      <tr><td class="left sku-name">閱讀套組</td><td><span class="hm hm-2">62%</span></td><td><span class="hm hm-3">80%</span></td><td><span class="hm hm-dash">—</span></td><td><span class="hm hm-dash">—</span></td><td><span class="hm hm-3">81%</span></td><td><span class="hm hm-3">77%</span></td></tr>
+      <tr><td class="left sku-name">寶貸智育</td><td><span class="hm hm-3">98%</span></td><td><span class="hm hm-5">113%</span></td><td><span class="hm hm-3">92%</span></td><td><span class="hm hm-dash">—</span></td><td><span class="hm hm-4">100%</span></td><td><span class="hm hm-4">105%</span></td></tr>
+      <tr><td class="left sku-name">點讀圖鑑</td><td><span class="hm hm-5">996%</span></td><td><span class="hm hm-5">138%</span></td><td><span class="hm hm-5">578%</span></td><td><span class="hm hm-dash">—</span></td><td><span class="hm hm-5">186%</span></td><td><span class="hm hm-5">620%</span></td></tr>
+      <tr><td class="left sku-name">聰明左右腦</td><td><span class="hm hm-3">93%</span></td><td><span class="hm hm-dash">—</span></td><td><span class="hm hm-3">87%</span></td><td><span class="hm hm-dash">—</span></td><td><span class="hm hm-5">144%</span></td><td><span class="hm hm-5">116%</span></td></tr>
+      <tr><td class="left sku-name">數學套組</td><td><span class="hm hm-2">35%</span></td><td><span class="hm hm-1">3%</span></td><td><span class="hm hm-2">28%</span></td><td><span class="hm hm-dash">—</span></td><td><span class="hm hm-5">250%</span></td><td><span class="hm hm-2">30%</span></td></tr>
+      <tr class="total-row"><td class="left sku-name" data-zh="合計" data-jp="合計">合計</td><td><span class="hm hm-3">90%</span></td><td><span class="hm hm-3">97%</span></td><td><span class="hm hm-2">58%</span></td><td><span class="hm hm-0">0%</span></td><td><span class="hm hm-5">122%</span></td><td><span class="hm hm-3">95%</span></td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ④ 前日販売金額（万元） -->
+<div class="section-title" data-zh="④ 前日銷售金額（萬元）" data-jp="④ 前日販売金額（万元）">④ 前日銷售金額（萬元）</div>
+<div class="sku-table-wrap" style="margin-bottom:20px;">
+  <table class="sku-table sku-v2">
+    <thead><tr>
+      <th class="left sku-col-sku">SKU</th>
+      <th>Shopline</th><th>KOL</th><th data-zh="蝦皮" data-jp="蝦皮">蝦皮</th><th data-zh="經代銷" data-jp="代理販売">經代銷</th><th>CC</th><th data-zh="合計" data-jp="合計">合計</th>
+    </tr></thead>
+    <tbody>
+      <tr><td class="left sku-name">初階</td><td>1.1</td><td>—</td><td>0.2</td><td>—</td><td>1.3</td><td class="fw">2.6</td></tr>
+      <tr><td class="left sku-name">進階</td><td>0.9</td><td>0.2</td><td>—</td><td>—</td><td>0.6</td><td class="fw">1.7</td></tr>
+      <tr><td class="left sku-name">注音</td><td>2.1</td><td>0.2</td><td>—</td><td>—</td><td>1.3</td><td class="fw">3.6</td></tr>
+      <tr><td class="left sku-name">EQ</td><td>2.4</td><td>—</td><td>0.2</td><td>—</td><td>1.4</td><td class="fw">4.0</td></tr>
+      <tr><td class="left sku-name">寶生活</td><td>0.6</td><td>—</td><td>0.6</td><td>—</td><td>0.9</td><td class="fw">2.1</td></tr>
+      <tr><td class="left sku-name">閱讀套組</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td class="fw">—</td></tr>
+      <tr><td class="left sku-name">寶貸智育</td><td>1.3</td><td>0.2</td><td>—</td><td>—</td><td>0.9</td><td class="fw">2.4</td></tr>
+      <tr><td class="left sku-name">點讀圖鑑</td><td>—</td><td>0.5</td><td>1.5</td><td>—</td><td>0.7</td><td class="fw">2.7</td></tr>
+      <tr><td class="left sku-name">聰明左右腦</td><td>5.5</td><td>1.2</td><td>0.3</td><td>—</td><td>4.4</td><td class="fw">11.4</td></tr>
+      <tr><td class="left sku-name">數學套組</td><td>3.4</td><td>2.3</td><td>0.1</td><td>—</td><td>5.3</td><td class="fw">11.1</td></tr>
+      <tr class="total-row"><td class="left sku-name" data-zh="合計" data-jp="合計">合計</td><td class="fw">17.3</td><td class="fw">4.6</td><td class="fw">2.5</td><td class="fw">—</td><td class="fw">15.8</td><td class="fw" style="color:var(--blue)">40.3</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ⑤ 前日販売数（套） -->
+<div class="section-title" data-zh="⑤ 前日販售套數" data-jp="⑤ 前日販売套数">⑤ 前日販售套數</div>
+<div class="sku-table-wrap" style="margin-bottom:20px;">
+  <table class="sku-table sku-v2">
+    <thead><tr>
+      <th class="left sku-col-sku">SKU</th>
+      <th>Shopline</th><th>KOL</th><th data-zh="蝦皮" data-jp="蝦皮">蝦皮</th><th data-zh="經代銷" data-jp="代理販売">經代銷</th><th>CC</th><th data-zh="合計" data-jp="合計">合計</th>
+    </tr></thead>
+    <tbody>
+      <tr><td class="left sku-name">初階</td><td>5</td><td>—</td><td>1</td><td>—</td><td>6</td><td class="fw">12</td></tr>
+      <tr><td class="left sku-name">進階</td><td>4</td><td>1</td><td>—</td><td>—</td><td>3</td><td class="fw">8</td></tr>
+      <tr><td class="left sku-name">注音</td><td>3</td><td>1</td><td>—</td><td>—</td><td>3</td><td class="fw">7</td></tr>
+      <tr><td class="left sku-name">EQ</td><td>4</td><td>—</td><td>1</td><td>—</td><td>6</td><td class="fw">11</td></tr>
+      <tr><td class="left sku-name">寶生活</td><td>1</td><td>—</td><td>2</td><td>—</td><td>3</td><td class="fw">6</td></tr>
+      <tr><td class="left sku-name">閱讀套組</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td class="fw">—</td></tr>
+      <tr><td class="left sku-name">寶貸智育</td><td>2</td><td>1</td><td>—</td><td>—</td><td>2</td><td class="fw">5</td></tr>
+      <tr><td class="left sku-name">點讀圖鑑</td><td>—</td><td>2</td><td>7</td><td>—</td><td>3</td><td class="fw">19</td></tr>
+      <tr><td class="left sku-name">聰明左右腦</td><td>7</td><td>6</td><td>2</td><td>—</td><td>11</td><td class="fw">31</td></tr>
+      <tr><td class="left sku-name">數學套組</td><td>12</td><td>4</td><td>3</td><td>—</td><td>12</td><td class="fw">36</td></tr>
+      <tr class="total-row"><td class="left sku-name" data-zh="合計" data-jp="合計">合計</td><td class="fw">17</td><td class="fw">15</td><td class="fw">16</td><td class="fw">—</td><td class="fw">49</td><td class="fw" style="color:var(--blue)">135</td></tr>
+    </tbody>
+  </table>
+</div>
+
 </div><!-- /panel-sku -->
 
 <!-- ════════════════════════════════════
@@ -667,16 +1065,159 @@ body.jp{font-family:'Noto Sans JP',sans-serif;}
     </table>
   </div>
 
-  <!-- CCの注意アラート -->
-  <div style="background:var(--red-light);border:1px solid #fca5a5;border-radius:12px;padding:16px 20px;display:flex;gap:12px;align-items:flex-start;">
-    <span style="font-size:20px;flex-shrink:0">⚠️</span>
-    <div>
-      <div style="font-size:14px;font-weight:700;color:var(--red);margin-bottom:4px" data-zh="CC Mirafeel 嚴重落後（34%）" data-jp="CC Mirafeel 大幅未達（34%）">CC Mirafeel 嚴重落後（34%）</div>
-      <div style="font-size:13px;color:var(--text-secondary);line-height:1.7" data-zh="CC通路Mirafeel累計2.9萬，目標8.4萬，差異▲5.5萬。時間進度達成率僅44.2%，為所有通路×商品組合中最低。需立即確認原因。" data-jp="CCチャネルのMirafeel累計2.9万、目標8.4万、差異▲5.5万。時間進度達成率はわずか44.2%で全通路×商品の最低値。早急な原因確認が必要。">CC通路Mirafeel累計2.9萬，目標8.4萬，差異▲5.5萬。時間進度達成率僅44.2%，為所有通路×商品組合中最低。需立即確認原因。</div>
-    </div>
+      </tbody>
+    </table>
   </div>
 
 </div><!-- /panel-mirafeel -->
+
+<!-- ════════════════════════════════════
+     TAB 4: ANALYSIS
+════════════════════════════════════ -->
+<div id="panel-analysis" class="tab-panel">
+
+  <div class="analysis-grid">
+
+    <!-- ── BLOCK 1: 全体総評 ── -->
+    <div class="an-card an-full">
+      <div class="an-card-header">
+        <span class="an-icon">📊</span>
+        <span class="an-title" data-zh="整體總評（截至3/24）" data-jp="全体総評（3/24時点）">整體總評（截至3/24）</span>
+        <span class="an-badge good" data-zh="超前達成" data-jp="ペース超過">超前達成</span>
+      </div>
+      <div class="an-body">
+        <p data-zh="累計銷售額1,056.9萬元，達成率95%。時間進度77%（17/22工作天），時間進度達成率123.4%，整體節奏超前。剩餘5個工作天，每日需達10.6萬元即可完成目標1,110.0萬元。前日（3/24）實績44.4萬元，低於目標均值50.5萬元，但月累計仍維持超前態勢。" data-jp="累計売上1,056.9万元、達成率95%。時間進度77%（17/22営業日）に対し時間進度達成率123.4%で全体ペース超過。残5営業日、1日10.6万元で目標1,110.0万元到達。前日（3/24）実績44.4万元は目標日均50.5万元を下回ったが、月累計は依然超前ペースを維持。">累計銷售額1,056.9萬元，達成率95%。時間進度77%（17/22工作天），時間進度達成率123.4%，整體節奏超前。剩餘5個工作天，每日需達10.6萬元即可完成目標1,110.0萬元。前日（3/24）實績44.4萬元，低於目標均值50.5萬元，但月累計仍維持超前態勢。</p>
+      </div>
+    </div>
+
+    <!-- ── BLOCK 2: 通路分析 ── -->
+    <div class="an-card">
+      <div class="an-card-header">
+        <span class="an-icon">🛒</span>
+        <span class="an-title" data-zh="通路別觀察重點" data-jp="チャネル別観察ポイント">通路別觀察重點</span>
+      </div>
+      <div class="an-body">
+        <div class="an-item good">
+          <div class="an-item-label">CC（直販）112% → 120%</div>
+          <div class="an-item-text" data-zh="CC通路持續超額達成，月累計247.9萬元，超過目標207.3萬達+40.6萬。前日16.6萬元為所有通路最高。時間進度達成率155.8%，是最穩定的貢獻來源。" data-jp="CC通路は安定して超過達成。月累計247.9万、目標比+40.6万超過。前日16.6万は全通路最高。時間進度達成率155.8%で最も安定した貢献源。">CC通路持續超額達成，月累計247.9萬元，超過目標+40.6萬。前日16.6萬元為所有通路最高，時間進度達成率155.8%。</div>
+        </div>
+        <div class="an-item warn">
+          <div class="an-item-label">KOL 98% → 99%</div>
+          <div class="an-item-text" data-zh="KOL累計434.3萬元，距目標438.8萬僅差▲4.5萬。但前日僅4.7萬元（目標均值19.9萬），前日大幅低於均值。需確認KOL是否有當週活動安排，避免月底衝刺壓力過大。" data-jp="KOL累計434.3万、目標438.8万まで▲4.5万。ただし前日わずか4.7万（目標均値19.9万）と大きく下回った。今週のKOL活動スケジュールを確認し月末集中リスクを回避する必要がある。">KOL累計434.3萬距目標僅▲4.5萬，但前日僅4.7萬元遠低於均值19.9萬。需確認本週KOL活動排程，避免月底集中壓力。</div>
+        </div>
+        <div class="an-item bad">
+          <div class="an-item-label" data-zh="蝦皮 61% — 持續落後" data-jp="蝦皮 61% — 継続低迷">蝦皮 61% — 持續落後</div>
+          <div class="an-item-text" data-zh="蝦皮累計67.6萬元，目標110.4萬，差異▲42.8萬，時間進度達成率僅79.2%。學習商品蝦皮達成率58%為主要拖累。剩餘5天要補足42.8萬幾乎不可能，需評估是否調整蝦皮月目標設定的合理性。" data-jp="蝦皮累計67.6万、目標110.4万、差異▲42.8万。時間進度達成率79.2%と唯一基準線を下回る。残5日での挽回はほぼ不可能。蝦皮の月目標設定の妥当性を検討する必要がある。">蝦皮累計67.6萬，差異▲42.8萬，時間進度達成率僅79.2%，為唯一低於時間基準的通路。5天內補足幾乎不可能，需重新評估蝦皮月目標設定合理性。</div>
+        </div>
+        <div class="an-item bad">
+          <div class="an-item-label" data-zh="經代銷 0% — 完全停滯" data-jp="代理販売 0% — 完全停滯">經代銷 0% — 完全停滯</div>
+          <div class="an-item-text" data-zh="經代銷月累計為零，目標13萬元完全未達。差異▲13萬元佔整體缺口的24.5%。需立即確認是否有結構性原因（通路停止、訂單延遲等）。若無法挽回，建議重新分配目標至其他通路。" data-jp="経代銷の月累計ゼロ、目標13万元が完全未達。▲13万は全体缺口の24.5%を占める。構造的原因（通路停止・受注遅延等）を早急に確認。挽回不可能であれば他通路への目標再配分を検討。">經代銷月累計為零，目標13萬完全未達，佔整體缺口24.5%。需立即確認結構性原因，若無法挽回，建議重新分配目標至其他通路。</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── BLOCK 3: 商品分析 ── -->
+    <div class="an-card">
+      <div class="an-card-header">
+        <span class="an-icon">📦</span>
+        <span class="an-title" data-zh="商品類別觀察重點" data-jp="商品カテゴリ観察ポイント">商品類別觀察重點</span>
+      </div>
+      <div class="an-body">
+        <div class="an-item good">
+          <div class="an-item-label">Mirafeel 127% ↑</div>
+          <div class="an-item-text" data-zh="Mirafeel月累計22.7萬元，超過目標17.8萬達127%。KOL通路爆發610%（累計8.9萬 vs 目標1.5萬）。Shopline達136%。唯一問題是CC通路僅34%（2.9萬 vs 目標8.4萬），需確認CC Mirafeel的銷售障礙。" data-jp="Mirafeel月累計22.7万、目標比127%。KOL爆発610%（累計8.9万 vs 目標1.5万）。Shopline136%。課題はCC通路の34%（2.9万 vs 目標8.4万）で、CC Mirafeelの販売障壁を確認する必要がある。">Mirafeel月累計22.7萬達127%。KOL爆發610%。唯一課題是CC通路僅34%（▲5.5萬），需確認CC Mirafeel銷售障礙。</div>
+        </div>
+        <div class="an-item good">
+          <div class="an-item-label" data-zh="學習周邊 111% — 唯一超額的學習類" data-jp="学習周辺 111% — 学習系唯一超過">學習周邊 111% — 唯一超額的學習類</div>
+          <div class="an-item-text" data-zh="學習周邊累計22.5萬元，超過目標20.2萬。KOL通路達218%（3.3萬 vs 1.5萬）。Shopline達110%。整體時間進度達成率144.2%，表現優異。" data-jp="学習周辺累計22.5万、目標比111%。KOL218%（3.3万 vs 1.5万）、Shopline110%。時間進度達成率144.2%で優秀なパフォーマンス。">學習周邊累計22.5萬達111%，KOL達218%，時間進度達成率144.2%，表現優異。</div>
+        </div>
+        <div class="an-item warn">
+          <div class="an-item-label" data-zh="學習商品 95% — 主力但蝦皮拖累" data-jp="学習商品 95% — 主力だが蝦皮が足を引く">學習商品 95% — 主力但蝦皮拖累</div>
+          <div class="an-item-text" data-zh="學習商品累計983萬元，佔總體93%，是核心引擎。CC達122%（+43.5萬）、KOL達97%。但蝦皮僅58%（▲41.7萬）嚴重拖累，經代銷0%（▲13萬）亦是問題。SKU中，數學套組（30%）、閱讀套組（25%）達成率極低需關注。" data-jp="学習商品累計983万、全体の93%を占める中核。CC122%（+43.5万）、KOL97%。蝦皮58%（▲41.7万）が大幅足引き。SKU別では数学套組30%・閲讀套組25%が極端に低く要注意。">學習商品累計983萬，CC達122%（+43.5萬），但蝦皮僅58%（▲41.7萬）。SKU中數學套組30%、閱讀套組25%極低，需重點關注。</div>
+        </div>
+        <div class="an-item bad">
+          <div class="an-item-label" data-zh="生活周邊 82% — 最弱環節" data-jp="生活周辺 82% — 最弱項目">生活周邊 82% — 最弱環節</div>
+          <div class="an-item-text" data-zh="生活周邊累計28.7萬元，達成率82%，差異▲6.1萬。Shopline達69%（▲10.2萬），是主要缺口。KOL達223%（1.8萬超額）是亮點。時間進度達成率106.5%，雖超過100%但幅度很小，仍有月底落後風險。" data-jp="生活周辺累計28.7万、82%、差異▲6.1万。Shopline69%（▲10.2万）が主要ギャップ。KOL223%は明点。時間進度達成率106.5%とかろうじて超過だが余裕なく月末リスクあり。">生活周邊累計28.7萬達82%，Shopline僅69%（▲10.2萬）為主要缺口。時間進度達成率106.5%，月底仍有落後風險。</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── BLOCK 4: SKU特記 ── -->
+    <div class="an-card">
+      <div class="an-card-header">
+        <span class="an-icon">🔬</span>
+        <span class="an-title" data-zh="SKU 特記觀察" data-jp="SKU 特記観察">SKU 特記觀察</span>
+      </div>
+      <div class="an-body">
+        <div class="an-item good">
+          <div class="an-item-label" data-zh="點讀圖鑑 — 爆發性超額" data-jp="點讀圖鑑 — 爆発的超過">點讀圖鑑 — 爆發性超額</div>
+          <div class="an-item-text" data-zh="金額達成率620%（累計69.4萬 vs 目標11.2萬）。Shopline達996%，蝦皮達578%，CC達186%。套數累計498套 vs 目標170套，超過2.9倍。目標設定明顯偏低，下月需重新檢討目標值。" data-jp="金額達成率620%（累計69.4万 vs 目標11.2万）。Shopline996%、蝦皮578%、CC186%。套数498套 vs 目標170套で2.9倍超。目標設定が明らかに低すぎ、来月の目標見直しが必要。">點讀圖鑑金額達成率620%（累計69.4萬 vs 目標11.2萬）。套數498套超過目標170套達2.9倍。目標設定明顯偏低，需重新檢討。</div>
+        </div>
+        <div class="an-item good">
+          <div class="an-item-label" data-zh="聰明左右腦 — 穩健超額" data-jp="聰明左右腦 — 堅調超過">聰明左右腦 — 穩健超額</div>
+          <div class="an-item-text" data-zh="金額達成率116%（累計145.6萬 vs 目標125.4萬）。CC通路達144%（+25.4萬），Shopline達93%。套數累計776套 vs 目標830套，達成率93%。金額単価が高いため、少ない套數で高い金額達成率を実現。" data-jp="金額達成率116%（145.6万 vs 125.4万）。CC144%（+25.4万）、Shopline93%。套数776 vs 目標830で93%。単価が高いため少ない套数で高い金額達成率を実現。">聰明左右腦金額達成率116%，CC通路達144%。套數達成率93%だが単価が高く金額では超額達成。</div>
+        </div>
+        <div class="an-item bad">
+          <div class="an-item-label" data-zh="數學套組 — 嚴重落後" data-jp="數學套組 — 大幅低迷">數學套組 — 嚴重落後</div>
+          <div class="an-item-text" data-zh="金額達成率僅30%（累計94.7萬 vs 目標310.5萬），差異▲215.8萬，是所有SKU中最大缺口。Shopline35%、KOL3%、蝦皮28%。套數1,143套 vs 目標830套，套數達成138%。金額と套數の乖離が大きく、単価の問題または目標設定の不整合が疑われる。" data-jp="金額達成率30%（累計94.7万 vs 目標310.5万）、▲215.8万と全SKU中最大の缺口。套数は1,143 vs 目標830で138%超過。金額と套数の乖離が大きく、単価問題または目標設定の不整合が疑われる。">數學套組金額達成率僅30%（▲215.8萬），但套數達成138%（1,143套 vs 830套）。金額與套數嚴重乖離，疑似單價問題或目標設定不一致，需立即釐清。</div>
+        </div>
+        <div class="an-item bad">
+          <div class="an-item-label" data-zh="閱讀套組 — 全通路低迷" data-jp="閱讀套組 — 全通路低迷">閱讀套組 — 全通路低迷</div>
+          <div class="an-item-text" data-zh="金額達成率77%（累計11.1萬 vs 目標14.5萬）。Shopline62%、KOL80%，CC81%，蝦皮ゼロ。套數24套 vs 目標97套で達成率25%。原因が不明瞭で、商品魅力・プロモーション不足の可能性あり。" data-jp="金額達成率77%（11.1万 vs 14.5万）。全通路が低迷。套数24套 vs 目標97套で達成率25%と特に深刻。商品訴求力・プロモーション不足の可能性を検討すべき。">閱讀套組套數達成率僅25%（24套 vs 97套），全通路均低迷。需檢討商品訴求力與促銷策略。</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── BLOCK 5: 月底リスク ── -->
+    <div class="an-card">
+      <div class="an-card-header">
+        <span class="an-icon">⚠️</span>
+        <span class="an-title" data-zh="月底風險與行動項目" data-jp="月末リスクと行動項目">月底風險與行動項目</span>
+      </div>
+      <div class="an-body">
+        <div class="an-item bad">
+          <div class="an-item-label" data-zh="① 蝦皮缺口▲42.8萬：目標合理性檢討" data-jp="① 蝦皮▲42.8万：目標妥当性の検討">① 蝦皮缺口▲42.8萬：目標合理性檢討</div>
+          <div class="an-item-text" data-zh="5天無法補足42.8萬，需確認原因並在月結時說明差異。下月目標設定需重新檢討蝦皮通路容量。" data-jp="5日で42.8万の挽回は不可能。原因を確認し月締時に差異を説明。来月の蝦皮目標設定を見直す。">5天無法補足42.8萬，需在月結時說明差異，並重新檢討下月蝦皮目標。</div>
+        </div>
+        <div class="an-item bad">
+          <div class="an-item-label" data-zh="② 經代銷零實績：緊急確認" data-jp="② 代理販売ゼロ：緊急確認">② 經代銷零實績：緊急確認</div>
+          <div class="an-item-text" data-zh="月目標13萬元完全空白，需立即向負責人確認是否有訂單但未入帳，或通路已實質停止。" data-jp="月目標13万が完全空白。担当者に受注未計上の可能性または通路実質停止を緊急確認。">月目標13萬完全空白，需緊急確認是否有未入帳訂單或通路已實質停止。</div>
+        </div>
+        <div class="an-item warn">
+          <div class="an-item-label" data-zh="③ KOL前日大幅低於均值：排程確認" data-jp="③ KOL前日が均値を大幅下回る：スケジュール確認">③ KOL前日大幅低於均值：排程確認</div>
+          <div class="an-item-text" data-zh="前日KOL僅4.7萬元（均值19.9萬），雖然累計仍在99%，但若後續KOL活動不足，可能月底才發現缺口。確認剩餘5天的KOL直播/推廣排程。" data-jp="前日KOL4.7万（均値19.9万）。累計99%だが後半のKOL活動が不足すると月末に缺口が発覚するリスクあり。残5日のKOLライブ・プロモスケジュールを確認。">前日KOL僅4.7萬遠低於均值19.9萬，需確認剩餘5天KOL直播排程，避免月底出現缺口。</div>
+        </div>
+        <div class="an-item warn">
+          <div class="an-item-label" data-zh="④ 數學套組金額vs套數乖離：釐清原因" data-jp="④ 數學套組の金額vs套数乖離：原因究明">④ 數學套組金額vs套數乖離：釐清原因</div>
+          <div class="an-item-text" data-zh="套數138%達成但金額僅30%，兩者差異極大。可能是促銷折扣過大、目標金額設定過高、或計算基準不一致。需與詩雅確認原始數據來源。" data-jp="套数138%達成で金額30%という大きな乖離。過度な値引き・目標金額の設定誤り・計算基準の不整合が疑われる。詩雅さんに原始データ出所を確認。">套數138%但金額僅30%，乖離極大。疑似促銷折扣過大或目標設定不一致，需與詩雅確認原始數據。</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── BLOCK 6: 好調サイン ── -->
+    <div class="an-card">
+      <div class="an-card-header">
+        <span class="an-icon">✨</span>
+        <span class="an-title" data-zh="正向觀察：值得延續的亮點" data-jp="ポジティブ観察：継続すべき好調要因">正向觀察：值得延續的亮點</span>
+      </div>
+      <div class="an-body">
+        <div class="an-item good">
+          <div class="an-item-label" data-zh="CC通路的全面強勢" data-jp="CC通路の全面好調">CC通路的全面強勢</div>
+          <div class="an-item-text" data-zh="CC學習商品122%、CC周邊商品186%、CC學習周邊82%（唯一弱點但金額小）。CC通路整體超額+40.6萬，是最可靠的基盤。需持續維持CC團隊的銷售動能。" data-jp="CC学習商品122%、CC周辺186%、CC全体で+40.6万超過。最も信頼できる基盤。CCチームの販売モメンタムを維持することが重要。">CC通路全面強勢，整體超額+40.6萬，是最可靠的基盤，需持續維持CC團隊銷售動能。</div>
+        </div>
+        <div class="an-item good">
+          <div class="an-item-label" data-zh="Mirafeel KOL爆發驗證新模式" data-jp="Mirafeel KOL爆発が新モデルを実証">Mirafeel KOL爆發驗證新模式</div>
+          <div class="an-item-text" data-zh="Mirafeel KOL達成率610%（8.9萬 vs 1.5萬目標），驗證了KOL推廣Mirafeel的高效性。這個模式值得在下月擴大規模，並相應調高KOL通路的Mirafeel目標。" data-jp="Mirafeel KOL610%（8.9万 vs 1.5万）はKOLによるMirafeel訴求の高い効果を実証。来月はKOL Mirafeelの目標を引き上げてスケール拡大を検討。">Mirafeel KOL達610%，驗證高效模式。下月建議擴大規模並調高KOL Mirafeel目標。</div>
+        </div>
+        <div class="an-item good">
+          <div class="an-item-label" data-zh="點讀圖鑑意外爆紅：庫存確認" data-jp="點讀圖鑑の予想外ヒット：在庫確認">點讀圖鑑意外爆紅：庫存確認</div>
+          <div class="an-item-text" data-zh="達成率620%，說明市場需求遠超預期。需立即確認庫存是否充足以維持剩餘5天的銷售，同時下月需大幅調高點讀圖鑑目標。" data-jp="達成率620%で市場需要が予測を大幅に上回る。残5日の在庫充足を即確認。来月は目標を大幅引き上げ。">點讀圖鑑達成率620%，需立即確認庫存充足性以維持後5天銷售，下月大幅調高目標。</div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /analysis-grid -->
+</div><!-- /panel-analysis -->
 
 <!-- FOOTER -->
 <div class="footer" style="margin-top:24px;">
