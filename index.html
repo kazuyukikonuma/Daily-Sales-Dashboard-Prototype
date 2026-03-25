@@ -369,9 +369,8 @@ body.jp{font-family:'Noto Sans JP',sans-serif;}
 /* ══ Analysis Panel ══ */
 .analysis-grid {
   display:grid;
-  grid-template-columns:repeat(2, minmax(0, 560px));
+  grid-template-columns:repeat(2, 1fr);
   gap:16px;
-  justify-content:start;
 }
 .an-full { grid-column:1/-1; }
 .an-full .an-body > p { max-width:none; }
@@ -396,7 +395,7 @@ body.jp{font-family:'Noto Sans JP',sans-serif;}
 .an-badge.bad  { background:var(--red-light); color:var(--red); }
 .an-body { display:flex; flex-direction:column; gap:10px; }
 .an-body > p {
-  font-size:13px; color:var(--text-secondary); line-height:1.75; max-width:680px;
+  font-size:13px; color:var(--text-secondary); line-height:1.75;
 }
 .an-item {
   border-left:3px solid var(--border);
@@ -445,7 +444,7 @@ body.jp{font-family:'Noto Sans JP',sans-serif;}
 
   .daily-row { grid-template-columns:180px 1fr; }
 
-  .analysis-grid { grid-template-columns:1fr; justify-content:stretch; }
+  .analysis-grid { grid-template-columns:1fr; }
   .an-full { grid-column:1; max-width:none; }
 
   .unified-kpi-card { flex-direction:column; gap:16px; }
