@@ -811,7 +811,7 @@ body.jp{font-family:'Noto Sans JP',sans-serif;}
         <div class="donut-center"><span class="donut-pct over">99%</span><span class="donut-sub-label" data-zh="達成率" data-jp="達成率">達成率</span></div>
       </div>
       <div class="cat-stats">
-        <div class="cat-stat-row"><span class="cat-stat-label" data-zh="累計實績" data-jp="累計実績">累計實績</span><span class="cat-stat-val">945.2 <span style="font-size:10px;color:var(--text-dim)" data-zh="萬" data-jp="万">萬</span></span></div>
+        <div class="cat-stat-row"><span class="cat-stat-label" data-zh="累計實績" data-jp="累計実績">累計實績</span><span class="cat-stat-val">1,029.1 <span style="font-size:10px;color:var(--text-dim)" data-zh="萬" data-jp="万">萬</span></span></div>
         <div class="cat-stat-row"><span class="cat-stat-label" data-zh="目標" data-jp="目標">目標</span><span class="cat-stat-val">1,037.1 <span style="font-size:10px;color:var(--text-dim)" data-zh="萬" data-jp="万">萬</span></span></div>
         <div class="cat-divider"></div>
         <div class="cat-pace-label" data-zh="時間進度達成率" data-jp="時間進度達成率">時間進度達成率</div>
@@ -1404,8 +1404,25 @@ function setLang(lang) {
     el.textContent = el.getAttribute('data-' + lang);
   });
 }
+
+function updateDonutColors() {
+  // 時間進度達成率（累計達成率 ÷ 時間進度）≥ 100% → 青、< 100% → 赤
+  document.querySelectorAll('.cat-card[data-pace]').forEach(function(card) {
+    var pace = parseFloat(card.getAttribute('data-pace'));
+    var fill = card.querySelector('.donut-fill');
+    var pct  = card.querySelector('.donut-pct');
+    if (!fill || !pct) return;
+    if (pace >= 100) {
+      fill.classList.remove('low'); fill.classList.add('over');
+      pct.classList.remove('low');  pct.classList.add('over');
+    } else {
+      fill.classList.remove('over'); fill.classList.add('low');
+      pct.classList.remove('over');  pct.classList.add('low');
+    }
+  });
+}
+document.addEventListener('DOMContentLoaded', updateDonutColors);
 </script>
 </div><!-- /page-wrap -->
-<script>updateDonutColors();</script>
 </body>
 </html>
