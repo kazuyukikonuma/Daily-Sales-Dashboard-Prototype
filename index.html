@@ -89,8 +89,8 @@ body.jp{font-family:'Noto Sans JP',sans-serif;}
 .donut-wrap svg{transform:rotate(-90deg);}
 .donut-bg{fill:none;stroke:var(--border);stroke-width:10;}
 .donut-fill{fill:none;stroke-width:10;stroke-linecap:round;}
-.donut-fill.over{stroke:var(--blue);}
-.donut-fill.low{stroke:var(--red-mid);}
+.donut-fill.over{stroke:var(--blue);}   /* 時間進度達成率 ≥ 100% = 青信号 */
+.donut-fill.low{stroke:var(--red-mid);} /* 時間進度達成率 < 100% = 赤信号 */
 .donut-center{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;}
 .donut-pct{font-family:var(--font-ui);font-size:19px;font-weight:700;line-height:1;display:block;}
 .donut-pct.over{color:var(--blue);}
@@ -803,8 +803,8 @@ body.jp{font-family:'Noto Sans JP',sans-serif;}
   <!-- Category Donuts -->
   <div class="section-title" data-zh="商品類別別進捗" data-jp="商品カテゴリ別進捗">商品類別別進捗</div>
   <div class="category-grid">
-    <!-- 學習商品 91% pace 124.7% -->
-    <div class="cat-card">
+    <!-- 學習商品 pace=115.1% -->
+    <div class="cat-card" data-pace="115.1">
       <div class="cat-name" data-zh="📚 學習商品" data-jp="📚 学習商品">📚 學習商品</div>
       <div class="donut-wrap">
         <svg width="96" height="96" viewBox="0 0 96 96"><circle class="donut-bg" cx="48" cy="48" r="38"/><circle class="donut-fill over" cx="48" cy="48" r="38" stroke-dasharray="238.8" stroke-dashoffset="2.4"/></svg>
@@ -819,7 +819,7 @@ body.jp{font-family:'Noto Sans JP',sans-serif;}
       </div>
     </div>
     <!-- 周邊商品 88% pace 120.5% -->
-    <div class="cat-card">
+    <div class="cat-card" data-pace="122.1">
       <div class="cat-name" data-zh="🛍 周邊商品" data-jp="🛍 周辺商品">🛍 周邊商品</div>
       <div class="donut-wrap">
         <svg width="96" height="96" viewBox="0 0 96 96"><circle class="donut-bg" cx="48" cy="48" r="38"/><circle class="donut-fill over" cx="48" cy="48" r="38" stroke-dasharray="238.8" stroke-dashoffset="0"/></svg>
@@ -834,7 +834,7 @@ body.jp{font-family:'Noto Sans JP',sans-serif;}
       </div>
     </div>
     <!-- 學習周邊 105% pace 143.8% -->
-    <div class="cat-card">
+    <div class="cat-card" data-pace="133.7">
       <div class="cat-name" data-zh="📖 學習周邊" data-jp="📖 学習周辺">📖 學習周邊</div>
       <div class="donut-wrap">
         <svg width="96" height="96" viewBox="0 0 96 96"><circle class="donut-bg" cx="48" cy="48" r="38"/><circle class="donut-fill over" cx="48" cy="48" r="38" stroke-dasharray="238.8" stroke-dashoffset="0"/></svg>
@@ -849,7 +849,7 @@ body.jp{font-family:'Noto Sans JP',sans-serif;}
       </div>
     </div>
     <!-- 生活周邊 78% pace 106.8% -->
-    <div class="cat-card">
+    <div class="cat-card" data-pace="116.3">
       <div class="cat-name" data-zh="🏠 生活周邊" data-jp="🏠 生活周辺">🏠 生活周邊</div>
       <div class="donut-wrap">
         <svg width="96" height="96" viewBox="0 0 96 96"><circle class="donut-bg" cx="48" cy="48" r="38"/><circle class="donut-fill over" cx="48" cy="48" r="38" stroke-dasharray="238.8" stroke-dashoffset="0"/></svg>
@@ -864,7 +864,7 @@ body.jp{font-family:'Noto Sans JP',sans-serif;}
       </div>
     </div>
     <!-- Mirafeel 121% pace 165.8% -->
-    <div class="cat-card">
+    <div class="cat-card" data-pace="168.6">
       <div class="cat-name">✨ Mirafeel</div>
       <div class="donut-wrap">
         <svg width="96" height="96" viewBox="0 0 96 96"><circle class="donut-bg" cx="48" cy="48" r="38"/><circle class="donut-fill over" cx="48" cy="48" r="38" stroke-dasharray="238.8" stroke-dashoffset="0"/></svg>
@@ -1406,5 +1406,6 @@ function setLang(lang) {
 }
 </script>
 </div><!-- /page-wrap -->
+<script>updateDonutColors();</script>
 </body>
 </html>
