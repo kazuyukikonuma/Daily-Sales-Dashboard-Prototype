@@ -609,6 +609,7 @@ body.jp{font-family:'Noto Sans JP',sans-serif;}
   <button class="tab-btn" onclick="switchTab('sku')" data-zh="② 學習商品（SKU×通路）" data-jp="② 学習商品（SKU×チャネル）">② 學習商品（SKU×通路）</button>
   <button class="tab-btn" onclick="switchTab('mirafeel')" data-zh="③ Mirafeel" data-jp="③ Mirafeel">③ Mirafeel</button>
   <button class="tab-btn" onclick="switchTab('analysis')" data-zh="④ 分析" data-jp="④ 分析">④ 分析</button>
+  <button class="tab-btn" onclick="switchTab('ranking')" data-zh="⑤ SKU排行" data-jp="⑤ SKUランキング">⑤ SKU排行</button>
 </div>
 
 <!-- ════════════════════════════════════
@@ -1371,6 +1372,37 @@ body.jp{font-family:'Noto Sans JP',sans-serif;}
   </div><!-- /analysis-grid -->
 </div><!-- /panel-analysis -->
 
+<!-- ════════════════════════════════════
+     TAB 5: SKU RANKING
+════════════════════════════════════ -->
+<div id="panel-ranking" class="tab-panel">
+
+  <div class="section-title" data-zh="① 月次累計金額排行（萬元）" data-jp="① 月次累計金額ランキング（万元）">① 月次累計金額排行（萬元）</div>
+
+  <div style="display:flex;gap:16px;margin-bottom:14px;font-size:12px;color:var(--text-secondary);">
+    <span style="display:flex;align-items:center;gap:4px;"><span style="width:10px;height:10px;border-radius:2px;background:#378ADD;display:inline-block;"></span><span data-zh="實績（超標）" data-jp="実績（超過）">實績（超標）</span></span>
+    <span style="display:flex;align-items:center;gap:4px;"><span style="width:10px;height:10px;border-radius:2px;background:#85B7EB;display:inline-block;"></span><span data-zh="實績（未達）" data-jp="実績（未達）">實績（未達）</span></span>
+    <span style="display:flex;align-items:center;gap:4px;"><span style="width:10px;height:10px;border-radius:2px;background:#D3D1C7;display:inline-block;"></span><span data-zh="目標" data-jp="目標">目標</span></span>
+  </div>
+
+  <div style="position:relative;width:100%;height:500px;margin-bottom:40px;">
+    <canvas id="skuRevChart" role="img" aria-label="SKU月次累計金額ランキング"></canvas>
+  </div>
+
+  <div class="section-title" data-zh="② 月次累計販售套數排行" data-jp="② 月次累計販売套数ランキング">② 月次累計販售套數排行</div>
+
+  <div style="display:flex;gap:16px;margin-bottom:14px;font-size:12px;color:var(--text-secondary);">
+    <span style="display:flex;align-items:center;gap:4px;"><span style="width:10px;height:10px;border-radius:2px;background:#378ADD;display:inline-block;"></span><span data-zh="實績（超標）" data-jp="実績（超過）">實績（超標）</span></span>
+    <span style="display:flex;align-items:center;gap:4px;"><span style="width:10px;height:10px;border-radius:2px;background:#85B7EB;display:inline-block;"></span><span data-zh="實績（未達）" data-jp="実績（未達）">實績（未達）</span></span>
+    <span style="display:flex;align-items:center;gap:4px;"><span style="width:10px;height:10px;border-radius:2px;background:#D3D1C7;display:inline-block;"></span><span data-zh="目標" data-jp="目標">目標</span></span>
+  </div>
+
+  <div style="position:relative;width:100%;height:500px;margin-bottom:20px;">
+    <canvas id="skuUnitChart" role="img" aria-label="SKU月次累計套数ランキング"></canvas>
+  </div>
+
+</div><!-- /panel-ranking -->
+
 <!-- FOOTER -->
 <div class="footer" style="margin-top:24px;">
   <span data-zh="說明：① 周邊商品＝生活周邊＋學習周邊　② 目標：2025/9/16期中目標　③ 各平台銷收來源為原始報表・cube，最終月結以ERP銷收為主　④ 時間進度達成率＝累計達成率÷時間進度（82%）　⑤ SKU達成率為套數基準（非金額）　｜　數據截至 2026/3/29"
@@ -1422,6 +1454,124 @@ function updateDonutColors() {
   });
 }
 document.addEventListener('DOMContentLoaded', updateDonutColors);
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+(function() {
+  var revData = [
+    {sku:'數學套組', act:297.6, tgt:310.5},
+    {sku:'聰明左右腦', act:232.5, tgt:125.4},
+    {sku:'點讀圖鑑', act:124.7, tgt:11.2},
+    {sku:'寶貸智育', act:100.8, tgt:140.5},
+    {sku:'初階', act:66.3, tgt:91.4},
+    {sku:'EQ', act:53.4, tgt:115.0},
+    {sku:'注音', act:50.9, tgt:127.1},
+    {sku:'寶生活', act:48.3, tgt:67.0},
+    {sku:'進階', act:27.4, tgt:36.0},
+    {sku:'閱讀套組', act:3.8, tgt:14.5},
+  ];
+  var unitData = [
+    {sku:'數學套組', act:1135, tgt:830},
+    {sku:'聰明左右腦', act:802, tgt:830},
+    {sku:'點讀圖鑑', act:546, tgt:170},
+    {sku:'EQ', act:255, tgt:505},
+    {sku:'寶貸智育', act:216, tgt:285},
+    {sku:'注音', act:167, tgt:168},
+    {sku:'初階', act:145, tgt:200},
+    {sku:'寶生活', act:118, tgt:174},
+    {sku:'進階', act:64, tgt:86},
+    {sku:'閱讀套組', act:17, tgt:97},
+  ];
+
+  function makeCfg(data, suffix) {
+    return {
+      type: 'bar',
+      data: {
+        labels: data.map(function(d,i){ return (i+1)+'. '+d.sku; }),
+        datasets: [
+          {
+            label: '實績',
+            data: data.map(function(d){ return d.act; }),
+            backgroundColor: data.map(function(d){ return d.act >= d.tgt ? '#378ADD' : '#85B7EB'; }),
+            borderRadius: 3,
+            barPercentage: 0.5,
+            categoryPercentage: 0.8,
+          },
+          {
+            label: '目標',
+            data: data.map(function(d){ return d.tgt; }),
+            backgroundColor: '#D3D1C7',
+            borderRadius: 3,
+            barPercentage: 0.5,
+            categoryPercentage: 0.8,
+          }
+        ]
+      },
+      options: {
+        indexAxis: 'y',
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            callbacks: {
+              label: function(ctx){ return ctx.dataset.label+': '+ctx.parsed.x.toLocaleString()+suffix; }
+            }
+          }
+        },
+        scales: {
+          x: {
+            ticks: { callback: function(v){ return v.toLocaleString()+suffix; }, font:{size:11}, color:'#888' },
+            grid: { color: 'rgba(0,0,0,0.05)' }
+          },
+          y: {
+            ticks: { font:{size:13}, color:'#1a1a1a' },
+            grid: { display: false }
+          }
+        },
+        animation: {
+          onComplete: function() {
+            var chart = this;
+            var ctx = chart.ctx;
+            var meta = chart.getDatasetMeta(0);
+            meta.data.forEach(function(bar, i) {
+              var val = chart.data.datasets[0].data[i];
+              ctx.save();
+              ctx.font = '500 11px sans-serif';
+              ctx.fillStyle = '#185FA5';
+              ctx.textAlign = 'left';
+              ctx.textBaseline = 'middle';
+              ctx.fillText(val.toLocaleString()+suffix, bar.x + 5, bar.y);
+              ctx.restore();
+            });
+          }
+        }
+      }
+    };
+  }
+
+  function initRankingCharts() {
+    var rc = document.getElementById('skuRevChart');
+    var uc = document.getElementById('skuUnitChart');
+    if (rc && uc && typeof Chart !== 'undefined') {
+      if (!rc._chartInstance) {
+        rc._chartInstance = new Chart(rc, makeCfg(revData, '万'));
+      }
+      if (!uc._chartInstance) {
+        uc._chartInstance = new Chart(uc, makeCfg(unitData, '套'));
+      }
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('.tab-btn').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        setTimeout(initRankingCharts, 50);
+      });
+    });
+  });
+})();
 </script>
 </div><!-- /page-wrap -->
 </body>
